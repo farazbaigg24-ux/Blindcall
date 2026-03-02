@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -292,6 +292,8 @@
 
     <!-- Footer links -->
     <div class="footer-links">
+      <span onclick="openAbout()">About Us</span>
+      <span class="footer-dot">·</span>
       <span onclick="openLegal('tos')">Terms of Service</span>
       <span class="footer-dot">·</span>
       <span onclick="openLegal('pp')">Privacy Policy</span>
@@ -403,7 +405,8 @@
 <div class="toast" id="toast"></div>
 <audio id="remote-audio" autoplay playsinline></audio>
 
-<script src="/socket.io/socket.io.js">
+<script src="/socket.io/socket.io.js"></script>
+<script>
   // Legal modal
   const TOS = `
     <h2>1. Acceptance of Terms</h2>
@@ -468,9 +471,47 @@
     <p>Questions? Email us at: support@blindcall.in</p>
   `;
 
+  const ABOUT = `
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-size:2.5rem;margin-bottom:8px">📞</div>
+      <div style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#9b30ff,#ff2d9b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px">Blindcall</div>
+      <div style="font-size:11px;color:#3d2555;letter-spacing:3px;text-transform:uppercase;margin-top:4px">Anonymous Voice Calls</div>
+    </div>
+
+    <h2>Who We Are</h2>
+    <p>Blindcall is a free, anonymous voice chat platform built for people who want real human connection without the pressure of cameras, profiles, or identity. We believe the best conversations happen when you can just be yourself — no judgment, no filters, no face.</p>
+
+    <h2>Our Mission</h2>
+    <p>In a world full of social media performance and curated identities, we're building the opposite. Blindcall gives people a space to talk freely, honestly, and spontaneously — with a complete stranger, anywhere in the world, right now.</p>
+
+    <h2>Why Voice Only?</h2>
+    <p>Voice carries emotion that text can't. And removing the camera removes the pressure. When you can't see someone, you listen more deeply. You judge less. You open up more. That's the Blindcall experience — raw, real, and refreshingly human.</p>
+
+    <h2>How It Works</h2>
+    <p>No account needed. No camera required. Just tap Start, and within seconds you're connected to a random stranger somewhere in the world. Talk, skip, or report — it's that simple.</p>
+
+    <h2>Built With</h2>
+    <p>Blindcall is powered by WebRTC for real-time peer-to-peer voice, Socket.io for instant matching, and Node.js on the backend. Hosted globally and built to scale.</p>
+
+    <h2>Contact Us</h2>
+    <p>Have questions, feedback, or want to partner with us? We'd love to hear from you.</p>
+    <p>📧 <strong style="color:#9b30ff">support@blindcall.in</strong></p>
+    <p>🌐 <strong style="color:#ff2d9b">blindcall.in</strong></p>
+
+    <div style="margin-top:24px;padding:16px;background:rgba(155,48,255,0.06);border:1px solid rgba(155,48,255,0.2);border-radius:10px;text-align:center">
+      <div style="font-size:12px;color:#5a4a6a;line-height:1.8">Built with ❤️ for everyone who just wants to talk.<br>No investors. No agenda. Just connection.</div>
+    </div>
+  `;
+
   function openLegal(type) {
     document.getElementById('legal-title').textContent = type === 'tos' ? 'Terms of Service' : 'Privacy Policy';
     document.getElementById('legal-body').innerHTML = type === 'tos' ? TOS : PP;
+    document.getElementById('legal-modal').classList.add('open');
+  }
+
+  function openAbout() {
+    document.getElementById('legal-title').textContent = 'About Us';
+    document.getElementById('legal-body').innerHTML = ABOUT;
     document.getElementById('legal-modal').classList.add('open');
   }
 
