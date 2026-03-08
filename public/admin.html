@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blindcall Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070f;--surface:#0f0f1a;--surface2:#161625;--border:#1e1e30;--border2:#2a2a40;
+  --purple:#9b30ff;--pink:#ff2d9b;--green:#00d084;--orange:#ff8c00;--red:#ff4444;
+  --text:#f0eeff;--mid:#7a7599;--dim:#3a3755;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+
+/* LOGIN */
+#login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px}
+.login-box{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:36px 32px;max-width:360px;width:100%;text-align:center}
+.login-logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:6px}
+.login-logo span{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.login-sub{font-size:13px;color:var(--mid);margin-bottom:28px}
+.login-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:13px 16px;color:var(--text);font-size:14px;outline:none;margin-bottom:12px;font-family:'DM Mono',monospace;letter-spacing:3px;text-align:center;transition:border-color 0.2s}
+.login-input:focus{border-color:rgba(155,48,255,0.5)}
+.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;border-radius:12px;color:#fff;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,45,155,0.3)}
+.login-err{font-size:12px;color:var(--red);margin-top:10px;display:none}
+
+/* MAIN */
+#admin-panel{display:none}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800}
+.topbar-logo span{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.topbar-badge{padding:4px 12px;background:rgba(0,208,132,0.1);border:1px solid rgba(0,208,132,0.3);border-radius:100px;font-size:11px;color:var(--green);font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:6px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.logout-btn{padding:6px 14px;background:transparent;border:1px solid var(--border2);border-radius:8px;color:var(--mid);font-size:12px;cursor:pointer;transition:all 0.2s}
+.logout-btn:hover{border-color:var(--red);color:var(--red)}
+
+.main{max-width:900px;margin:0 auto;padding:24px 20px}
+
+/* STAT CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:border-color 0.2s}
+.card:hover{border-color:var(--border2)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.card.c-green::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.card.c-purple::before{background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.card.c-pink::before{background:linear-gradient(90deg,transparent,var(--pink),transparent)}
+.card.c-orange::before{background:linear-gradient(90deg,transparent,var(--orange),transparent)}
+.card-icon{font-size:22px;margin-bottom:10px}
+.card-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;line-height:1;margin-bottom:4px}
+.card-val.green{color:var(--green)}
+.card-val.purple{color:var(--purple)}
+.card-val.pink{color:var(--pink)}
+.card-val.orange{color:var(--orange)}
+.card-label{font-size:12px;color:var(--mid);text-transform:uppercase;letter-spacing:1px}
+.card-sub{font-size:11px;color:var(--dim);margin-top:4px}
+
+/* CHART */
+.section-title{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:800;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px}
+.chart-wrap{height:120px;display:flex;align-items:flex-end;gap:4px;padding-top:10px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%}
+.bar{width:100%;border-radius:4px 4px 0 0;background:linear-gradient(to top,var(--purple),var(--pink));min-height:4px;transition:height 0.5s ease;position:relative}
+.bar:hover::after{content:attr(data-val);position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--text);white-space:nowrap;background:var(--surface2);padding:2px 6px;border-radius:4px;border:1px solid var(--border2)}
+.bar-label{font-size:9px;color:var(--dim);text-align:center}
+
+/* LOG TABLE */
+.log-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
+.log-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.log-head-title{font-size:13px;font-weight:700}
+.refresh-btn{padding:5px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;color:var(--mid);font-size:11px;cursor:pointer;transition:all 0.2s}
+.refresh-btn:hover{border-color:var(--purple);color:var(--purple)}
+.log-row{display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);font-size:13px;transition:background 0.15s}
+.log-row:last-child{border-bottom:none}
+.log-row:hover{background:var(--surface2)}
+.log-time{font-family:'DM Mono',monospace;font-size:11px;color:var(--dim);flex-shrink:0;width:70px}
+.log-badge{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;flex-shrink:0}
+.lb-join{background:rgba(0,208,132,0.1);border:1px solid rgba(0,208,132,0.3);color:var(--green)}
+.lb-leave{background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.3);color:var(--red)}
+.lb-match{background:rgba(155,48,255,0.1);border:1px solid rgba(155,48,255,0.3);color:var(--purple)}
+.lb-report{background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.3);color:var(--orange)}
+.log-msg{color:var(--mid);flex:1}
+
+/* Info banner */
+.info-banner{background:rgba(155,48,255,0.06);border:1px solid rgba(155,48,255,0.2);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start}
+.ib-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.ib-text{font-size:13px;color:var(--mid);line-height:1.6}
+.ib-text strong{color:var(--text)}
+
+/* Empty */
+.empty{padding:32px;text-align:center;color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Blind<span>call</span></div>
+    <div class="login-sub">🔐 Founder Admin Panel</div>
+    <input class="login-input" id="pin-input" type="password" placeholder="Enter PIN" maxlength="6" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Access Dashboard</button>
+    <div class="login-err" id="login-err">❌ Wrong PIN. Try again.</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="topbar">
+    <div class="topbar-logo">Blind<span>call</span> Admin</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="topbar-badge"><div class="live-dot"></div>LIVE</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="info-banner">
+      <div class="ib-icon">💡</div>
+      <div class="ib-text"><strong>How to use:</strong> This panel connects to your live Blindcall server. Open <strong>blindcall.in</strong> in another tab first so the socket connects, then come back here. Data refreshes every 5 seconds automatically.</div>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="cards">
+      <div class="card c-green">
+        <div class="card-icon">🟢</div>
+        <div class="card-val green" id="card-online">—</div>
+        <div class="card-label">Online Now</div>
+        <div class="card-sub" id="card-updated">Connecting...</div>
+      </div>
+      <div class="card c-purple">
+        <div class="card-icon">📞</div>
+        <div class="card-val purple" id="card-calls">0</div>
+        <div class="card-label">Calls Today</div>
+        <div class="card-sub">matched pairs</div>
+      </div>
+      <div class="card c-pink">
+        <div class="card-icon">👥</div>
+        <div class="card-val pink" id="card-peak">0</div>
+        <div class="card-label">Peak Today</div>
+        <div class="card-sub">max simultaneous</div>
+      </div>
+      <div class="card c-orange">
+        <div class="card-icon">⚡</div>
+        <div class="card-val orange" id="card-joins">0</div>
+        <div class="card-label">Joins Today</div>
+        <div class="card-sub">total connections</div>
+      </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="section-title">Online Count — Last 20 Updates</div>
+    <div class="chart-card">
+      <div class="chart-wrap" id="chart"></div>
+    </div>
+
+    <!-- LOG -->
+    <div class="section-title">Live Activity Log</div>
+    <div class="log-card">
+      <div class="log-head">
+        <div class="log-head-title">Recent Events</div>
+        <button class="refresh-btn" onclick="clearLog()">Clear Log</button>
+      </div>
+      <div id="log-body">
+        <div class="empty">Waiting for activity... Open blindcall.in to see live data.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+// ===== PIN =====
+const ADMIN_PIN = '2606'; // Change this to your own PIN Faraz!
+
+function doLogin() {
+  const pin = document.getElementById('pin-input').value;
+  if(pin === ADMIN_PIN) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    initAdmin();
+  } else {
+    const err = document.getElementById('login-err');
+    err.style.display = 'block';
+    document.getElementById('pin-input').value = '';
+    setTimeout(() => err.style.display = 'none', 3000);
+  }
+}
+
+function logout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('pin-input').value = '';
+}
+
+// ===== ADMIN =====
+let socket;
+let history = [];
+let log = [];
+let callsToday = 0;
+let joinsToday = 0;
+let peakToday = 0;
+
+function initAdmin() {
+  socket = io();
+
+  socket.on('connect', () => addLog('system', 'Connected to Blindcall server ✓'));
+  socket.on('disconnect', () => addLog('system', 'Disconnected from server'));
+
+  socket.on('online-count', n => {
+    const count = parseInt(n);
+    document.getElementById('card-online').textContent = count;
+    document.getElementById('card-updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+
+    // Peak tracking
+    if(count > peakToday) {
+      peakToday = count;
+      document.getElementById('card-peak').textContent = peakToday;
+    }
+
+    // History for chart
+    history.push(count);
+    if(history.length > 20) history.shift();
+    renderChart();
+  });
+
+  // Track joins
+  socket.onAny((event, ...args) => {
+    if(event === 'online-count') {
+      const n = parseInt(args[0]);
+      // Detect new join by count increase
+    }
+  });
+
+  // Simulate realistic tracking using count changes
+  let lastCount = 0;
+  socket.on('online-count', n => {
+    const count = parseInt(n);
+    if(count > lastCount) {
+      const diff = count - lastCount;
+      joinsToday += diff;
+      document.getElementById('card-joins').textContent = joinsToday;
+      for(let i = 0; i < diff; i++) addLog('join', 'New user joined Blindcall');
+    } else if(count < lastCount) {
+      for(let i = 0; i < lastCount - count; i++) addLog('leave', 'User left');
+    }
+    lastCount = count;
+  });
+}
+
+function renderChart() {
+  const wrap = document.getElementById('chart');
+  if(history.length === 0) return;
+  const max = Math.max(...history, 1);
+  wrap.innerHTML = '';
+  history.forEach((val, i) => {
+    const bw = document.createElement('div');
+    bw.className = 'bar-wrap';
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    const pct = Math.max(4, (val / max) * 100);
+    bar.style.height = pct + '%';
+    bar.setAttribute('data-val', val + ' online');
+    const lbl = document.createElement('div');
+    lbl.className = 'bar-label';
+    lbl.textContent = i === history.length - 1 ? 'now' : '';
+    bw.appendChild(bar);
+    bw.appendChild(lbl);
+    wrap.appendChild(bw);
+  });
+}
+
+function addLog(type, msg) {
+  const time = new Date().toLocaleTimeString('en', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  log.unshift({type, msg, time});
+  if(log.length > 50) log.pop();
+
+  if(type === 'match') callsToday++;
+  document.getElementById('card-calls').textContent = callsToday;
+
+  renderLog();
+}
+
+function renderLog() {
+  const body = document.getElementById('log-body');
+  if(log.length === 0) {
+    body.innerHTML = '<div class="empty">No activity yet.</div>';
+    return;
+  }
+  body.innerHTML = log.slice(0, 20).map(e => `
+    <div class="log-row">
+      <div class="log-time">${e.time}</div>
+      <div class="log-badge ${getBadgeClass(e.type)}">${getBadgeLabel(e.type)}</div>
+      <div class="log-msg">${e.msg}</div>
+    </div>
+  `).join('');
+}
+
+function getBadgeClass(t) {
+  return {join:'lb-join',leave:'lb-leave',match:'lb-match',report:'lb-report',system:''}[t] || '';
+}
+function getBadgeLabel(t) {
+  return {join:'JOIN',leave:'LEAVE',match:'MATCH',report:'REPORT',system:'SYS'}[t] || t.toUpperCase();
+}
+
+function clearLog() { log = []; renderLog(); }
+</script>
+</body>
+</html>
