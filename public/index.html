@@ -217,10 +217,7 @@
 
 <header>
   <div class="logo">Blind<span>call</span></div>
-  <div class="online-pill">
-    <div class="dot"></div>
-    <span id="online-count">0 online</span>
-  </div>
+
 </header>
 
 <div id="app">
@@ -239,11 +236,6 @@
 
     <div class="stats">
       <div class="stat">
-        <span class="stat-n" id="stat-online">0</span>
-        <span class="stat-l">Online</span>
-      </div>
-      <div class="divider"></div>
-      <div class="stat">
         <span class="stat-n">100%</span>
         <span class="stat-l">Anonymous</span>
       </div>
@@ -251,6 +243,11 @@
       <div class="stat">
         <span class="stat-n">Free</span>
         <span class="stat-l">Forever</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-n">🌍</span>
+        <span class="stat-l">Worldwide</span>
       </div>
     </div>
 
@@ -672,8 +669,9 @@ function cancelSearch(){socket.emit('leave');show('home');}
 
 // Socket
 socket.on('online-count',n=>{
-  document.getElementById('online-count').textContent=n+' online';
-  document.getElementById('stat-online').textContent=n;
+  // Store count silently for admin panel
+  window._onlineCount = n;
+  window._lastUpdate = new Date().toLocaleTimeString();
 });
 socket.on('waiting',()=>show('searching'));
 socket.on('matched',async({partnerId:pid,isInitiator:init})=>{
