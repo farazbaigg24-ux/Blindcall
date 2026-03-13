@@ -24,8 +24,9 @@ io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
   broadcastOnlineCount();
 
-  socket.on('join', ({ interests = [] }) => {
+  socket.on('join', ({ interests = [], region = 'anywhere' }) => {
     socket.interests = interests;
+    socket.region = region;
 
     // Try to find a match
     let bestMatch = null;
@@ -35,13 +36,27 @@ io.on('connection', (socket) => {
       const candidate = waitingUsers[i];
       if (candidate.id === socket.id) continue;
 
-      // Score based on shared interests
+      // Region filter — both must want same region OR at least one is 'anywhere'
+      const myRegion = socket.region || 'anywhere';
+      const theirRegion = candidate.region || 'anywhere';
+      const regionMatch =
+        myRegion === 'anywhere' ||
+        theirRegion === 'anywhere' ||
+        myRegion === theirRegion;
+
+      if (!regionMatch) continue; // Skip — region mismatch
+
+      // Score based on shared interests + region bonus
       const shared = (candidate.interests || []).filter(i =>
         (socket.interests || []).includes(i)
       ).length;
 
-      if (shared > bestScore) {
-        bestScore = shared;
+      // Bonus score if regions match exactly
+      const regionBonus = (myRegion !== 'anywhere' && myRegion === theirRegion) ? 5 : 0;
+      const totalScore = shared + regionBonus;
+
+      if (totalScore > bestScore) {
+        bestScore = totalScore;
         bestMatch = { index: i, socket: candidate };
       }
     }
