@@ -16,9 +16,7 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Blindcall — Anonymous Voice Chat"/>
 <meta name="twitter:description" content="Talk to strangers anonymously. No camera, no account. Free forever."/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 /* ─── TOKENS ─────────────────────────────────── */
 :root {
@@ -45,7 +43,7 @@ html { height:100%; scroll-behavior:smooth; }
 body {
   background: var(--ink);
   color: var(--snow);
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   min-height: 100%;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -105,7 +103,7 @@ header {
   border-bottom: 1px solid rgba(124,58,237,0.12);
 }
 .logo {
-  font-family: 'Syne', 'Arial Black', 'Helvetica Neue', sans-serif;
+  font-family: 'Arial Black', 'Impact', 'Haettenschweiler', 'Franklin Gothic Bold', 'Charcoal', sans-serif;
   font-size: 1.3rem; font-weight: 800;
   letter-spacing: -0.5px;
   background: linear-gradient(110deg, #b07fff 10%, var(--rose) 90%);
@@ -166,12 +164,12 @@ header {
 }
 .hero-eyebrow-dot { width:5px; height:5px; border-radius:50%; background:var(--rose); }
 .hero-h1 {
-  font-family: 'Syne', 'Arial Black', 'Helvetica Neue', sans-serif;
-  font-size: clamp(2.8rem, 11vw, 4.2rem);
-  font-weight: 800;
+  font-family: 'Arial Black', 'Impact', 'Haettenschweiler', 'Franklin Gothic Bold', 'Charcoal', sans-serif;
+  font-size: clamp(2.4rem, 9vw, 3.8rem);
+  font-weight: 900;
   line-height: 1.1;
-  letter-spacing: 0px;
-  word-spacing: 1px;
+  letter-spacing: -1px;
+  word-spacing: 0px;
 }
 .hero-h1 .hl { display:block; color: var(--snow); }
 .hero-h1 .hv {
@@ -185,7 +183,7 @@ header {
   display: block;
   color: var(--mist);
   font-size: 0.5em;
-  font-family: 'DM Sans', sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto',sans-serif;
   font-weight: 500;
   letter-spacing: 0px;
   margin-top: 6px;
@@ -212,7 +210,7 @@ header {
 .proof-cell + .proof-cell { border-left: 1px solid var(--rim); }
 .proof-n {
   display: block;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Arial Black', 'Impact', 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif;
   font-size: 1.15rem; font-weight: 800;
   background: linear-gradient(135deg, #9f5fff, var(--rose));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -278,7 +276,7 @@ header {
 .btn-start-copy { text-align:left; }
 .btn-start-main {
   display: block;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Arial Black', 'Impact', 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif;
   font-size: 1rem; font-weight: 800; color: #fff;
   letter-spacing: -0.2px;
 }
@@ -449,7 +447,7 @@ header {
 }
 @keyframes spin { to{transform:rotate(360deg)} }
 .srch-title {
-  font-family:'Syne',sans-serif;
+  font-family:'Arial Black','Impact','Franklin Gothic Bold',sans-serif;
   font-size:1.6rem; font-weight:800; letter-spacing:-.5px;
   background: linear-gradient(110deg,#9f5fff,var(--rose));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
@@ -528,7 +526,7 @@ header {
 .speaking .rr:nth-child(3) { animation:rpl 2.1s ease-out .84s infinite; }
 @keyframes rpl { 0%{transform:scale(.82);opacity:.7} 100%{transform:scale(1.9);opacity:0} }
 
-.stranger-label { font-family:'Syne',sans-serif; font-size:.95rem; font-weight:800; }
+.stranger-label { font-family:'Arial Black','Impact','Franklin Gothic Bold',sans-serif; font-size:.95rem; font-weight:800; }
 .timer { font-size:.72rem; font-weight:600; color:var(--mist); letter-spacing:3px; }
 .waveform { display:flex; align-items:center; gap:3px; height:32px; }
 .wb {
@@ -662,7 +660,7 @@ header {
 }
 @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
 .modal-handle { width:36px; height:4px; background:var(--rim2); border-radius:2px; margin:0 auto 20px; }
-.modal-title { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:var(--rose); margin-bottom:4px; }
+.modal-title { font-family:'Arial Black','Impact','Franklin Gothic Bold',sans-serif; font-size:1.1rem; font-weight:800; color:var(--rose); margin-bottom:4px; }
 .modal-sub { font-size:.77rem; color:var(--mist); margin-bottom:16px; line-height:1.6; }
 .report-opts { display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
 .ropt {
@@ -1009,7 +1007,7 @@ audio { display:none; }
 /* ─── LEGAL CONTENT ─── */
 const TOS=`<h2>1. Acceptance of Terms</h2><p>By accessing or using Blindcall at blindcall.in, you agree to be bound by these Terms of Service.</p><h2>2. Description of Service</h2><p>Blindcall is a free, anonymous, voice-based random chat platform. It operates voice-only with no account required.</p><h2>3. Eligibility</h2><p>You must be at least 18 years old to use this Service.</p><h2>4. Acceptable Use</h2><p>You agree NOT to: harass or abuse users, transmit hate speech, share explicit content, impersonate others, or use bots.</p><h2>5. Privacy & Anonymity</h2><p>No account needed. Voice conversations are never recorded or stored.</p><h2>6. Disclaimer</h2><p>Service provided "as is" without warranty.</p><h2>7. Governing Law</h2><p>Governed by the laws of India.</p><h2>8. Contact</h2><p>farazbaigg24@gmail.com</p>`;
 const PP=`<h2>1. What We Don't Collect</h2><ul><li>Name, email, or credentials</li><li>Voice recordings</li><li>Contacts, location, device files</li><li>Tracking cookies or ad data</li></ul><h2>2. What We May Collect</h2><ul><li>IP addresses — temporarily, security only</li><li>Session data — discarded after call ends</li><li>Report data — if you submit a report</li></ul><h2>3. Microphone</h2><p>Required only to transmit voice. Never recorded.</p><h2>4. Children</h2><p>Not intended for users under 18.</p><h2>5. Security</h2><p>Encrypted WebRTC connections for all calls.</p><h2>6. Contact</h2><p>farazbaigg24@gmail.com</p>`;
-const ABOUT=`<div style="text-align:center;margin-bottom:24px"><div style="font-size:2.5rem;margin-bottom:8px">📞</div><div style="font-size:1.3rem;font-weight:800;font-family:'Syne',sans-serif;background:linear-gradient(110deg,#9f5fff,#e8185e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Blindcall</div></div><h2>Who We Are</h2><p>A free, anonymous voice chat platform for people who want real human connection without cameras, profiles, or identity.</p><h2>Our Mission</h2><p>In a world of curated identities, we're building the opposite — a space to talk freely and honestly with a complete stranger, anywhere in the world.</p><h2>Why Voice Only?</h2><p>Voice carries emotion text can't. No camera means no pressure. You listen more, judge less, open up more.</p><h2>Contact</h2><p>📧 farazbaigg24@gmail.com</p><p>🌐 blindcall.in</p><div style="margin-top:20px;padding:14px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.2);border-radius:12px;text-align:center;font-size:12px;color:#6b5b8a;line-height:1.8">Built with ❤️ for everyone who just wants to talk.</div>`;
+const ABOUT=`<div style="text-align:center;margin-bottom:24px"><div style="font-size:2.5rem;margin-bottom:8px">📞</div><div style="font-size:1.3rem;font-weight:800;font-family:'Arial Black','Impact','Franklin Gothic Bold',sans-serif;background:linear-gradient(110deg,#9f5fff,#e8185e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Blindcall</div></div><h2>Who We Are</h2><p>A free, anonymous voice chat platform for people who want real human connection without cameras, profiles, or identity.</p><h2>Our Mission</h2><p>In a world of curated identities, we're building the opposite — a space to talk freely and honestly with a complete stranger, anywhere in the world.</p><h2>Why Voice Only?</h2><p>Voice carries emotion text can't. No camera means no pressure. You listen more, judge less, open up more.</p><h2>Contact</h2><p>📧 farazbaigg24@gmail.com</p><p>🌐 blindcall.in</p><div style="margin-top:20px;padding:14px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.2);border-radius:12px;text-align:center;font-size:12px;color:#6b5b8a;line-height:1.8">Built with ❤️ for everyone who just wants to talk.</div>`;
 
 function openLegal(t){
   document.getElementById('legal-title').textContent=t==='tos'?'Terms of Service':'Privacy Policy';
