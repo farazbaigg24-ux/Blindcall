@@ -739,6 +739,259 @@ audio { display:none; }
 .legal-body li { list-style:disc; }
 .legal-body::-webkit-scrollbar { width:3px; }
 .legal-body::-webkit-scrollbar-thumb { background:var(--rim2); border-radius:2px; }
+
+/* ─── GAMES POPUP SHEET ─────────────────────────── */
+.game-sheet-bg {
+  display: none; position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,.85); backdrop-filter: blur(10px);
+  align-items: flex-end; justify-content: center;
+}
+.game-sheet-bg.open { display: flex; }
+.game-sheet {
+  background: var(--ink2); border: 1px solid var(--rim2);
+  border-radius: 24px 24px 0 0;
+  width: 100%; max-width: 540px;
+  max-height: 88svh;
+  display: flex; flex-direction: column;
+  animation: slideUp .32s cubic-bezier(.16,1,.3,1) both;
+  overflow: hidden;
+}
+.game-sheet-handle {
+  width: 36px; height: 4px; background: var(--rim2); border-radius: 2px;
+  margin: 12px auto 0; flex-shrink: 0;
+}
+.game-sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px 12px; border-bottom: 1px solid var(--rim); flex-shrink: 0;
+}
+.game-sheet-title { font-size: .9rem; font-weight: 800; color: var(--snow); }
+.game-sheet-close {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: var(--ink3); border: 1px solid var(--rim2);
+  color: var(--mist); cursor: pointer; font-size: .8rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: inherit;
+}
+.game-back-btn {
+  padding: 5px 12px; background: var(--ink3); border: 1px solid var(--rim2);
+  border-radius: 8px; color: var(--mist); font-size: .72rem; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.game-lobby-list { overflow-y: auto; padding: 14px 14px 24px; display: flex; flex-direction: column; gap: 10px; }
+.game-card {
+  background: var(--ink2); border: 1px solid var(--rim);
+  border-radius: 18px; padding: 18px;
+  display: flex; align-items: center; gap: 16px;
+  cursor: pointer; transition: all .2s; position: relative; overflow: hidden;
+}
+.game-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  transition: opacity .2s;
+}
+.game-card:active { transform: scale(.98); }
+.game-card:active::before { opacity: 1; }
+.gc-ttt::before { background: linear-gradient(135deg, rgba(124,58,237,.08), transparent); }
+.gc-tod::before { background: linear-gradient(135deg, rgba(232,24,94,.08), transparent); }
+.gc-wc::before { background: linear-gradient(135deg, rgba(16,185,129,.08), transparent); }
+.gc-wyr::before { background: linear-gradient(135deg, rgba(245,158,11,.08), transparent); }
+
+.game-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.gi-ttt { background: rgba(124,58,237,.15); }
+.gi-tod { background: rgba(232,24,94,.15); }
+.gi-wc  { background: rgba(16,185,129,.15); }
+.gi-wyr { background: rgba(245,158,11,.15); }
+
+.game-info { flex: 1; }
+.game-name { font-size: .9rem; font-weight: 800; color: var(--snow); margin-bottom: 3px; }
+.game-desc { font-size: .72rem; color: var(--mist); line-height: 1.5; }
+.game-arrow { font-size: .8rem; color: var(--mist); }
+
+/* Active game container */
+#game-active { display: none; flex: 1; flex-direction: column; overflow: hidden; min-height: 0; }
+#game-active.show { display: flex; }
+.game-active-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--rim); flex-shrink: 0;
+}
+.game-active-title { font-size: .85rem; font-weight: 700; color: var(--snow); }
+.btn-exit-game {
+  padding: 5px 12px; background: var(--ink3); border: 1px solid var(--rim2);
+  border-radius: 8px; color: var(--mist); font-size: .72rem; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.game-body { flex: 1; overflow-y: auto; padding: 20px 16px 28px; display: flex; flex-direction: column; align-items: center; gap: 16px; -webkit-overflow-scrolling: touch; }
+
+/* ── TIC TAC TOE ── */
+.ttt-status {
+  font-size: .85rem; font-weight: 700; color: var(--snow);
+  text-align: center; padding: 8px 20px;
+  background: var(--ink2); border: 1px solid var(--rim2); border-radius: 100px;
+}
+.ttt-board {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; width: 100%; max-width: 280px;
+}
+.ttt-cell {
+  aspect-ratio: 1; background: var(--ink2); border: 2px solid var(--rim2);
+  border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; cursor: pointer; transition: all .15s; font-weight: 900;
+}
+.ttt-cell:active { transform: scale(.93); }
+.ttt-cell.x { color: #b07fff; border-color: rgba(124,58,237,.5); background: rgba(124,58,237,.1); }
+.ttt-cell.o { color: var(--rose); border-color: rgba(232,24,94,.5); background: rgba(232,24,94,.08); }
+.ttt-cell.win { animation: winPop .4s ease both; }
+@keyframes winPop { 0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)} }
+.ttt-scores {
+  display: flex; gap: 16px; align-items: center;
+}
+.ttt-score {
+  text-align: center; padding: 10px 18px;
+  background: var(--ink2); border: 1px solid var(--rim); border-radius: 12px;
+}
+.ttt-score-n { font-size: 1.4rem; font-weight: 900; display: block; }
+.ttt-score-l { font-size: .62rem; color: var(--mist); text-transform: uppercase; letter-spacing: 1px; }
+.ttt-score.you .ttt-score-n { color: #b07fff; }
+.ttt-score.them .ttt-score-n { color: var(--rose); }
+.ttt-score-div { color: var(--mist); font-size: .8rem; }
+.btn-ttt-restart {
+  padding: 11px 28px; background: var(--v-soft); border: 1.5px solid rgba(124,58,237,.35);
+  border-radius: 12px; color: #b07fff; font-size: .84rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: all .2s;
+}
+.btn-ttt-restart:active { background: rgba(124,58,237,.2); }
+
+/* ── TRUTH OR DARE ── */
+.tod-role {
+  display: flex; gap: 10px; width: 100%; max-width: 320px;
+}
+.tod-role-btn {
+  flex: 1; padding: 16px 10px; border-radius: 14px; border: 2px solid var(--rim2);
+  background: var(--ink2); color: var(--mist); font-size: .85rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; text-align: center; transition: all .2s;
+}
+.tod-role-btn.active-truth { border-color: #b07fff; background: rgba(124,58,237,.12); color: #b07fff; }
+.tod-role-btn.active-dare  { border-color: var(--rose); background: var(--r-soft); color: var(--rose); }
+.tod-role-btn:active { transform: scale(.96); }
+.tod-card {
+  width: 100%; max-width: 320px; min-height: 140px;
+  background: var(--ink2); border: 1px solid var(--rim2); border-radius: 18px;
+  padding: 22px 20px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px; text-align: center;
+}
+.tod-card-type {
+  font-size: .65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
+}
+.tod-card-type.truth { background: rgba(124,58,237,.15); color: #b07fff; }
+.tod-card-type.dare  { background: var(--r-soft); color: var(--rose); }
+.tod-card-text { font-size: .9rem; font-weight: 600; color: var(--snow); line-height: 1.6; }
+.btn-tod-next {
+  padding: 13px 32px; border-radius: 14px; border: none;
+  background: linear-gradient(110deg, var(--violet), var(--rose));
+  color: #fff; font-size: .88rem; font-weight: 800;
+  cursor: pointer; font-family: inherit; transition: all .2s;
+}
+.btn-tod-next:active { transform: scale(.96); }
+.tod-hint { font-size: .72rem; color: var(--mist); text-align: center; }
+
+/* ── WORD CHAIN ── */
+.wc-info {
+  text-align: center; padding: 10px 18px;
+  background: var(--ink2); border: 1px solid var(--rim2); border-radius: 12px;
+  font-size: .82rem; color: var(--snow); font-weight: 600;
+}
+.wc-chain {
+  width: 100%; max-width: 320px; display: flex; flex-wrap: wrap;
+  gap: 6px; justify-content: center; min-height: 60px;
+  background: var(--ink2); border: 1px solid var(--rim); border-radius: 14px;
+  padding: 12px;
+}
+.wc-word {
+  padding: 4px 10px; border-radius: 100px;
+  font-size: .75rem; font-weight: 700;
+}
+.wc-word.mine { background: rgba(124,58,237,.2); color: #b07fff; border: 1px solid rgba(124,58,237,.3); }
+.wc-word.theirs { background: var(--r-soft); color: var(--rose); border: 1px solid rgba(232,24,94,.25); }
+.wc-turn-badge {
+  padding: 6px 16px; border-radius: 100px; font-size: .72rem; font-weight: 700;
+  letter-spacing: .5px;
+}
+.wc-turn-badge.yours { background: rgba(124,58,237,.15); color: #b07fff; border: 1px solid rgba(124,58,237,.3); }
+.wc-turn-badge.theirs { background: var(--r-soft); color: var(--rose); border: 1px solid rgba(232,24,94,.2); }
+.wc-input-row {
+  display: flex; gap: 8px; width: 100%; max-width: 320px;
+}
+.wc-input {
+  flex: 1; background: var(--ink2); border: 1.5px solid var(--rim2);
+  border-radius: 12px; padding: 11px 14px; color: var(--snow);
+  font-size: .88rem; outline: none; font-family: inherit;
+  transition: border-color .2s;
+}
+.wc-input:focus { border-color: rgba(124,58,237,.5); }
+.wc-input::placeholder { color: var(--mist); }
+.wc-input:disabled { opacity: .4; }
+.btn-wc-send {
+  padding: 11px 18px; background: linear-gradient(110deg,var(--violet),var(--rose));
+  border: none; border-radius: 12px; color: #fff; font-size: .84rem;
+  font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.btn-wc-send:disabled { opacity: .4; cursor: not-allowed; }
+.btn-wc-send:active { transform: scale(.96); }
+.wc-rules { font-size: .7rem; color: var(--mist); text-align: center; line-height: 1.6; }
+
+/* ── WOULD YOU RATHER ── */
+.wyr-card {
+  width: 100%; max-width: 320px;
+  background: var(--ink2); border: 1px solid var(--rim2); border-radius: 18px;
+  overflow: hidden;
+}
+.wyr-vs {
+  text-align: center; padding: 8px; font-size: .65rem; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--mist);
+  border-bottom: 1px solid var(--rim);
+}
+.wyr-opt {
+  padding: 18px 20px; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 12px;
+}
+.wyr-opt:first-of-type { border-bottom: 1px solid var(--rim); }
+.wyr-opt:active { opacity: .7; }
+.wyr-opt.chosen-a { background: rgba(124,58,237,.1); }
+.wyr-opt.chosen-b { background: var(--r-soft); }
+.wyr-opt-letter {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .78rem; font-weight: 800; flex-shrink: 0;
+}
+.opt-a .wyr-opt-letter { background: rgba(124,58,237,.2); color: #b07fff; }
+.opt-b .wyr-opt-letter { background: var(--r-soft); color: var(--rose); }
+.wyr-opt-text { font-size: .85rem; font-weight: 600; color: var(--snow); line-height: 1.5; }
+.wyr-votes {
+  display: flex; gap: 0; border-top: 1px solid var(--rim); overflow: hidden;
+}
+.wyr-vote-bar {
+  height: 6px; transition: width .5s ease;
+}
+.wyr-vote-a { background: linear-gradient(90deg, var(--violet), #b07fff); }
+.wyr-vote-b { background: linear-gradient(90deg, var(--rose-b), var(--rose)); }
+.wyr-vote-labels {
+  display: flex; justify-content: space-between;
+  padding: 6px 16px 12px; font-size: .68rem; color: var(--mist); font-weight: 600;
+}
+.btn-wyr-next {
+  padding: 13px 32px; border-radius: 14px; border: none;
+  background: linear-gradient(110deg, var(--violet), var(--rose));
+  color: #fff; font-size: .88rem; font-weight: 800;
+  cursor: pointer; font-family: inherit;
+}
+.btn-wyr-next:active { transform: scale(.96); }
+
+/* ctrl game btn color */
+.ctrl-game { border-color: rgba(16,185,129,.3); color: #34d399; }
 </style>
 </head>
 <body>
@@ -951,7 +1204,7 @@ audio { display:none; }
     </div>
   </div>
 
-  <!-- CONTROLS: Next · MIC · Report — psychology: mic large center, thumb zone -->
+  <!-- CONTROLS -->
   <div class="controls">
     <div class="ctrl-group">
       <button class="btn-ctrl ctrl-next" id="btn-next">⏭</button>
@@ -960,6 +1213,10 @@ audio { display:none; }
     <div class="ctrl-group">
       <button class="btn-mic mic-on" id="mic-btn">🎙️</button>
       <span class="ctrl-lbl" id="mic-label">Mute</span>
+    </div>
+    <div class="ctrl-group">
+      <button class="btn-ctrl ctrl-game" id="btn-game">🎮</button>
+      <span class="ctrl-lbl">Games</span>
     </div>
     <div class="ctrl-group">
       <button class="btn-ctrl ctrl-rep" id="btn-rep">⚑</button>
@@ -977,7 +1234,67 @@ audio { display:none; }
   </div>
 </div>
 
+
 </div><!-- #app -->
+
+<!-- ═══ GAME POPUP SHEET ═══ -->
+<div class="game-sheet-bg" id="game-sheet-bg">
+  <div class="game-sheet" id="game-sheet">
+    <div class="game-sheet-handle"></div>
+
+    <!-- LOBBY -->
+    <div id="game-lobby">
+      <div class="game-sheet-header">
+        <div class="game-sheet-title">🎮 Play with Stranger</div>
+        <button class="game-sheet-close" id="game-sheet-close">✕</button>
+      </div>
+      <div class="game-lobby-list">
+        <div class="game-card gc-ttt" onclick="openGame('ttt')">
+          <div class="game-icon gi-ttt">⚔️</div>
+          <div class="game-info">
+            <div class="game-name">Tic Tac Toe</div>
+            <div class="game-desc">Classic 3×3 battle. First to 3 in a row wins!</div>
+          </div>
+          <div class="game-arrow">›</div>
+        </div>
+        <div class="game-card gc-tod" onclick="openGame('tod')">
+          <div class="game-icon gi-tod">🔥</div>
+          <div class="game-info">
+            <div class="game-name">Truth or Dare</div>
+            <div class="game-desc">Pick truth or dare. Things get spicy!</div>
+          </div>
+          <div class="game-arrow">›</div>
+        </div>
+        <div class="game-card gc-wc" onclick="openGame('wc')">
+          <div class="game-icon gi-wc">💬</div>
+          <div class="game-info">
+            <div class="game-name">Word Chain</div>
+            <div class="game-desc">Each word starts with the last letter of the previous.</div>
+          </div>
+          <div class="game-arrow">›</div>
+        </div>
+        <div class="game-card gc-wyr" onclick="openGame('wyr')">
+          <div class="game-icon gi-wyr">🤔</div>
+          <div class="game-info">
+            <div class="game-name">Would You Rather</div>
+            <div class="game-desc">Two impossible choices. See if you think alike!</div>
+          </div>
+          <div class="game-arrow">›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVE GAME -->
+    <div id="game-active" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="game-sheet-header">
+        <button class="game-back-btn" id="game-back-btn">← Back</button>
+        <div class="game-sheet-title" id="game-active-title">Game</div>
+        <button class="game-sheet-close" id="game-active-close">✕</button>
+      </div>
+      <div class="game-body" id="game-body"></div>
+    </div>
+  </div>
+</div>
 
 <!-- REPORT SHEET -->
 <div class="modal-bg" id="modal">
@@ -1101,7 +1418,11 @@ window.addEventListener('DOMContentLoaded',function(){
       o.classList.add('on');reason=o.dataset.reason;
     });
   });
-  document.getElementById('send-btn').addEventListener('click',sendMsg);
+  document.getElementById('btn-game').addEventListener('click',openGameSheet);
+  document.getElementById('game-sheet-close').addEventListener('click',closeGameSheet);
+  document.getElementById('game-active-close').addEventListener('click',closeGameSheet);
+  document.getElementById('game-back-btn').addEventListener('click',backToLobby);
+  document.getElementById('game-sheet-bg').addEventListener('click',e=>{if(e.target===document.getElementById('game-sheet-bg'))closeGameSheet();});
   document.getElementById('chat-input').addEventListener('keydown',e=>{
     if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
   });
@@ -1220,6 +1541,663 @@ function sendMsg(){const inp=document.getElementById('chat-input'),msg=inp.value
 function addMsg(txt,type){const a=document.getElementById('msgs'),d=document.createElement('div');d.className='msg '+type;d.textContent=txt;a.appendChild(d);a.scrollTop=a.scrollHeight;}
 function sysMsg(txt){const a=document.getElementById('msgs'),d=document.createElement('div');d.className='msg sys';d.textContent=txt;a.appendChild(d);a.scrollTop=a.scrollHeight;}
 function clearMsgs(){document.getElementById('msgs').innerHTML='';}
+
+/* ═══════════════════════════════════
+   GAMES ENGINE
+═══════════════════════════════════ */
+let currentGame = null;
+
+// Socket events for games
+socket.on('game-event', ({game, data}) => {
+  if(game === 'ttt') tttOnEvent(data);
+  else if(game === 'wc') wcOnEvent(data);
+  else if(game === 'wyr') wyrOnEvent(data);
+  else if(game === 'tod') todOnEvent(data);
+});
+
+function emitGame(game, data) {
+  socket.emit('game-event', {to: partnerId, game, data});
+}
+
+function openGameSheet() {
+  if(!partnerId){ toast('Start a call first!','err'); return; }
+  document.getElementById('game-sheet-bg').classList.add('open');
+  backToLobby();
+}
+function closeGameSheet() {
+  document.getElementById('game-sheet-bg').classList.remove('open');
+  currentGame = null;
+}
+function backToLobby() {
+  document.getElementById('game-lobby').style.display = 'flex';
+  document.getElementById('game-lobby').style.flexDirection = 'column';
+  document.getElementById('game-active').style.display = 'none';
+  currentGame = null;
+}
+function openGame(type) {
+  currentGame = type;
+  document.getElementById('game-lobby').style.display = 'none';
+  document.getElementById('game-active').style.display = 'flex';
+  const titles = {ttt:'⚔️ Tic Tac Toe', tod:'🔥 Truth or Dare', wc:'💬 Word Chain', wyr:'🤔 Would You Rather'};
+  document.getElementById('game-active-title').textContent = titles[type];
+  const body = document.getElementById('game-body');
+  body.innerHTML = '';
+  if(type==='ttt') initTTT(body);
+  else if(type==='tod') initTOD(body);
+  else if(type==='wc') initWC(body);
+  else if(type==='wyr') initWYR(body);
+}
+
+/* ── TIC TAC TOE ────────────────── */
+let tttBoard, tttMyMark, tttMyTurn, tttScoreMe, tttScoreThem;
+function initTTT(body) {
+  tttBoard = Array(9).fill('');
+  tttMyMark = initiator ? 'X' : 'O';
+  tttMyTurn = initiator; // X goes first
+  tttScoreMe = 0; tttScoreThem = 0;
+  renderTTT(body);
+  emitGame('ttt', {type:'init', mark: tttMyMark==='X'?'O':'X'});
+}
+function renderTTT(body) {
+  body.innerHTML = `
+    <div class="ttt-scores">
+      <div class="ttt-score you"><span class="ttt-score-n" id="ttt-me">0</span><span class="ttt-score-l">You (${tttMyMark})</span></div>
+      <div class="ttt-score-div">:</div>
+      <div class="ttt-score them"><span class="ttt-score-n" id="ttt-them">0</span><span class="ttt-score-l">Stranger</span></div>
+    </div>
+    <div class="ttt-status" id="ttt-status">${tttMyTurn ? "Your turn!" : "Stranger's turn..."}</div>
+    <div class="ttt-board" id="ttt-board">
+      ${tttBoard.map((v,i)=>`<div class="ttt-cell${v?' '+v.toLowerCase():''}" data-i="${i}">${v||''}</div>`).join('')}
+    </div>
+    <button class="btn-ttt-restart" id="ttt-restart">New Round</button>
+  `;
+  body.querySelectorAll('.ttt-cell').forEach(cell=>{
+    cell.addEventListener('click',()=>{
+      const i=parseInt(cell.dataset.i);
+      if(!tttMyTurn||tttBoard[i])return;
+      tttBoard[i]=tttMyMark;
+      emitGame('ttt',{type:'move',i,mark:tttMyMark});
+      tttMyTurn=false;
+      tttCheck(body);
+    });
+  });
+  document.getElementById('ttt-restart').addEventListener('click',()=>{
+    tttBoard=Array(9).fill('');
+    tttMyTurn=tttMyMark==='X';
+    renderTTT(body);
+    emitGame('ttt',{type:'restart'});
+  });
+}
+function tttUpdateBoard(body){
+  tttBoard.forEach((v,i)=>{
+    const c=body.querySelector(`[data-i="${i}"]`);
+    if(c){c.textContent=v;c.className='ttt-cell'+(v?' '+v.toLowerCase():'');}
+  });
+  document.getElementById('ttt-status').textContent=tttMyTurn?"Your turn!":"Stranger's turn...";
+}
+function tttCheck(body){
+  const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  for(const [a,b,c] of wins){
+    if(tttBoard[a]&&tttBoard[a]===tttBoard[b]&&tttBoard[b]===tttBoard[c]){
+      const won=tttBoard[a]===tttMyMark;
+      if(won){tttScoreMe++;document.getElementById('ttt-me').textContent=tttScoreMe;}
+      else{tttScoreThem++;document.getElementById('ttt-them').textContent=tttScoreThem;}
+      [a,b,c].forEach(i=>body.querySelectorAll('.ttt-cell')[i].classList.add('win'));
+      document.getElementById('ttt-status').textContent=won?'🎉 You win this round!':'😅 Stranger wins this round!';
+      return;
+    }
+  }
+  if(tttBoard.every(v=>v)){document.getElementById('ttt-status').textContent="🤝 Draw!";return;}
+  tttUpdateBoard(body);
+}
+function tttOnEvent(data){
+  if(currentGame!=='ttt')return;
+  const body=document.getElementById('game-body');
+  if(data.type==='init'||data.type==='restart'){
+    tttBoard=Array(9).fill('');
+    tttMyTurn=tttMyMark==='X';
+    if(data.type==='init')tttMyMark=data.mark;
+    renderTTT(body);
+  } else if(data.type==='move'){
+    tttBoard[data.i]=data.mark;
+    tttMyTurn=true;
+    tttCheck(body);
+  }
+}
+
+/* ── TRUTH OR DARE ──────────────── */
+const TRUTHS=[
+  "What's the most embarrassing thing you've done in public?",
+  "What's your biggest fear in life?",
+  "Have you ever lied to your best friend?",
+  "What's the strangest dream you've ever had?",
+  "What's one thing you've never told anyone?",
+  "What's the most childish thing you still do?",
+  "Have you ever had a crush on a teacher?",
+  "What's your most cringe-worthy memory?",
+  "What's something you pretend to like but secretly hate?",
+  "What's the biggest mistake you've ever made?",
+  "Have you ever ghosted someone? Why?",
+  "What song do you secretly listen to alone?",
+  "What's something you're really bad at but pretend you're not?",
+  "Have you ever cheated at something important?"
+];
+const DARES=[
+  "Sing the first line of your favorite song out loud right now!",
+  "Do your best impression of a celebrity for 10 seconds.",
+  "Say the alphabet backwards as fast as you can.",
+  "Tell the stranger the last lie you told someone.",
+  "Speak in a different accent for the next 2 minutes.",
+  "Describe your room in 5 words only.",
+  "Say 5 nice things about yourself right now.",
+  "Hum a song and let the stranger guess it.",
+  "Tell the most awkward joke you know.",
+  "Do 10 jumping jacks and count out loud."
+];
+let todMyChoice=null, todStrangerChoice=null;
+function initTOD(body){
+  todMyChoice=null; todStrangerChoice=null;
+  body.innerHTML=`
+    <div class="tod-hint">Pick <b>Truth</b> or <b>Dare</b> — stranger picks independently, then see what you both got!</div>
+    <div class="tod-role" id="tod-role">
+      <button class="tod-role-btn" id="tod-truth" onclick="todPick('truth')">🧠 Truth</button>
+      <button class="tod-role-btn" id="tod-dare" onclick="todPick('dare')">🔥 Dare</button>
+    </div>
+    <div class="tod-card" id="tod-card" style="display:none"></div>
+    <button class="btn-tod-next" id="tod-next" style="display:none" onclick="todNext(document.getElementById('game-body'))">Next Round</button>
+  `;
+}
+function todPick(choice){
+  todMyChoice=choice;
+  document.getElementById('tod-truth').classList.toggle('active-truth',choice==='truth');
+  document.getElementById('tod-dare').classList.toggle('active-dare',choice==='dare');
+  emitGame('tod',{type:'pick',choice});
+  todRevealIfBoth(document.getElementById('game-body'));
+}
+function todOnEvent(data){
+  if(currentGame!=='tod')return;
+  if(data.type==='pick'){
+    todStrangerChoice=data.choice;
+    todRevealIfBoth(document.getElementById('game-body'));
+  } else if(data.type==='next'){
+    todNext(document.getElementById('game-body'));
+  }
+}
+function todRevealIfBoth(body){
+  if(!todMyChoice||!todStrangerChoice)return;
+  const myQ = todMyChoice==='truth'?TRUTHS[Math.floor(Math.random()*TRUTHS.length)]:DARES[Math.floor(Math.random()*DARES.length)];
+  const card=document.getElementById('tod-card');
+  card.style.display='flex';
+  card.innerHTML=`
+    <div class="tod-card-type ${todMyChoice}">${todMyChoice.toUpperCase()}</div>
+    <div class="tod-card-text">${myQ}</div>
+    <div style="font-size:.7rem;color:var(--mist);margin-top:4px">Stranger chose: <b style="color:${todStrangerChoice==='truth'?'#b07fff':'var(--rose)'}">${todStrangerChoice.toUpperCase()}</b></div>
+  `;
+  document.getElementById('tod-next').style.display='block';
+}
+function todNext(body){
+  todMyChoice=null; todStrangerChoice=null;
+  emitGame('tod',{type:'next'});
+  initTOD(body);
+}
+
+/* ── WORD CHAIN ─────────────────── */
+let wcWords=[], wcMyTurn=false, wcLastLetter='';
+function initWC(body){
+  wcWords=[]; wcLastLetter='';
+  wcMyTurn = initiator;
+  const startWord='PLAY';
+  wcWords=[{w:startWord,mine:false}];
+  wcLastLetter=startWord.slice(-1).toUpperCase();
+  renderWC(body);
+  if(!initiator) emitGame('wc',{type:'init'});
+}
+function renderWC(body){
+  body.innerHTML=`
+    <div class="wc-turn-badge ${wcMyTurn?'yours':'theirs'}" id="wc-turn">${wcMyTurn?"Your turn!":"Stranger's turn..."}</div>
+    <div class="wc-info" id="wc-info">Next word must start with: <b style="color:#b07fff;font-size:1.1em">${wcLastLetter}</b></div>
+    <div class="wc-chain" id="wc-chain">
+      ${wcWords.map(w=>`<span class="wc-word ${w.mine?'mine':'theirs'}">${w.w}</span>`).join('')}
+    </div>
+    <div class="wc-input-row">
+      <input class="wc-input" id="wc-input" placeholder="Type a word..." ${wcMyTurn?'':'disabled'} maxlength="20"/>
+      <button class="btn-wc-send" id="wc-send" ${wcMyTurn?'':'disabled'}>Send</button>
+    </div>
+    <div class="wc-rules">Words must start with <b>${wcLastLetter}</b> · No repeats · Real words only</div>
+  `;
+  const inp=document.getElementById('wc-input');
+  const btn=document.getElementById('wc-send');
+  const doSend=()=>{
+    const w=inp.value.trim().toUpperCase();
+    if(!w)return;
+    if(w[0]!==wcLastLetter){toast(`Word must start with "${wcLastLetter}"!`,'err');return;}
+    if(wcWords.some(x=>x.w===w)){toast('Word already used!','err');return;}
+    wcWords.push({w,mine:true});
+    wcLastLetter=w.slice(-1).toUpperCase();
+    wcMyTurn=false;
+    emitGame('wc',{type:'word',word:w});
+    renderWC(body);
+  };
+  btn.addEventListener('click',doSend);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')doSend();});
+}
+function wcOnEvent(data){
+  if(currentGame!=='wc')return;
+  const body=document.getElementById('game-body');
+  if(data.type==='init'){wcMyTurn=!initiator;renderWC(body);}
+  else if(data.type==='word'){
+    wcWords.push({w:data.word,mine:false});
+    wcLastLetter=data.word.slice(-1).toUpperCase();
+    wcMyTurn=true;
+    renderWC(body);
+    toast(`Stranger said: ${data.word}`,'ok');
+  }
+}
+
+/* ── WOULD YOU RATHER ───────────── */
+const WYR_QS=[
+  ["Have unlimited money but no friends","Have true love but always be broke"],
+  ["Be able to fly","Be invisible whenever you want"],
+  ["Know when you'll die","Know how you'll die"],
+  ["Live in the past","Live in the future"],
+  ["Always speak your mind","Never speak at all"],
+  ["Have no internet for a year","Have no music for a year"],
+  ["Be famous and miserable","Unknown and happy"],
+  ["Always be 10 minutes late","Always be 20 minutes early"],
+  ["Have a rewind button in life","Have a pause button"],
+  ["Never use social media again","Never watch a movie/show again"],
+  ["Always feel cold","Always feel hot"],
+  ["Lose all your memories","Never make new ones"],
+  ["Be able to talk to animals","Speak every human language"],
+  ["Have 1 real friend","100 fake friends"]
+];
+let wyrQ, wyrMyVote=null, wyrTheirVote=null, wyrQIdx=0;
+function initWYR(body){
+  wyrQIdx=Math.floor(Math.random()*WYR_QS.length);
+  wyrQ=WYR_QS[wyrQIdx]; wyrMyVote=null; wyrTheirVote=null;
+  renderWYR(body);
+  emitGame('wyr',{type:'question',idx:wyrQIdx});
+}
+function renderWYR(body){
+  body.innerHTML=`
+    <div style="font-size:.72rem;color:var(--mist);text-align:center;font-weight:600">WOULD YOU RATHER...</div>
+    <div class="wyr-card">
+      <div class="wyr-vs">VS</div>
+      <div class="wyr-opt opt-a${wyrMyVote==='a'?' chosen-a':''}" id="wyr-a" onclick="wyrVote('a',document.getElementById('game-body'))">
+        <div class="wyr-opt-letter">A</div>
+        <div class="wyr-opt-text">${wyrQ[0]}</div>
+      </div>
+      <div class="wyr-opt opt-b${wyrMyVote==='b'?' chosen-b':''}" id="wyr-b" onclick="wyrVote('b',document.getElementById('game-body'))">
+        <div class="wyr-opt-letter">B</div>
+        <div class="wyr-opt-text">${wyrQ[1]}</div>
+      </div>
+      ${(wyrMyVote&&wyrTheirVote)?`
+      <div class="wyr-votes">
+        <div class="wyr-vote-bar wyr-vote-a" style="width:50%"></div>
+        <div class="wyr-vote-bar wyr-vote-b" style="width:50%"></div>
+      </div>
+      <div class="wyr-vote-labels"><span>You: ${wyrMyVote.toUpperCase()}</span><span>Stranger: ${wyrTheirVote.toUpperCase()}</span></div>
+      `:''}
+    </div>
+    ${(wyrMyVote&&wyrTheirVote)?`<button class="btn-wyr-next" onclick="wyrNext(document.getElementById('game-body'))">Next Question →</button>`:''}
+    ${wyrMyVote&&!wyrTheirVote?`<div style="font-size:.72rem;color:var(--mist)">Waiting for stranger...</div>`:''}
+  `;
+}
+function wyrVote(v, body){
+  if(wyrMyVote)return;
+  wyrMyVote=v;
+  emitGame('wyr',{type:'vote',vote:v});
+  renderWYR(body);
+}
+function wyrNext(body){
+  wyrQIdx=(wyrQIdx+1)%WYR_QS.length;
+  wyrQ=WYR_QS[wyrQIdx]; wyrMyVote=null; wyrTheirVote=null;
+  emitGame('wyr',{type:'next',idx:wyrQIdx});
+  renderWYR(body);
+}
+function wyrOnEvent(data){
+  if(currentGame!=='wyr')return;
+  const body=document.getElementById('game-body');
+  if(data.type==='question'){wyrQIdx=data.idx;wyrQ=WYR_QS[data.idx];wyrMyVote=null;wyrTheirVote=null;renderWYR(body);}
+  else if(data.type==='vote'){wyrTheirVote=data.vote;renderWYR(body);}
+  else if(data.type==='next'){wyrQIdx=data.idx;wyrQ=WYR_QS[data.idx];wyrMyVote=null;wyrTheirVote=null;renderWYR(body);}
+}
+
+<script>
+/* ══════════════════════════════════════════
+   GAMES ENGINE
+══════════════════════════════════════════ */
+
+let currentGame = null;
+let gameRole = null; // 'host' or 'guest' for sync
+
+/* ── NAVIGATION ── */
+function openGamesScreen() {
+  if (!partnerId) { toast('Connect to a stranger first!', 'err'); return; }
+  // reset to lobby
+  document.getElementById('game-lobby').style.display = 'flex';
+  document.getElementById('game-lobby').style.flexDirection = 'column';
+  document.getElementById('game-active').classList.remove('show');
+  show('games');
+}
+function closeGamesScreen() {
+  currentGame = null;
+  show('chat');
+}
+function openGame(type) {
+  currentGame = type;
+  document.getElementById('game-lobby').style.display = 'none';
+  document.getElementById('game-active').classList.add('show');
+  const titles = { ttt:'⚔️ Tic Tac Toe', tod:'🔥 Truth or Dare', wc:'💬 Word Chain', wyr:'🤔 Would You Rather' };
+  document.getElementById('game-active-title').textContent = titles[type];
+  renderGame(type);
+  // Notify stranger
+  socket.emit('chat-message', { message: `🎮 Started a game: ${titles[type]} — join me!` });
+}
+function exitGame() {
+  currentGame = null;
+  document.getElementById('game-active').classList.remove('show');
+  document.getElementById('game-lobby').style.display = 'flex';
+  document.getElementById('game-lobby').style.flexDirection = 'column';
+}
+
+/* ═══════════════════════════════════════
+   TIC TAC TOE
+═══════════════════════════════════════ */
+let tttBoard = Array(9).fill(null);
+let tttTurn = 'X'; // X = you (host), O = stranger
+let tttScoreYou = 0, tttScoreThem = 0;
+let tttMySymbol = 'X';
+let tttLines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+function renderTTT() {
+  const isMyTurn = tttTurn === tttMySymbol;
+  const statusText = isMyTurn ? '🟣 Your turn' : '🔴 Stranger's turn';
+  return `
+    <div class="ttt-scores">
+      <div class="ttt-score you">
+        <span class="ttt-score-n">${tttScoreYou}</span>
+        <span class="ttt-score-l">You (${tttMySymbol})</span>
+      </div>
+      <span class="ttt-score-div">vs</span>
+      <div class="ttt-score them">
+        <span class="ttt-score-n">${tttScoreThem}</span>
+        <span class="ttt-score-l">Stranger</span>
+      </div>
+    </div>
+    <div class="ttt-status">${statusText}</div>
+    <div class="ttt-board" id="ttt-board">
+      ${tttBoard.map((cell,i) => `<div class="ttt-cell${cell?' '+cell.toLowerCase():''}" onclick="tttClick(${i})">${cell||''}</div>`).join('')}
+    </div>
+    <button class="btn-ttt-restart" onclick="tttReset()">New Game</button>
+  `;
+}
+
+function tttClick(i) {
+  if (tttBoard[i] || tttTurn !== tttMySymbol) return;
+  if (checkTTTWinner()) return;
+  tttBoard[i] = tttMySymbol;
+  tttTurn = tttMySymbol === 'X' ? 'O' : 'X';
+  // Send move to stranger via chat (game protocol)
+  socket.emit('game-move', { type: 'ttt', move: i });
+  updateTTT();
+}
+
+function tttReceiveMove(i) {
+  const theirSymbol = tttMySymbol === 'X' ? 'O' : 'X';
+  if (tttBoard[i] || tttTurn !== theirSymbol) return;
+  tttBoard[i] = theirSymbol;
+  tttTurn = tttMySymbol;
+  updateTTT();
+}
+
+function updateTTT() {
+  if (currentGame !== 'ttt') return;
+  const winner = checkTTTWinner();
+  if (winner) {
+    if (winner === tttMySymbol) { tttScoreYou++; toast('🎉 You won!', 'ok'); }
+    else { tttScoreThem++; toast('😅 Stranger won!', ''); }
+    setTimeout(tttReset, 1800);
+  } else if (!tttBoard.includes(null)) {
+    toast("🤝 It's a draw!", '');
+    setTimeout(tttReset, 1500);
+  }
+  document.getElementById('game-body').innerHTML = renderTTT();
+  // highlight winner cells
+  const winLine = getTTTWinLine();
+  if (winLine) {
+    winLine.forEach(i => {
+      const cells = document.querySelectorAll('.ttt-cell');
+      if (cells[i]) cells[i].classList.add('win');
+    });
+  }
+}
+
+function checkTTTWinner() {
+  for (const [a,b,c] of tttLines) {
+    if (tttBoard[a] && tttBoard[a]===tttBoard[b] && tttBoard[a]===tttBoard[c]) return tttBoard[a];
+  }
+  return null;
+}
+function getTTTWinLine() {
+  for (const line of tttLines) {
+    const [a,b,c] = line;
+    if (tttBoard[a] && tttBoard[a]===tttBoard[b] && tttBoard[a]===tttBoard[c]) return line;
+  }
+  return null;
+}
+function tttReset() {
+  tttBoard = Array(9).fill(null);
+  tttTurn = 'X';
+  if (currentGame === 'ttt') document.getElementById('game-body').innerHTML = renderTTT();
+}
+
+/* ═══════════════════════════════════════
+   TRUTH OR DARE
+═══════════════════════════════════════ */
+const TRUTHS = [
+  "What's the most embarrassing thing you've ever done?",
+  "What's your biggest fear?",
+  "Have you ever lied to get out of trouble?",
+  "What's the weirdest dream you've had?",
+  "Who was your first crush?",
+  "What's a secret you've never told anyone?",
+  "What's the most childish thing you still do?",
+  "Have you ever pretended to be sick to avoid something?",
+  "What's the worst gift you've ever received?",
+  "What's something you're secretly really bad at?",
+  "What's the most embarrassing song you love?",
+  "Have you ever ghosted someone?",
+];
+const DARES = [
+  "Say 'I am a potato' in the most dramatic voice possible.",
+  "Describe your day as if you were a sports commentator.",
+  "Pretend to be a robot for 30 seconds.",
+  "Sing the first 30 seconds of any song right now.",
+  "Do your best impression of a TV show character.",
+  "Talk like you're narrating a nature documentary for 1 minute.",
+  "Use only questions to talk for the next 2 minutes.",
+  "Tell the stranger the most useless fact you know.",
+  "Try to beatbox for 15 seconds.",
+  "Describe yourself using only 3 emojis (speak them out loud).",
+  "Tell a joke — it has to make the stranger laugh.",
+  "Pretend you just won an Oscar and give a speech.",
+];
+let todPick = null;
+
+function renderTOD() {
+  const card = todPick ? `
+    <div class="tod-card">
+      <span class="tod-card-type ${todPick.type}">${todPick.type.toUpperCase()}</span>
+      <div class="tod-card-text">${todPick.text}</div>
+    </div>
+    <button class="btn-tod-next" onclick="todNext()">Next Card 🎲</button>
+  ` : `
+    <div class="tod-hint">Pick Truth or Dare for your stranger!</div>
+  `;
+  return `
+    <div class="tod-role">
+      <button class="tod-role-btn ${todPick?.type==='truth'?'active-truth':''}" onclick="todSet('truth')">🤔 Truth</button>
+      <button class="tod-role-btn ${todPick?.type==='dare'?'active-dare':''}" onclick="todSet('dare')">🔥 Dare</button>
+    </div>
+    ${card}
+    <div class="tod-hint">Say the challenge out loud to your stranger!</div>
+  `;
+}
+function todSet(type) {
+  const pool = type === 'truth' ? TRUTHS : DARES;
+  todPick = { type, text: pool[Math.floor(Math.random()*pool.length)] };
+  document.getElementById('game-body').innerHTML = renderTOD();
+}
+function todNext() {
+  todSet(todPick.type);
+}
+
+/* ═══════════════════════════════════════
+   WORD CHAIN
+═══════════════════════════════════════ */
+let wcChain = [];
+let wcMyTurn = true;
+let wcLastLetter = '';
+
+function renderWC() {
+  const chainHTML = wcChain.length
+    ? wcChain.map((w,i) => `<div class="wc-word ${i%2===0?'mine':'theirs'}">${w}</div>`).join('')
+    : '<div style="color:var(--mist);font-size:.78rem">Chain starts here...</div>';
+  const placeholder = wcLastLetter ? `Word starting with "${wcLastLetter.toUpperCase()}"...` : 'Start any word...';
+  return `
+    <div class="wc-info">${wcChain.length===0 ? 'You go first — type any word!' : `Last letter: <strong>${wcLastLetter.toUpperCase()}</strong>`}</div>
+    <div class="wc-chain">${chainHTML}</div>
+    <span class="wc-turn-badge ${wcMyTurn?'yours':'theirs'}">${wcMyTurn?'🟣 Your turn':'🔴 Stranger's turn'}</span>
+    <div class="wc-input-row">
+      <input class="wc-input" id="wc-input" placeholder="${placeholder}" ${!wcMyTurn?'disabled':''} maxlength="20"/>
+      <button class="btn-wc-send" onclick="wcSubmit()" ${!wcMyTurn?'disabled':''}>Send</button>
+    </div>
+    <div class="wc-rules">Each word must start with the last letter of the previous word.<br>No repeats allowed!</div>
+  `;
+}
+function wcSubmit() {
+  const inp = document.getElementById('wc-input');
+  const word = (inp?.value||'').trim().toLowerCase();
+  if (!word) return;
+  if (wcLastLetter && word[0] !== wcLastLetter) { toast(`Word must start with "${wcLastLetter.toUpperCase()}"`, 'err'); return; }
+  if (wcChain.includes(word)) { toast('Word already used!', 'err'); return; }
+  if (!/^[a-z]+$/.test(word)) { toast('Letters only!', 'err'); return; }
+  wcChain.push(word);
+  wcLastLetter = word[word.length-1];
+  wcMyTurn = false;
+  socket.emit('game-move', { type: 'wc', move: word });
+  if (currentGame === 'wc') document.getElementById('game-body').innerHTML = renderWC();
+}
+function wcReceiveMove(word) {
+  word = word.toLowerCase();
+  if (wcLastLetter && word[0] !== wcLastLetter) return;
+  wcChain.push(word);
+  wcLastLetter = word[word.length-1];
+  wcMyTurn = true;
+  toast(`Stranger played: "${word}"`, '');
+  if (currentGame === 'wc') document.getElementById('game-body').innerHTML = renderWC();
+}
+function wcKeydown(e) { if (e.key==='Enter') wcSubmit(); }
+
+/* ═══════════════════════════════════════
+   WOULD YOU RATHER
+═══════════════════════════════════════ */
+const WYR_QS = [
+  { a: "Be able to fly", b: "Be invisible whenever you want" },
+  { a: "Never use social media again", b: "Never watch movies or TV again" },
+  { a: "Know when you're going to die", b: "Know how you're going to die" },
+  { a: "Always speak your mind", b: "Never speak again" },
+  { a: "Have unlimited money but no friends", b: "Have amazing friends but always be broke" },
+  { a: "Live in the past", b: "Live in the future" },
+  { a: "Be famous but hated", b: "Be unknown but loved" },
+  { a: "Never be cold again", b: "Never be hot again" },
+  { a: "Eat only sweet food forever", b: "Eat only spicy food forever" },
+  { a: "Have a rewind button for life", b: "Have a pause button for life" },
+  { a: "Be able to read minds", b: "Be able to see the future" },
+  { a: "Always be 10 minutes late", b: "Always be 2 hours early" },
+];
+let wyrIdx = 0;
+let wyrVoteA = 0, wyrVoteB = 0;
+let wyrChosen = null;
+
+function renderWYR() {
+  const q = WYR_QS[wyrIdx % WYR_QS.length];
+  const total = wyrVoteA + wyrVoteB;
+  const pctA = total ? Math.round(wyrVoteA/total*100) : 50;
+  const pctB = total ? Math.round(wyrVoteB/total*100) : 50;
+  const votesHTML = total ? `
+    <div class="wyr-votes">
+      <div class="wyr-vote-bar wyr-vote-a" style="width:${pctA}%"></div>
+      <div class="wyr-vote-bar wyr-vote-b" style="width:${pctB}%"></div>
+    </div>
+    <div class="wyr-vote-labels"><span>${pctA}%</span><span>${pctB}%</span></div>
+  ` : '';
+  return `
+    <div class="wyr-card">
+      <div class="wyr-vs">Would You Rather...</div>
+      <div class="wyr-opt opt-a${wyrChosen==='a'?' chosen-a':''}" onclick="wyrVote('a')">
+        <div class="wyr-opt-letter">A</div>
+        <div class="wyr-opt-text">${q.a}</div>
+      </div>
+      <div class="wyr-opt opt-b${wyrChosen==='b'?' chosen-b':''}" onclick="wyrVote('b')">
+        <div class="wyr-opt-letter">B</div>
+        <div class="wyr-opt-text">${q.b}</div>
+      </div>
+      ${votesHTML}
+    </div>
+    <button class="btn-wyr-next" onclick="wyrNext()">Next Question 🎲</button>
+    ${wyrChosen ? '<div style="font-size:.72rem;color:var(--mist)">Waiting to see what stranger picks...</div>' : '<div style="font-size:.72rem;color:var(--mist)">Tap your choice!</div>'}
+  `;
+}
+function wyrVote(choice) {
+  if (wyrChosen) return;
+  wyrChosen = choice;
+  if (choice === 'a') wyrVoteA++; else wyrVoteB++;
+  socket.emit('game-move', { type: 'wyr', move: choice });
+  if (currentGame === 'wyr') document.getElementById('game-body').innerHTML = renderWYR();
+}
+function wyrReceiveVote(choice) {
+  if (choice === 'a') wyrVoteA++; else wyrVoteB++;
+  const q = WYR_QS[wyrIdx % WYR_QS.length];
+  const label = choice === 'a' ? q.a : q.b;
+  toast(`Stranger chose: "${label.substring(0,30)}..."`, '');
+  if (currentGame === 'wyr') document.getElementById('game-body').innerHTML = renderWYR();
+}
+function wyrNext() {
+  wyrIdx++;
+  wyrChosen = null;
+  wyrVoteA = 0; wyrVoteB = 0;
+  if (currentGame === 'wyr') document.getElementById('game-body').innerHTML = renderWYR();
+}
+
+/* ── RENDER DISPATCHER ── */
+function renderGame(type) {
+  const body = document.getElementById('game-body');
+  if (!body) return;
+  if (type === 'ttt') { tttBoard=Array(9).fill(null); tttTurn='X'; body.innerHTML = renderTTT(); }
+  else if (type === 'tod') { todPick=null; body.innerHTML = renderTOD(); }
+  else if (type === 'wc') { wcChain=[]; wcMyTurn=true; wcLastLetter=''; body.innerHTML = renderWC(); }
+  else if (type === 'wyr') { wyrIdx=0; wyrChosen=null; wyrVoteA=0; wyrVoteB=0; body.innerHTML = renderWYR(); }
+}
+
+/* ── SOCKET GAME MOVES ── */
+socket.on('game-move', ({ type, move }) => {
+  if (type === 'ttt') tttReceiveMove(move);
+  else if (type === 'wc') wcReceiveMove(move);
+  else if (type === 'wyr') wyrReceiveVote(move);
+});
+
+/* ── EVENT LISTENERS ── */
+document.getElementById('btn-game').addEventListener('click', openGamesScreen);
+document.getElementById('games-back').addEventListener('click', closeGamesScreen);
+document.getElementById('btn-exit-game').addEventListener('click', exitGame);
+
+// Word chain enter key (delegated)
+document.addEventListener('keydown', e => {
+  if (currentGame === 'wc' && e.key === 'Enter') { const inp = document.getElementById('wc-input'); if (document.activeElement === inp) wcSubmit(); }
+});
 </script>
+
 </body>
 </html>
