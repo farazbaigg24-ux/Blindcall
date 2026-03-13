@@ -109,6 +109,14 @@ io.on('connection', (socket) => {
     if (idx !== -1) waitingUsers.splice(idx, 1);
   });
 
+  // Relay game moves to partner
+  socket.on('game-event', ({ to, game, data }) => {
+    const partnerId = connectedPairs.get(socket.id);
+    if (partnerId) {
+      io.to(partnerId).emit('game-event', { game, data });
+    }
+  });
+
   socket.on('report', ({ reason }) => {
     console.log(`Report filed: ${reason} against ${connectedPairs.get(socket.id)}`);
     const partnerId = connectedPairs.get(socket.id);
