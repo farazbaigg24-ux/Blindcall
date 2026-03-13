@@ -1298,7 +1298,7 @@ audio { display:none; }
 </div>
 
 <div class="toast" id="toast"></div>
-<audio id="remote-audio" autoplay playsinline></audio>
+<audio id="remote-audio" autoplay playsinline disableRemotePlayback></audio>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -1339,7 +1339,17 @@ function openAbout(){
 const socket=io();
 let stream=null,peer=null,muted=false,reason=null,partnerId=null,initiator=false;
 let interests=[],waveInt=null,audioCtx=null,timerInt=null,secs=0,selectedRegion='anywhere';
-const ice={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]};
+const ice={iceServers:[
+  {urls:'stun:stun.l.google.com:19302'},
+  {urls:'stun:stun1.l.google.com:19302'},
+  {urls:'stun:stun2.l.google.com:19302'},
+  {urls:'stun:stun3.l.google.com:19302'},
+  {urls:'stun:stun.relay.metered.ca:80'},
+  {urls:'turn:global.relay.metered.ca:80',username:'openrelayproject',credential:'openrelayproject'},
+  {urls:'turn:global.relay.metered.ca:80?transport=tcp',username:'openrelayproject',credential:'openrelayproject'},
+  {urls:'turn:global.relay.metered.ca:443',username:'openrelayproject',credential:'openrelayproject'},
+  {urls:'turns:global.relay.metered.ca:443?transport=tcp',username:'openrelayproject',credential:'openrelayproject'}
+]};
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -1427,7 +1437,7 @@ function addTag(){
 async function startSearch(){
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast('Use Chrome for voice calls','err');return;}
   try{
-    stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+    stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true},video:false});
     show('searching');
     socket.emit('join',{interests,region:selectedRegion});
   }catch(e){
@@ -1464,12 +1474,39 @@ socket.on('partner-disconnected',()=>{
 });
 socket.on('searching',()=>{closePeer();stopTimer();show('searching');socket.emit('join',{interests,region:selectedRegion});});
 
+let connectTimeout=null;
 async function setupPeer(){
   closePeer();
+  if(connectTimeout)clearTimeout(connectTimeout);
   peer=new RTCPeerConnection(ice);
   stream.getTracks().forEach(t=>peer.addTrack(t,stream));
-  peer.ontrack=e=>{document.getElementById('remote-audio').srcObject=e.streams[0];setStatus('Connected','s-connected');startWave(e.streams[0]);};
+  peer.ontrack=e=>{
+    const audio=document.getElementById('remote-audio');
+    if(audio.srcObject!==e.streams[0]){audio.srcObject=e.streams[0];}
+    setStatus('Connected','s-connected');
+    startWave(e.streams[0]);
+    if(connectTimeout){clearTimeout(connectTimeout);connectTimeout=null;}
+  };
   peer.onicecandidate=e=>{if(e.candidate)socket.emit('signal',{to:partnerId,signal:{candidate:e.candidate}});};
+  peer.oniceconnectionstatechange=()=>{
+    const s=peer?.iceConnectionState;
+    if(s==='connected'||s==='completed'){
+      setStatus('Connected','s-connected');
+      if(connectTimeout){clearTimeout(connectTimeout);connectTimeout=null;}
+    } else if(s==='failed'){
+      setStatus('Reconnecting...','s-connecting');
+      peer.restartIce();
+    } else if(s==='disconnected'){
+      setStatus('Connection lost...','s-connecting');
+    }
+  };
+  // Timeout: if not connected in 15s, find new stranger
+  connectTimeout=setTimeout(()=>{
+    if(peer&&peer.iceConnectionState!=='connected'&&peer.iceConnectionState!=='completed'){
+      sysMsg('Connection failed — finding new stranger...');
+      nextStranger();
+    }
+  },15000);
 }
 function closePeer(){if(peer){peer.close();peer=null;}document.getElementById('remote-audio').srcObject=null;stopWave();}
 
