@@ -1,440 +1,1003 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blindcall — Best Omegle Alternative | Free Anonymous Voice Chat</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Blindcall — Best Omegle Alternative | Free Anonymous Voice Chat</title>
+<meta name="description" content="Blindcall is the best free Omegle alternative in 2026. Anonymous voice calls with strangers worldwide. No camera, no account, no signup needed."/>
+<meta name="keywords" content="omegle alternative, anonymous voice chat, talk to strangers online, random voice chat, omegle replacement, free voice chat strangers, anonymous call, blindcall"/>
+<meta name="author" content="Blindcall"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://blindcall.in/"/>
+<meta property="og:title" content="Blindcall — Free Anonymous Voice Chat with Strangers"/>
+<meta property="og:description" content="Talk to random strangers worldwide. No camera, no account needed. The best Omegle alternative — free forever."/>
+<meta property="og:url" content="https://blindcall.in"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Blindcall — Anonymous Voice Chat"/>
+<meta name="twitter:description" content="Talk to strangers anonymously. No camera, no account. Free forever."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ─── TOKENS ─────────────────────────────────── */
+:root {
+  --ink: #0a0612;
+  --ink2: #130e20;
+  --ink3: #1c1630;
+  --rim: #241d38;
+  --rim2: #342850;
+  --mist: #6b5b8a;
+  --fog: #9580c0;
+  --snow: #f2eeff;
+  --violet: #7c3aed;
+  --violet-b: #6d28d9;
+  --rose: #e8185e;
+  --rose-b: #be0f4d;
+  --v-glow: rgba(124,58,237,0.18);
+  --r-glow: rgba(232,24,94,0.15);
+  --v-soft: rgba(124,58,237,0.10);
+  --r-soft: rgba(232,24,94,0.08);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { height:100%; scroll-behavior:smooth; }
+body {
+  background: var(--ink);
+  color: var(--snow);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  min-height: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Blindcall is the best free Omegle alternative in 2026. Anonymous voice calls with strangers worldwide. No camera, no account, no signup needed. Talk to random people instantly."/>
-  <meta name="keywords" content="omegle alternative, anonymous voice chat, talk to strangers online, random voice chat, omegle replacement, free voice chat strangers, anonymous call, blindcall"/>
-  <meta name="author" content="Blindcall"/>
-  <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://blindcall.in/"/>
+/* ─── AMBIENT LAYER ───────────────────────────── */
+.ambient {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.amb-blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); animation: blobDrift ease-in-out infinite;
+}
+.amb1 {
+  width: 60vw; height: 60vw; max-width: 360px; max-height: 360px;
+  background: radial-gradient(circle, rgba(124,58,237,0.22), transparent 70%);
+  top: -10%; right: -15%;
+  animation-duration: 14s;
+}
+.amb2 {
+  width: 50vw; height: 50vw; max-width: 300px; max-height: 300px;
+  background: radial-gradient(circle, rgba(232,24,94,0.16), transparent 70%);
+  bottom: 5%; left: -10%;
+  animation-duration: 11s; animation-direction: reverse;
+}
+.amb3 {
+  width: 40vw; height: 40vw; max-width: 240px; max-height: 240px;
+  background: radial-gradient(circle, rgba(124,58,237,0.12), transparent 70%);
+  bottom: 30%; right: 5%;
+  animation-duration: 17s; animation-delay: -4s;
+}
+@keyframes blobDrift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(-12px,16px) scale(1.04); }
+  66% { transform: translate(10px,-10px) scale(0.97); }
+}
 
-  <!-- Open Graph (WhatsApp, Facebook preview) -->
-  <meta property="og:title" content="Blindcall — Free Anonymous Voice Chat with Strangers"/>
-  <meta property="og:description" content="Talk to random strangers worldwide. No camera, no account needed. The best Omegle alternative — free forever."/>
-  <meta property="og:url" content="https://blindcall.in"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="Blindcall"/>
+/* noise grain overlay */
+.ambient::after {
+  content:''; position:absolute; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 160px;
+  opacity: 0.35;
+  pointer-events:none;
+}
 
-  <!-- Twitter Card (Twitter/X preview) -->
-  <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="Blindcall — Anonymous Voice Chat"/>
-  <meta name="twitter:description" content="Talk to strangers anonymously. No camera, no account. Free forever. blindcall.in"/>
-  <meta name="twitter:site" content="@blindcall"/>
-  <style>
-    :root{
-      --bg:#09010f;
-      --surface:#110a1e;
-      --surface2:#1a1028;
-      --border:#2a1540;
-      --border2:#3d1f5a;
-      --pink:#ff2d9b;
-      --purple:#9b30ff;
-      --pink-dim:rgba(255,45,155,0.15);
-      --purple-dim:rgba(155,48,255,0.15);
-      --text:#f0e6ff;
-      --text-mid:#8a6aaa;
-      --text-dim:#3d2555;
-    }
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden}
+/* ─── HEADER ──────────────────────────────────── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(10,6,18,0.80);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  border-bottom: 1px solid rgba(124,58,237,0.12);
+}
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem; font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(110deg, #b07fff 10%, var(--rose) 90%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hdr-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px;
+  background: var(--v-soft);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: 100px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.3px;
+  color: #b07fff;
+}
+.hdr-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #b07fff;
+  box-shadow: 0 0 6px #b07fff;
+  animation: breathe 2.2s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.3; transform:scale(0.5); }
+}
 
-    /* ===== PARTICLES ===== */
-    #particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-    .particle{position:absolute;border-radius:50%;animation:particleRise linear infinite;opacity:0}
-    @keyframes particleRise{
-      0%{transform:translateY(100vh) scale(0);opacity:0}
-      10%{opacity:1}
-      90%{opacity:0.4}
-      100%{transform:translateY(-100px) scale(1.5);opacity:0}
-    }
+/* ─── SCREENS ─────────────────────────────────── */
+#app { position:relative; z-index:5; padding-top:56px; }
+.screen { display:none; }
+.screen.active { display:flex; flex-direction:column; animation: scrIn .32s cubic-bezier(.16,1,.3,1) both; }
+@keyframes scrIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
 
-    /* Background glows */
-    .bg-glow{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
-    .glow1{width:500px;height:500px;background:radial-gradient(circle,rgba(155,48,255,0.12),transparent 70%);top:-100px;right:-100px;animation:floatGlow 10s ease-in-out infinite}
-    .glow2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,45,155,0.1),transparent 70%);bottom:-100px;left:-100px;animation:floatGlow 13s ease-in-out infinite reverse}
-    @keyframes floatGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+/* ═══════════════════════════════════════════════
+   HOME SCREEN
+═══════════════════════════════════════════════ */
+#home {
+  min-height: calc(100svh - 56px);
+  flex-direction: column;
+  align-items: stretch;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
 
-    /* ===== HEADER ===== */
-    header{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(9,1,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-    .logo{font-size:1.3rem;font-weight:900;letter-spacing:-1px}
-    .logo span{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .online-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--pink-dim);border:1px solid rgba(255,45,155,0.3);border-radius:100px;font-size:0.72rem;color:var(--pink)}
-    .dot{width:6px;height:6px;border-radius:50%;background:var(--pink);box-shadow:0 0 8px var(--pink);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.6)}}
+/* HERO BLOCK */
+.hero {
+  padding: 36px 24px 20px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 14px;
+  background: var(--v-soft);
+  border: 1px solid rgba(124,58,237,0.22);
+  border-radius: 100px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
+  color: #b07fff;
+}
+.hero-eyebrow-dot { width:5px; height:5px; border-radius:50%; background:var(--rose); }
+.hero-h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.4rem, 10vw, 4rem);
+  font-weight: 800;
+  line-height: 1.03;
+  letter-spacing: -1.5px;
+}
+.hero-h1 .hl { display:block; color: var(--snow); }
+.hero-h1 .hv {
+  display: block;
+  background: linear-gradient(110deg, #9f5fff 0%, var(--rose) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 24px rgba(232,24,94,0.3));
+}
+.hero-h1 .hm {
+  display: block;
+  color: var(--mist);
+  font-size: 0.5em;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0px;
+  margin-top: 6px;
+}
+.cursor {
+  display: inline-block; width: 2px; height: 0.75em;
+  background: var(--rose); margin-left: 3px; vertical-align: middle;
+  animation: blink .85s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ===== SCREENS ===== */
-    #app{position:relative;z-index:5;padding-top:60px}
-    .screen{display:none}
-    .screen.active{display:flex;flex-direction:column}
-    .screen.fade-in{animation:fadeIn 0.4s ease both}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* PROOF ROW */
+.proof-row {
+  display: flex; align-items: center; gap: 0;
+  margin: 0 24px;
+  background: var(--ink2);
+  border: 1px solid var(--rim);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.proof-cell {
+  flex: 1; text-align: center; padding: 14px 10px;
+}
+.proof-cell + .proof-cell { border-left: 1px solid var(--rim); }
+.proof-n {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem; font-weight: 800;
+  background: linear-gradient(135deg, #9f5fff, var(--rose));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.proof-l {
+  display: block;
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--mist); margin-top: 2px;
+}
 
-    /* ===== HOME ===== */
-    #home{min-height:calc(100vh - 60px);align-items:center;justify-content:center;text-align:center;padding:30px 20px;gap:24px}
-    .badge{display:inline-block;padding:6px 16px;background:var(--purple-dim);border:1px solid rgba(155,48,255,0.3);border-radius:100px;font-size:0.72rem;color:var(--purple);animation:fadeIn 0.6s ease both}
+/* ─── THE BIG CTA ─────────────────────────────
+   Psychology:
+   • Full-width = feels important, no room to miss
+   • Gradient pulse glow = urgency + excitement
+   • Two-line label (action + micro-benefit) = clarity
+   • Placed below proof = trust before ask
+   • Large tap target 72px tall = effortless thumb tap
+────────────────────────────────────────────── */
+.cta-block {
+  padding: 24px 20px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.btn-start {
+  width: 100%; max-width: 400px;
+  padding: 0 28px;
+  height: 72px;
+  background: linear-gradient(110deg, var(--violet), var(--rose) 120%);
+  border: none; border-radius: 20px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 1;
+  overflow: hidden;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.btn-start::before {
+  content: '';
+  position: absolute; inset: -3px;
+  background: linear-gradient(110deg, var(--violet), var(--rose));
+  border-radius: 22px; z-index: -1;
+  filter: blur(18px); opacity: 0.6;
+  animation: ctaGlow 2.8s ease-in-out infinite;
+}
+.btn-start::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  border-radius: 20px; pointer-events: none;
+}
+@keyframes ctaGlow {
+  0%,100% { opacity:.55; filter:blur(18px); }
+  50% { opacity:.9; filter:blur(28px); }
+}
+.btn-start:active { transform: scale(0.975); }
+.btn-start-left { display:flex; align-items:center; gap:14px; }
+.btn-start-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items:center; justify-content:center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.btn-start-copy { text-align:left; }
+.btn-start-main {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem; font-weight: 800; color: #fff;
+  letter-spacing: -0.2px;
+}
+.btn-start-sub {
+  display: block;
+  font-size: 0.68rem; font-weight: 500; color: rgba(255,255,255,0.65);
+  margin-top: 2px;
+}
+.btn-start-arrow {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items:center; justify-content:center;
+  font-size: 1rem; color:#fff;
+  flex-shrink: 0;
+}
 
-    /* Typing animation */
-    .hero-title{font-size:clamp(2.2rem,7vw,4.5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;min-height:3.2em}
-    .hero-title .line1{display:block;color:var(--text)}
-    .hero-title .line2{display:block;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(255,45,155,0.4))}
-    .hero-title .line3{display:block;color:var(--text);opacity:0.3}
-    .cursor{display:inline-block;width:3px;height:0.85em;background:var(--pink);margin-left:2px;vertical-align:middle;animation:blink 0.8s infinite}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+/* MICRO-TRUST — psychology: kills last-second hesitation */
+.micro-trust {
+  display: flex; align-items: center; gap: 16px;
+  font-size: 0.68rem; font-weight: 500; color: var(--mist);
+}
+.mt-item { display:flex; align-items:center; gap:4px; }
+.mt-item span:first-child { font-size:.8rem; }
 
-    .hero-sub{font-size:0.92rem;color:var(--text-mid);max-width:400px;line-height:1.7;animation:fadeIn 0.6s ease 0.3s both}
-    .stats{display:flex;gap:24px;align-items:center;animation:fadeIn 0.6s ease 0.4s both}
-    .stat{text-align:center}
-    .stat-n{font-size:1.3rem;font-weight:900;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
-    .stat-l{font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
-    .divider{width:1px;height:32px;background:var(--border2)}
+/* ─── COLLAPSIBLE OPTION CARDS ─────────────── */
+.opt-cards { display:flex; flex-direction:column; gap:8px; padding: 0 16px; }
+.opt-card {
+  background: var(--ink2);
+  border: 1px solid var(--rim);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.opt-card.expanded { border-color: rgba(124,58,237,0.3); }
+.opt-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+}
+.opt-head-l { display:flex; align-items:center; gap:10px; }
+.opt-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: var(--v-soft);
+  display:flex; align-items:center; justify-content:center; font-size:.95rem;
+}
+.opt-label {
+  font-size: .82rem; font-weight: 700; color: var(--snow);
+}
+.opt-sublabel {
+  font-size: .65rem; font-weight: 500; color: var(--mist);
+  margin-top: 1px;
+}
+.opt-chevron {
+  font-size: .7rem; color: var(--mist);
+  transition: transform .25s;
+}
+.opt-card.expanded .opt-chevron { transform: rotate(180deg); }
+.opt-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s cubic-bezier(.4,0,.2,1);
+}
+.opt-card.expanded .opt-body { max-height: 500px; }
+.opt-inner { padding: 4px 16px 16px; }
 
-    /* Interests */
-    .interests-section{width:100%;max-width:540px;animation:fadeIn 0.6s ease 0.5s both}
-    .section-label{font-size:0.7rem;color:#9b7fd4;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;text-align:left;font-weight:700}
-    .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
-    .tag{padding:10px 18px;border-radius:100px;border:2px solid rgba(155,48,255,0.7);background:rgba(155,48,255,0.18);color:#d4aaff;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.25s;letter-spacing:0.3px;box-shadow:0 2px 10px rgba(155,48,255,0.15)}
-    .tag:hover{border-color:var(--purple);background:rgba(155,48,255,0.3);color:#fff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(155,48,255,0.3)}
-    .tag.on{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,45,155,0.3),rgba(155,48,255,0.2));color:#fff;box-shadow:0 0 18px rgba(255,45,155,0.45);font-weight:800;text-shadow:0 0 10px rgba(255,45,155,0.5)}
-    .custom-row{display:flex;gap:8px}
-    .custom-input{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:9px 14px;color:var(--text);font-size:0.8rem;outline:none;transition:border-color 0.2s}
-    .custom-input:focus{border-color:rgba(155,48,255,0.5)}
-    .custom-input::placeholder{color:var(--text-dim)}
-    .btn-add{padding:9px 16px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;color:var(--purple);font-size:0.8rem;cursor:pointer;white-space:nowrap;transition:all 0.2s}
-    .btn-add:hover{border-color:var(--purple)}
+/* region pills */
+.region-wrap { display:flex; flex-wrap:wrap; gap:7px; }
+.region-pill {
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--rim2);
+  background: transparent;
+  color: var(--mist);
+  font-size: .78rem; font-weight: 600;
+  cursor: pointer;
+  transition: all .18s;
+  white-space: nowrap;
+}
+.region-pill.active {
+  border-color: var(--rose);
+  background: var(--r-soft);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(232,24,94,0.2);
+}
+.region-pill:active { transform: scale(.94); }
 
-    /* Glowing animated button */
-    .btn-start-wrap{position:relative;animation:fadeIn 0.6s ease 0.6s both}
-    .btn-start{position:relative;padding:16px 48px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;border-radius:14px;color:#fff;font-weight:900;font-size:1rem;cursor:pointer;transition:all 0.3s;z-index:1}
-    .btn-start::before{content:'';position:absolute;inset:-2px;border-radius:16px;background:linear-gradient(135deg,var(--purple),var(--pink));z-index:-1;filter:blur(12px);opacity:0.6;animation:glowPulse 2s ease-in-out infinite}
-    @keyframes glowPulse{0%,100%{opacity:0.6;filter:blur(12px)}50%{opacity:1;filter:blur(20px)}}
-    .btn-start:hover{transform:translateY(-3px) scale(1.03)}
-    .btn-start:active{transform:translateY(-1px) scale(1.01)}
-    .disclaimer{font-size:0.7rem;color:var(--text-dim);animation:fadeIn 0.6s ease 0.7s both}
-    .chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;padding:0 20px 40px;animation:fadeIn 0.6s ease 0.8s both}
-    .chip{display:flex;align-items:center;gap:7px;padding:8px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:0.76rem;color:var(--text-mid);transition:all 0.2s}
-    .chip:hover{border-color:var(--border2);color:var(--text)}
+/* interest tags */
+.tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+.tag {
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--rim2);
+  background: transparent;
+  color: var(--mist);
+  font-size: .78rem; font-weight: 600;
+  cursor: pointer;
+  transition: all .18s;
+}
+.tag.on {
+  border-color: var(--violet);
+  background: var(--v-soft);
+  color: #c4a0ff;
+  box-shadow: 0 0 12px rgba(124,58,237,0.2);
+}
+.tag:active { transform: scale(.94); }
+.custom-row { display:flex; gap:8px; margin-top:4px; }
+.custom-input {
+  flex:1; background:var(--ink3); border:1px solid var(--rim);
+  border-radius:10px; padding:9px 13px; color:var(--snow);
+  font-size:.8rem; outline:none; font-family:inherit;
+  transition: border-color .2s;
+}
+.custom-input::placeholder { color:var(--mist); }
+.custom-input:focus { border-color:rgba(124,58,237,.5); }
+.btn-add {
+  padding:9px 14px; background:var(--v-soft);
+  border:1px solid rgba(124,58,237,.3);
+  border-radius:10px; color:#b07fff;
+  font-size:.8rem; cursor:pointer; white-space:nowrap;
+  font-weight:700; font-family:inherit; transition:all .2s;
+}
+.btn-add:active { background:rgba(124,58,237,.2); }
 
-    /* ===== SEARCHING ===== */
-    #searching{min-height:calc(100vh - 60px);align-items:center;justify-content:center;gap:24px;text-align:center}
-    .spin-wrap{position:relative;width:120px;height:120px}
-    .spin-ring{position:absolute;inset:0;border-radius:50%;border:2px solid transparent}
-    .s1{border-top-color:var(--purple);animation:spin 1.4s linear infinite}
-    .s2{inset:16px;border-right-color:var(--pink);animation:spin 2s linear infinite reverse}
-    .s3{inset:32px;border-bottom-color:var(--purple);animation:spin 1s linear infinite}
-    .spin-center{position:absolute;inset:44px;background:var(--surface2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:1px solid var(--border2)}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .search-title{font-size:1.6rem;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .search-sub{font-size:0.8rem;color:var(--text-dim)}
-    .btn-cancel{padding:9px 22px;background:transparent;border:1px solid var(--border2);border-radius:10px;color:var(--text-dim);font-size:0.82rem;cursor:pointer;transition:all 0.2s}
-    .btn-cancel:hover{border-color:var(--pink);color:var(--pink)}
+/* ─── FEATURE STRIP ───────────────────────────── */
+.feat-strip {
+  padding: 16px 16px 4px;
+  display: flex; gap:8px; overflow-x:auto; scrollbar-width:none;
+}
+.feat-strip::-webkit-scrollbar { display:none; }
+.feat-chip {
+  display: flex; align-items:center; gap:6px;
+  padding: 8px 14px;
+  background: var(--ink2); border:1px solid var(--rim);
+  border-radius:10px; font-size:.7rem; font-weight:500;
+  color: var(--mist); white-space:nowrap; flex-shrink:0;
+}
+.feat-chip span:first-child { font-size:.85rem; }
 
-    /* ===== CHAT ===== */
-    #chat{min-height:calc(100vh - 60px);padding:16px;gap:14px}
-    .disc-bar{display:none;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,45,155,0.06);border:1px solid rgba(255,45,155,0.2);border-radius:10px;font-size:0.8rem;color:var(--pink)}
-    .disc-bar.show{display:flex}
-    .chat-grid{display:grid;grid-template-columns:1fr 340px;gap:14px;flex:1}
-    @media(max-width:780px){.chat-grid{grid-template-columns:1fr}}
-    .voice-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;overflow:hidden}
-    .voice-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--purple),var(--pink),transparent);opacity:0.5}
-    .status{padding:4px 12px;border-radius:100px;font-size:0.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:700}
-    .s-connecting{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(155,48,255,0.3)}
-    .s-connected{background:var(--pink-dim);color:var(--pink);border:1px solid rgba(255,45,155,0.3)}
-    .avatar-wrap{position:relative;width:110px;height:110px}
-    .avatar{width:100%;height:100%;border-radius:50%;background:var(--surface2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;z-index:2}
-    .ripple-wrap{position:absolute;inset:-14px;border-radius:50%}
-    .rr{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--pink);opacity:0}
-    .speaking .rr:nth-child(1){animation:rpl 2s ease-out infinite}
-    .speaking .rr:nth-child(2){animation:rpl 2s ease-out 0.4s infinite}
-    .speaking .rr:nth-child(3){animation:rpl 2s ease-out 0.8s infinite}
-    @keyframes rpl{0%{transform:scale(0.8);opacity:0.7}100%{transform:scale(1.9);opacity:0}}
-    .stranger-name{font-size:1.1rem;font-weight:900;letter-spacing:-0.5px}
-    .timer{font-size:0.85rem;font-weight:700;color:var(--text-dim);letter-spacing:2px}
-    .waveform{display:flex;align-items:center;gap:3px;height:44px}
-    .wb{width:4px;background:linear-gradient(to top,var(--purple),var(--pink));border-radius:3px;opacity:0.2;height:6px;transition:height 0.08s}
-    .wf-active .wb{opacity:0.9}
-    .mic-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .mic-btn{width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:all 0.2s}
-    .mic-on{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;box-shadow:0 0 22px rgba(255,45,155,0.4)}
-    .mic-muted{background:var(--surface2);color:var(--pink);border:1px solid rgba(255,45,155,0.4)}
-    .mic-label{font-size:0.68rem;color:var(--text-dim)}
-    .action-row{display:flex;gap:10px;width:100%}
-    .btn-next{flex:1;padding:11px;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;color:var(--text);font-weight:700;font-size:0.88rem;cursor:pointer;transition:all 0.2s}
-    .btn-next:hover{border-color:var(--purple);color:var(--purple)}
-    .btn-rep{padding:11px 16px;background:transparent;border:1px solid rgba(255,45,155,0.3);border-radius:11px;color:var(--pink);font-weight:700;font-size:0.88rem;cursor:pointer}
-    .chat-panel{background:var(--surface);border:1px solid var(--border);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;position:relative}
-    .chat-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--pink),var(--purple),transparent);opacity:0.5}
-    .chat-top{padding:14px 18px;border-bottom:1px solid var(--border);font-weight:700;font-size:0.88rem;display:flex;align-items:center;gap:8px}
-    .msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:260px;max-height:400px}
-    .msgs::-webkit-scrollbar{width:3px}
-    .msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-    .msg{max-width:82%;padding:9px 13px;border-radius:13px;font-size:0.82rem;line-height:1.5;word-break:break-word;animation:msgIn 0.2s ease both}
-    @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .msg.me{align-self:flex-end;background:linear-gradient(135deg,rgba(155,48,255,0.15),rgba(255,45,155,0.1));border:1px solid rgba(255,45,155,0.25);color:var(--pink);border-bottom-right-radius:3px}
-    .msg.them{align-self:flex-start;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-bottom-left-radius:3px}
-    .msg.sys{align-self:center;background:transparent;color:var(--text-dim);font-size:0.72rem;border:none;font-style:italic}
-    .chat-input-row{padding:10px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end}
-    .chat-ta{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:9px 13px;color:var(--text);font-size:0.82rem;outline:none;resize:none;font-family:inherit;transition:border-color 0.2s}
-    .chat-ta:focus{border-color:rgba(155,48,255,0.4)}
-    .chat-ta::placeholder{color:var(--text-dim)}
-    .send-btn{width:40px;height:40px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;border-radius:10px;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
-    .send-btn:hover{transform:scale(1.08);box-shadow:0 0 14px rgba(255,45,155,0.4)}
+/* ─── FOOTER ──────────────────────────────────── */
+.home-foot {
+  padding: 20px 24px calc(28px + var(--safe-bottom));
+  display: flex; flex-direction:column; align-items:center; gap:8px;
+  margin-top: auto;
+}
+.foot-links {
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;
+}
+.foot-links span {
+  font-size:.68rem; color:var(--mist); cursor:pointer; transition:color .2s;
+}
+.foot-links span:hover { color:#b07fff; }
+.foot-links .dot { color:var(--rim2); cursor:default; }
+.foot-copy { font-size:.62rem; color:var(--rim2); }
 
-    /* ===== MODAL ===== */
-    .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px}
-    .modal-bg.open{display:flex}
-    .modal{background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:28px;max-width:400px;width:100%;animation:fadeIn 0.3s ease both}
-    .modal-title{font-size:1.2rem;font-weight:900;color:var(--pink);margin-bottom:6px}
-    .modal-sub{font-size:0.8rem;color:var(--text-dim);margin-bottom:18px;line-height:1.6}
-    .report-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
-    .ropt{padding:10px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:9px;color:var(--text-mid);cursor:pointer;font-size:0.82rem;text-align:left;transition:all 0.2s;font-family:inherit}
-    .ropt:hover,.ropt.on{border-color:var(--pink);color:var(--pink);background:var(--pink-dim)}
-    .modal-btns{display:flex;gap:10px;justify-content:flex-end}
-    .btn-mcancel{padding:9px 18px;background:transparent;border:1px solid var(--border2);border-radius:9px;color:var(--text-dim);font-size:0.82rem;cursor:pointer;font-family:inherit}
-    .btn-mrep{padding:9px 18px;background:var(--pink-dim);border:1px solid var(--pink);border-radius:9px;color:var(--pink);font-weight:700;font-size:0.82rem;cursor:pointer;font-family:inherit}
+/* ═══════════════════════════════════════════════
+   SEARCHING SCREEN
+═══════════════════════════════════════════════ */
+#searching {
+  min-height: calc(100svh - 56px);
+  align-items: center; justify-content: center;
+  gap: 24px; text-align: center; padding: 32px 24px;
+}
+.spin-wrap { position:relative; width:110px; height:110px; }
+.sr {
+  position:absolute; inset:0; border-radius:50%;
+  border:2px solid transparent;
+}
+.sr1 { border-top-color:var(--violet); animation:spin 1.4s linear infinite; }
+.sr2 { inset:15px; border-right-color:var(--rose); animation:spin 2.1s linear infinite reverse; }
+.sr3 { inset:30px; border-bottom-color:var(--violet); animation:spin 1s linear infinite; }
+.sc {
+  position:absolute; inset:42px;
+  background:var(--ink2); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.2rem; border:1px solid var(--rim);
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+.srch-title {
+  font-family:'Syne',sans-serif;
+  font-size:1.6rem; font-weight:800; letter-spacing:-.5px;
+  background: linear-gradient(110deg,#9f5fff,var(--rose));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.srch-sub { font-size:.78rem; color:var(--mist); max-width:240px; line-height:1.65; }
+.btn-cancel {
+  padding:11px 28px;
+  background:transparent; border:1.5px solid var(--rim2);
+  border-radius:14px; color:var(--mist);
+  font-size:.84rem; font-weight:600; cursor:pointer;
+  font-family:inherit; transition:all .2s;
+}
+.btn-cancel:active { background:var(--ink2); }
 
-    /* ===== TOAST ===== */
-    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 20px;font-size:0.8rem;z-index:300;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap}
-    .toast.show{transform:translateX(-50%) translateY(0)}
-    .toast.ok{border-color:var(--purple);color:var(--purple)}
-    .toast.err{border-color:var(--pink);color:var(--pink)}
-    audio{display:none}
+/* ═══════════════════════════════════════════════
+   CHAT SCREEN
+═══════════════════════════════════════════════ */
+#chat {
+  min-height: calc(100svh - 56px);
+  display: none; flex-direction:column;
+}
+#chat.active { display:flex; animation: scrIn .32s cubic-bezier(.16,1,.3,1) both; }
 
-    /* Region selector */
-    .region-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-    .region-pill{padding:8px 14px;border-radius:100px;border:2px solid rgba(155,48,255,0.4);background:rgba(155,48,255,0.08);color:#b090dd;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}
-    .region-pill:hover{border-color:var(--purple);background:rgba(155,48,255,0.2);color:#fff;transform:translateY(-1px)}
-    .region-pill.active{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,45,155,0.25),rgba(155,48,255,0.15));color:#fff;box-shadow:0 0 14px rgba(255,45,155,0.35);font-weight:700}
+/* disconnected bar */
+.disc-bar {
+  display:none; align-items:center; justify-content:space-between;
+  padding: 10px 16px;
+  background: rgba(232,24,94,.06);
+  border-bottom: 1px solid rgba(232,24,94,.18);
+  font-size: .76rem; color: var(--rose); flex-shrink:0;
+}
+.disc-bar.show { display:flex; }
+.btn-disc-next {
+  padding:5px 14px;
+  background: var(--r-soft); border:1px solid rgba(232,24,94,.3);
+  border-radius:8px; color:var(--rose);
+  font-size:.72rem; font-weight:700; cursor:pointer; font-family:inherit;
+}
 
-    /* Footer */
-    .footer-links{display:flex;gap:10px;align-items:center;font-size:11px;color:var(--text-dim);padding-bottom:20px;flex-wrap:wrap;justify-content:center}
-    .footer-links span{cursor:pointer;transition:color 0.2s}
-    .footer-links span:hover{color:var(--purple)}
-    .footer-dot{cursor:default!important}
-    /* Legal modal */
-    .legal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:500;align-items:center;justify-content:center;padding:20px}
-    .legal-bg.open{display:flex}
-    .legal-box{background:#110a1e;border:1px solid var(--border2);border-radius:18px;max-width:600px;width:100%;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;animation:fadeIn 0.3s ease both}
-    .legal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border)}
-    .legal-title{font-size:1rem;font-weight:700;color:var(--text)}
-    .legal-close{background:transparent;border:1px solid var(--border2);border-radius:8px;color:var(--text-mid);width:32px;height:32px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
-    .legal-body{overflow-y:auto;padding:24px;font-size:13px;color:var(--text-mid);line-height:1.8}
-    .legal-body h2{font-size:0.9rem;font-weight:700;color:var(--text);margin:20px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
-    .legal-body h2:first-child{margin-top:0}
-    .legal-body p{margin-bottom:10px}
-    .legal-body ul{margin:6px 0 10px 18px;display:flex;flex-direction:column;gap:4px}
-    .legal-body li{list-style:disc}
-    .legal-body::-webkit-scrollbar{width:4px}
-    .legal-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-  </style>
+/* VOICE ZONE — psychology: big centered avatar = emotional presence,
+   waveform = live signal of connection */
+.voice-zone {
+  flex-shrink:0;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  padding: 24px 20px 18px;
+  position:relative; overflow:hidden;
+  background: linear-gradient(180deg, var(--ink2) 0%, transparent 100%);
+  border-bottom: 1px solid var(--rim);
+}
+.voice-zone::before {
+  content:'';
+  position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+  width:280px; height:280px; border-radius:50%;
+  background:radial-gradient(circle, rgba(124,58,237,0.14), transparent 70%);
+  pointer-events:none;
+}
+.vstatus {
+  padding:3px 12px; border-radius:100px;
+  font-size:.6rem; text-transform:uppercase; letter-spacing:2px; font-weight:700;
+}
+.s-connecting { background:var(--v-soft); color:#b07fff; border:1px solid rgba(124,58,237,.25); }
+.s-connected { background:var(--r-soft); color:var(--rose); border:1px solid rgba(232,24,94,.25); }
+
+.avatar-wrap { position:relative; width:96px; height:96px; }
+.avatar {
+  width:100%; height:100%; border-radius:50%;
+  background: var(--ink3);
+  border:2px solid var(--rim2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:2.4rem; position:relative; z-index:2;
+}
+.ripple-wrap { position:absolute; inset:-14px; border-radius:50%; }
+.rr { position:absolute; inset:0; border-radius:50%; border:1.5px solid var(--rose); opacity:0; }
+.speaking .rr:nth-child(1) { animation:rpl 2.1s ease-out infinite; }
+.speaking .rr:nth-child(2) { animation:rpl 2.1s ease-out .42s infinite; }
+.speaking .rr:nth-child(3) { animation:rpl 2.1s ease-out .84s infinite; }
+@keyframes rpl { 0%{transform:scale(.82);opacity:.7} 100%{transform:scale(1.9);opacity:0} }
+
+.stranger-label { font-family:'Syne',sans-serif; font-size:.95rem; font-weight:800; }
+.timer { font-size:.72rem; font-weight:600; color:var(--mist); letter-spacing:3px; }
+.waveform { display:flex; align-items:center; gap:3px; height:32px; }
+.wb {
+  width:3px; background:linear-gradient(to top, var(--violet), var(--rose));
+  border-radius:2px; opacity:.12; height:4px; transition:height .08s;
+}
+.wf-active .wb { opacity:.9; }
+
+/* CONTROLS — psychology:
+   • MIC is biggest (primary action, center)
+   • NEXT to the left (natural flow L→R, "move on")
+   • REPORT right side (secondary, non-urgent)
+   • All within natural thumb arc at bottom of voice zone */
+.controls {
+  flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; gap:20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rim);
+}
+.ctrl-group { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.ctrl-lbl { font-size:.58rem; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:var(--mist); }
+/* MIC — primary, large */
+.btn-mic {
+  width:68px; height:68px; border-radius:50%;
+  border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; font-size:1.7rem;
+  transition:all .18s; flex-shrink:0;
+  position:relative;
+}
+.mic-on {
+  background:linear-gradient(135deg,var(--violet),var(--rose));
+  box-shadow:0 0 24px rgba(232,24,94,.35), 0 4px 16px rgba(124,58,237,.35);
+}
+.mic-on::before {
+  content:'';
+  position:absolute;inset:-4px;border-radius:50%;
+  background:linear-gradient(135deg,var(--violet),var(--rose));
+  z-index:-1; filter:blur(10px); opacity:.45;
+  animation:micGlow 2s ease-in-out infinite;
+}
+@keyframes micGlow { 0%,100%{opacity:.4}50%{opacity:.7} }
+.mic-muted { background:var(--ink3); border:1.5px solid rgba(232,24,94,.4); }
+.btn-mic:active { transform:scale(.9); }
+/* secondary controls */
+.btn-ctrl {
+  width:54px; height:54px; border-radius:50%;
+  background:var(--ink2); border:1.5px solid var(--rim2);
+  color:var(--snow); font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .18s; flex-shrink:0;
+}
+.btn-ctrl:active { transform:scale(.9); background:var(--ink3); }
+.ctrl-next { border-color:rgba(124,58,237,.35); color:#b07fff; }
+.ctrl-rep { border-color:rgba(232,24,94,.25); color:var(--rose); }
+
+/* CHAT PANEL */
+.chat-panel {
+  flex:1; display:flex; flex-direction:column; min-height:0;
+  background:var(--ink);
+}
+.chat-top {
+  padding:10px 16px; border-bottom:1px solid var(--rim);
+  font-size:.76rem; font-weight:700; color:var(--mist);
+  display:flex; align-items:center; gap:6px; flex-shrink:0;
+  background:var(--ink);
+}
+.msgs {
+  flex:1; overflow-y:auto;
+  padding:12px 14px; display:flex; flex-direction:column; gap:7px;
+  -webkit-overflow-scrolling:touch;
+}
+.msgs::-webkit-scrollbar { width:2px; }
+.msgs::-webkit-scrollbar-thumb { background:var(--rim); border-radius:2px; }
+.msg {
+  max-width:80%; padding:9px 13px; border-radius:14px;
+  font-size:.82rem; line-height:1.5; word-break:break-word;
+  animation:msgIn .2s ease both;
+}
+@keyframes msgIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.msg.me {
+  align-self:flex-end;
+  background:linear-gradient(135deg,rgba(124,58,237,.22),rgba(232,24,94,.12));
+  border:1px solid rgba(232,24,94,.18); color:#e0b0ff;
+  border-bottom-right-radius:3px;
+}
+.msg.them {
+  align-self:flex-start;
+  background:var(--ink2); border:1px solid var(--rim);
+  color:var(--snow); border-bottom-left-radius:3px;
+}
+.msg.sys {
+  align-self:center; background:transparent;
+  color:var(--mist); font-size:.7rem; border:none; font-style:italic;
+}
+.chat-input-row {
+  padding:10px 12px; border-top:1px solid var(--rim);
+  display:flex; gap:8px; align-items:flex-end; flex-shrink:0;
+  background:var(--ink2);
+  padding-bottom: calc(10px + var(--safe-bottom));
+}
+.chat-ta {
+  flex:1; background:var(--ink3); border:1px solid var(--rim);
+  border-radius:13px; padding:10px 14px; color:var(--snow);
+  font-size:.85rem; outline:none; resize:none; font-family:inherit;
+  max-height:90px; line-height:1.4; transition:border-color .2s;
+}
+.chat-ta:focus { border-color:rgba(124,58,237,.45); }
+.chat-ta::placeholder { color:var(--mist); }
+.send-btn {
+  width:44px; height:44px;
+  background:linear-gradient(135deg,var(--violet),var(--rose));
+  border:none; border-radius:13px; cursor:pointer; color:#fff; font-size:1rem;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; transition:all .18s;
+}
+.send-btn:active { transform:scale(.9); }
+
+/* ─── REPORT SHEET ────────────────────────────── */
+.modal-bg {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,.85); backdrop-filter:blur(10px);
+  z-index:200; align-items:flex-end; justify-content:center;
+}
+.modal-bg.open { display:flex; }
+.modal {
+  background:var(--ink2); border:1px solid var(--rim2);
+  border-radius:24px 24px 0 0;
+  padding:20px 20px calc(28px + var(--safe-bottom));
+  width:100%; max-width:500px;
+  animation:slideUp .3s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.modal-handle { width:36px; height:4px; background:var(--rim2); border-radius:2px; margin:0 auto 20px; }
+.modal-title { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:var(--rose); margin-bottom:4px; }
+.modal-sub { font-size:.77rem; color:var(--mist); margin-bottom:16px; line-height:1.6; }
+.report-opts { display:flex; flex-direction:column; gap:7px; margin-bottom:16px; }
+.ropt {
+  padding:13px 15px; background:var(--ink3); border:1px solid var(--rim);
+  border-radius:12px; color:var(--mist); cursor:pointer;
+  font-size:.82rem; text-align:left; transition:all .18s;
+  font-family:inherit; font-weight:500;
+}
+.ropt.on { border-color:var(--rose); color:var(--rose); background:var(--r-soft); }
+.modal-btns { display:flex; gap:10px; }
+.btn-mcancel {
+  flex:1; padding:13px; background:var(--ink3); border:1px solid var(--rim);
+  border-radius:13px; color:var(--mist); font-size:.84rem;
+  cursor:pointer; font-family:inherit; font-weight:600; transition:all .2s;
+}
+.btn-mrep {
+  flex:1; padding:13px; background:var(--r-soft); border:1px solid rgba(232,24,94,.35);
+  border-radius:13px; color:var(--rose); font-weight:700;
+  font-size:.84rem; cursor:pointer; font-family:inherit; transition:all .2s;
+}
+
+/* ─── TOAST ───────────────────────────────────── */
+.toast {
+  position:fixed; bottom:24px; left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--ink2); border:1px solid var(--rim2);
+  border-radius:14px; padding:11px 22px; font-size:.8rem; z-index:300;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  white-space:nowrap; font-weight:600;
+}
+.toast.show { transform:translateX(-50%) translateY(0); }
+.toast.ok { border-color:var(--violet); color:#b07fff; }
+.toast.err { border-color:var(--rose); color:var(--rose); }
+audio { display:none; }
+
+/* ─── LEGAL SHEET ─────────────────────────────── */
+.legal-bg {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,.9); backdrop-filter:blur(12px);
+  z-index:500; align-items:flex-end; justify-content:center;
+}
+.legal-bg.open { display:flex; }
+.legal-box {
+  background:var(--ink2); border:1px solid var(--rim2);
+  border-radius:24px 24px 0 0;
+  width:100%; max-width:600px; max-height:88svh;
+  display:flex; flex-direction:column;
+  animation:slideUp .3s cubic-bezier(.16,1,.3,1) both;
+  position:relative;
+}
+.legal-handlebar {
+  width:36px; height:4px; background:var(--rim2); border-radius:2px;
+  position:absolute; top:10px; left:50%; transform:translateX(-50%);
+}
+.legal-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 20px 16px; border-bottom:1px solid var(--rim); flex-shrink:0;
+}
+.legal-title { font-size:.95rem; font-weight:700; color:var(--snow); }
+.legal-close {
+  background:transparent; border:1px solid var(--rim2); border-radius:9px;
+  color:var(--mist); width:32px; height:32px; cursor:pointer;
+  font-size:13px; display:flex; align-items:center; justify-content:center;
+  font-family:inherit; transition:all .2s;
+}
+.legal-close:active { background:var(--ink3); }
+.legal-body {
+  overflow-y:auto; padding:20px; font-size:13px;
+  color:var(--mist); line-height:1.8;
+  -webkit-overflow-scrolling:touch;
+}
+.legal-body h2 { font-size:.85rem; font-weight:700; color:var(--snow); margin:18px 0 6px; padding-bottom:4px; border-bottom:1px solid var(--rim); }
+.legal-body h2:first-child { margin-top:0; }
+.legal-body p { margin-bottom:10px; }
+.legal-body ul { margin:6px 0 10px 16px; display:flex; flex-direction:column; gap:4px; }
+.legal-body li { list-style:disc; }
+.legal-body::-webkit-scrollbar { width:3px; }
+.legal-body::-webkit-scrollbar-thumb { background:var(--rim2); border-radius:2px; }
+</style>
 </head>
 <body>
 
-<!-- Particles -->
-<div id="particles"></div>
-
-<!-- Background glows -->
-<div class="bg-glow glow1"></div>
-<div class="bg-glow glow2"></div>
+<div class="ambient">
+  <div class="amb-blob amb1"></div>
+  <div class="amb-blob amb2"></div>
+  <div class="amb-blob amb3"></div>
+</div>
 
 <header>
-  <div class="logo">Blind<span>call</span></div>
-
+  <div class="logo">Blindcall</div>
+  <div class="hdr-pill"><div class="hdr-dot"></div>Anonymous</div>
 </header>
 
 <div id="app">
 
-  <!-- HOME -->
-  <div id="home" class="screen active">
-    <div class="badge">✦ No face. No name. Just your voice.</div>
+<!-- ═══ HOME ═══ -->
+<div id="home" class="screen active">
 
-    <h1 class="hero-title">
-      <span class="line1" id="line1">Call a stranger.</span>
-      <span class="line2" id="line2">Blindly.</span>
-      <span class="line3" id="line3">Anonymously.</span>
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      No face · No name · Just voice
+    </div>
+    <h1 class="hero-h1">
+      <span class="hl" id="line1">Call a stranger.</span>
+      <span class="hv" id="line2">Blindly.</span>
+      <span class="hm" id="line3">Anonymously.</span>
     </h1>
+  </div>
 
-    <p class="hero-sub">Random anonymous voice calls with strangers worldwide. No account, no camera — just your voice in the dark.</p>
-
-    <div class="stats">
-      <div class="stat">
-        <span class="stat-n">100%</span>
-        <span class="stat-l">Anonymous</span>
-      </div>
-      <div class="divider"></div>
-      <div class="stat">
-        <span class="stat-n">Free</span>
-        <span class="stat-l">Forever</span>
-      </div>
-      <div class="divider"></div>
-      <div class="stat">
-        <span class="stat-n">🌍</span>
-        <span class="stat-l">Worldwide</span>
-      </div>
+  <!-- SOCIAL PROOF — psychology: numbers build trust before the ask -->
+  <div class="proof-row">
+    <div class="proof-cell">
+      <span class="proof-n">100%</span>
+      <span class="proof-l">Anonymous</span>
     </div>
-
-    <!-- REGION SELECTOR -->
-    <div class="interests-section" style="margin-bottom:0">
-      <div class="section-label">Match by region (optional)</div>
-      <div class="region-wrap" id="region-wrap">
-        <div class="region-pill active" data-region="anywhere">🌍 Anywhere</div>
-        <div class="region-pill" data-region="IN">🇮🇳 India</div>
-        <div class="region-pill" data-region="US">🇺🇸 USA</div>
-        <div class="region-pill" data-region="GB">🇬🇧 UK</div>
-        <div class="region-pill" data-region="PK">🇵🇰 Pakistan</div>
-        <div class="region-pill" data-region="BD">🇧🇩 Bangladesh</div>
-        <div class="region-pill" data-region="AE">🇦🇪 UAE</div>
-        <div class="region-pill" data-region="CA">🇨🇦 Canada</div>
-        <div class="region-pill" data-region="AU">🇦🇺 Australia</div>
-        <div class="region-pill" data-region="DE">🇩🇪 Germany</div>
-        <div class="region-pill" data-region="FR">🇫🇷 France</div>
-        <div class="region-pill" data-region="BR">🇧🇷 Brazil</div>
-        <div class="region-pill" data-region="NG">🇳🇬 Nigeria</div>
-        <div class="region-pill" data-region="PH">🇵🇭 Philippines</div>
-        <div class="region-pill" data-region="ID">🇮🇩 Indonesia</div>
-        <div class="region-pill" data-region="TR">🇹🇷 Turkey</div>
-        <div class="region-pill" data-region="MX">🇲🇽 Mexico</div>
-      </div>
+    <div class="proof-cell">
+      <span class="proof-n">Free</span>
+      <span class="proof-l">Forever</span>
     </div>
-
-    <div class="interests-section">
-      <div class="section-label">Match by interest (optional)</div>
-      <div class="tags" id="tags">
-        <div class="tag" data-tag="music">🎵 Music</div>
-        <div class="tag" data-tag="gaming">🎮 Gaming</div>
-        <div class="tag" data-tag="movies">🎬 Movies</div>
-        <div class="tag" data-tag="sports">⚽ Sports</div>
-        <div class="tag" data-tag="tech">💻 Tech</div>
-        <div class="tag" data-tag="art">🎨 Art</div>
-        <div class="tag" data-tag="travel">✈️ Travel</div>
-        <div class="tag" data-tag="food">🍜 Food</div>
-        <div class="tag" data-tag="anime">⛩️ Anime</div>
-        <div class="tag" data-tag="fitness">💪 Fitness</div>
-        <div class="tag" data-tag="books">📚 Books</div>
-        <div class="tag" data-tag="language">🗣️ Language</div>
-      </div>
-      <div class="custom-row">
-        <input class="custom-input" id="custom-input" type="text" placeholder="Add your interest..." maxlength="20"/>
-        <button class="btn-add" id="btn-add">+ Add</button>
-      </div>
-    </div>
-
-    <div class="btn-start-wrap">
-      <button class="btn-start" id="start-btn">📞 Start Blind Call</button>
-    </div>
-    <span class="disclaimer">No signup · No camera · Free forever</span>
-
-    <div class="chips">
-      <div class="chip">🙈 No Camera</div>
-      <div class="chip">🎙️ Voice Only</div>
-      <div class="chip">🎭 Anonymous</div>
-      <div class="chip">💬 Live Chat</div>
-      <div class="chip">⏭️ Skip Anytime</div>
-      <div class="chip">🌍 Worldwide</div>
-    </div>
-
-    <!-- Footer links -->
-    <div class="footer-links">
-      <span onclick="openAbout()">About Us</span>
-      <span class="footer-dot">·</span>
-      <span onclick="openLegal('tos')">Terms of Service</span>
-      <span class="footer-dot">·</span>
-      <span onclick="openLegal('pp')">Privacy Policy</span>
-      <span class="footer-dot">·</span>
-      <span>© 2026 Blindcall</span>
+    <div class="proof-cell">
+      <span class="proof-n">🌍</span>
+      <span class="proof-l">Worldwide</span>
     </div>
   </div>
 
-  <!-- LEGAL MODAL -->
-  <div class="legal-bg" id="legal-modal">
-    <div class="legal-box">
-      <div class="legal-header">
-        <div class="legal-title" id="legal-title">Terms of Service</div>
-        <button class="legal-close" id="legal-close">✕</button>
+  <!-- THE BIG CTA — right after proof, max conversion spot -->
+  <div class="cta-block">
+    <button class="btn-start" id="start-btn">
+      <div class="btn-start-left">
+        <div class="btn-start-icon">📞</div>
+        <div class="btn-start-copy">
+          <span class="btn-start-main">Start Blind Call</span>
+          <span class="btn-start-sub">Instant · No signup</span>
+        </div>
       </div>
-      <div class="legal-body" id="legal-body"></div>
+      <div class="btn-start-arrow">→</div>
+    </button>
+    <!-- MICRO-TRUST kills hesitation -->
+    <div class="micro-trust">
+      <div class="mt-item"><span>🙈</span><span>No Camera</span></div>
+      <div class="mt-item"><span>🎭</span><span>Anonymous</span></div>
+      <div class="mt-item"><span>🆓</span><span>Free</span></div>
     </div>
   </div>
 
-  <!-- SEARCHING -->
-  <div id="searching" class="screen">
-    <div class="spin-wrap">
-      <div class="spin-ring s1"></div>
-      <div class="spin-ring s2"></div>
-      <div class="spin-ring s3"></div>
-      <div class="spin-center">📞</div>
-    </div>
-    <div class="search-title">Finding stranger...</div>
-    <p class="search-sub">Matching you with someone worldwide</p>
-    <button class="btn-cancel" id="btn-cancel">Cancel</button>
-  </div>
+  <!-- OPTIONS — collapsed by default, clean -->
+  <div class="opt-cards">
 
-  <!-- CHAT -->
-  <div id="chat" class="screen">
-    <div id="disc-bar" class="disc-bar">
-      <span>⚠️ Stranger disconnected</span>
-      <button class="btn-next" id="disc-next" style="width:auto;padding:5px 14px;font-size:0.78rem">Find New →</button>
-    </div>
-    <div class="chat-grid">
-      <div class="voice-card">
-        <div id="vstatus" class="status s-connecting">Connecting...</div>
-        <div class="avatar-wrap">
-          <div class="avatar">🎭</div>
-          <div class="ripple-wrap" id="ripple">
-            <div class="rr"></div>
-            <div class="rr"></div>
-            <div class="rr"></div>
+    <div class="opt-card" id="region-card">
+      <div class="opt-head" id="region-head">
+        <div class="opt-head-l">
+          <div class="opt-icon">🌍</div>
+          <div>
+            <div class="opt-label">Region</div>
+            <div class="opt-sublabel" id="region-sublabel">Anywhere in the world</div>
           </div>
         </div>
-        <div class="stranger-name">Anonymous Stranger</div>
-        <div class="timer" id="timer">00:00</div>
-        <div class="waveform" id="waveform">
-          <div class="wb" style="height:6px"></div>
-          <div class="wb" style="height:14px"></div>
-          <div class="wb" style="height:22px"></div>
-          <div class="wb" style="height:9px"></div>
-          <div class="wb" style="height:18px"></div>
-          <div class="wb" style="height:6px"></div>
-          <div class="wb" style="height:14px"></div>
-          <div class="wb" style="height:22px"></div>
-          <div class="wb" style="height:9px"></div>
-          <div class="wb" style="height:16px"></div>
-          <div class="wb" style="height:7px"></div>
-          <div class="wb" style="height:20px"></div>
-        </div>
-        <div class="mic-wrap">
-          <button class="mic-btn mic-on" id="mic-btn">🎙️</button>
-          <span class="mic-label" id="mic-label">Tap to mute</span>
-        </div>
-        <div class="action-row">
-          <button class="btn-next" id="btn-next">⏭ Next Stranger</button>
-          <button class="btn-rep" id="btn-rep">⚑</button>
-        </div>
+        <span class="opt-chevron">▼</span>
       </div>
-      <div class="chat-panel">
-        <div class="chat-top">💬 Live Chat</div>
-        <div class="msgs" id="msgs">
-          <div class="msg sys">Connected! Say hello 👋</div>
-        </div>
-        <div class="chat-input-row">
-          <textarea class="chat-ta" id="chat-input" placeholder="Type a message..." rows="1"></textarea>
-          <button class="send-btn" id="send-btn">➤</button>
+      <div class="opt-body">
+        <div class="opt-inner">
+          <div class="region-wrap" id="region-wrap">
+            <div class="region-pill active" data-region="anywhere">🌍 Anywhere</div>
+            <div class="region-pill" data-region="IN">🇮🇳 India</div>
+            <div class="region-pill" data-region="US">🇺🇸 USA</div>
+            <div class="region-pill" data-region="GB">🇬🇧 UK</div>
+            <div class="region-pill" data-region="PK">🇵🇰 Pakistan</div>
+            <div class="region-pill" data-region="BD">🇧🇩 Bangladesh</div>
+            <div class="region-pill" data-region="AE">🇦🇪 UAE</div>
+            <div class="region-pill" data-region="CA">🇨🇦 Canada</div>
+            <div class="region-pill" data-region="AU">🇦🇺 Australia</div>
+            <div class="region-pill" data-region="DE">🇩🇪 Germany</div>
+            <div class="region-pill" data-region="FR">🇫🇷 France</div>
+            <div class="region-pill" data-region="BR">🇧🇷 Brazil</div>
+            <div class="region-pill" data-region="NG">🇳🇬 Nigeria</div>
+            <div class="region-pill" data-region="PH">🇵🇭 Philippines</div>
+            <div class="region-pill" data-region="ID">🇮🇩 Indonesia</div>
+            <div class="region-pill" data-region="TR">🇹🇷 Turkey</div>
+            <div class="region-pill" data-region="MX">🇲🇽 Mexico</div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="opt-card" id="interest-card">
+      <div class="opt-head" id="interest-head">
+        <div class="opt-head-l">
+          <div class="opt-icon">🎯</div>
+          <div>
+            <div class="opt-label">Interests</div>
+            <div class="opt-sublabel">Match with people like you</div>
+          </div>
+        </div>
+        <span class="opt-chevron">▼</span>
+      </div>
+      <div class="opt-body">
+        <div class="opt-inner">
+          <div class="tags" id="tags">
+            <div class="tag" data-tag="music">🎵 Music</div>
+            <div class="tag" data-tag="gaming">🎮 Gaming</div>
+            <div class="tag" data-tag="movies">🎬 Movies</div>
+            <div class="tag" data-tag="sports">⚽ Sports</div>
+            <div class="tag" data-tag="tech">💻 Tech</div>
+            <div class="tag" data-tag="art">🎨 Art</div>
+            <div class="tag" data-tag="travel">✈️ Travel</div>
+            <div class="tag" data-tag="food">🍜 Food</div>
+            <div class="tag" data-tag="anime">⛩️ Anime</div>
+            <div class="tag" data-tag="fitness">💪 Fitness</div>
+            <div class="tag" data-tag="books">📚 Books</div>
+            <div class="tag" data-tag="language">🗣️ Language</div>
+          </div>
+          <div class="custom-row">
+            <input class="custom-input" id="custom-input" type="text" placeholder="Add your own..." maxlength="20"/>
+            <button class="btn-add" id="btn-add">+ Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
+  <!-- FEATURE STRIP -->
+  <div class="feat-strip">
+    <div class="feat-chip"><span>🙈</span>No Camera</div>
+    <div class="feat-chip"><span>🎙️</span>Voice Only</div>
+    <div class="feat-chip"><span>🎭</span>Anonymous</div>
+    <div class="feat-chip"><span>💬</span>Live Chat</div>
+    <div class="feat-chip"><span>⏭️</span>Skip Anytime</div>
+    <div class="feat-chip"><span>🔒</span>Encrypted</div>
+  </div>
+
+  <div class="home-foot">
+    <div class="foot-links">
+      <span onclick="openAbout()">About</span>
+      <span class="dot">·</span>
+      <span onclick="openLegal('tos')">Terms</span>
+      <span class="dot">·</span>
+      <span onclick="openLegal('pp')">Privacy</span>
+    </div>
+    <div class="foot-copy">© 2026 Blindcall</div>
+  </div>
 </div>
 
-<!-- Modal -->
+<!-- LEGAL SHEET -->
+<div class="legal-bg" id="legal-modal">
+  <div class="legal-box">
+    <div class="legal-handlebar"></div>
+    <div class="legal-header">
+      <div class="legal-title" id="legal-title">Terms of Service</div>
+      <button class="legal-close" id="legal-close">✕</button>
+    </div>
+    <div class="legal-body" id="legal-body"></div>
+  </div>
+</div>
+
+<!-- ═══ SEARCHING ═══ -->
+<div id="searching" class="screen">
+  <div class="spin-wrap">
+    <div class="sr sr1"></div>
+    <div class="sr sr2"></div>
+    <div class="sr sr3"></div>
+    <div class="sc">📞</div>
+  </div>
+  <div class="srch-title">Finding stranger...</div>
+  <p class="srch-sub">Matching you with someone in the world right now</p>
+  <button class="btn-cancel" id="btn-cancel">Cancel</button>
+</div>
+
+<!-- ═══ CHAT ═══ -->
+<div id="chat" class="screen">
+
+  <div id="disc-bar" class="disc-bar">
+    <span>⚠️ Stranger disconnected</span>
+    <button class="btn-disc-next" id="disc-next">Find New →</button>
+  </div>
+
+  <div class="voice-zone">
+    <div id="vstatus" class="vstatus s-connecting">Connecting...</div>
+    <div class="avatar-wrap">
+      <div class="avatar">🎭</div>
+      <div class="ripple-wrap" id="ripple">
+        <div class="rr"></div><div class="rr"></div><div class="rr"></div>
+      </div>
+    </div>
+    <div class="stranger-label">Anonymous Stranger</div>
+    <div class="timer" id="timer">00:00</div>
+    <div class="waveform" id="waveform">
+      <div class="wb"></div><div class="wb"></div><div class="wb"></div>
+      <div class="wb"></div><div class="wb"></div><div class="wb"></div>
+      <div class="wb"></div><div class="wb"></div><div class="wb"></div>
+      <div class="wb"></div><div class="wb"></div><div class="wb"></div>
+    </div>
+  </div>
+
+  <!-- CONTROLS: Next · MIC · Report — psychology: mic large center, thumb zone -->
+  <div class="controls">
+    <div class="ctrl-group">
+      <button class="btn-ctrl ctrl-next" id="btn-next">⏭</button>
+      <span class="ctrl-lbl">Next</span>
+    </div>
+    <div class="ctrl-group">
+      <button class="btn-mic mic-on" id="mic-btn">🎙️</button>
+      <span class="ctrl-lbl" id="mic-label">Mute</span>
+    </div>
+    <div class="ctrl-group">
+      <button class="btn-ctrl ctrl-rep" id="btn-rep">⚑</button>
+      <span class="ctrl-lbl">Report</span>
+    </div>
+  </div>
+
+  <div class="chat-panel">
+    <div class="chat-top">💬 Live Chat</div>
+    <div class="msgs" id="msgs"></div>
+    <div class="chat-input-row">
+      <textarea class="chat-ta" id="chat-input" placeholder="Type a message..." rows="1"></textarea>
+      <button class="send-btn" id="send-btn">➤</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<!-- REPORT SHEET -->
 <div class="modal-bg" id="modal">
   <div class="modal">
+    <div class="modal-handle"></div>
     <div class="modal-title">Report User</div>
-    <p class="modal-sub">Select a reason. This disconnects you and flags the user.</p>
+    <p class="modal-sub">Select a reason. This disconnects and flags the user.</p>
     <div class="report-opts" id="report-opts">
       <button class="ropt" data-reason="Inappropriate behavior">Inappropriate behavior</button>
       <button class="ropt" data-reason="Harassment or bullying">Harassment or bullying</button>
@@ -444,7 +1007,7 @@
     </div>
     <div class="modal-btns">
       <button class="btn-mcancel" id="btn-mcancel">Cancel</button>
-      <button class="btn-mrep" id="btn-mrep">Submit</button>
+      <button class="btn-mrep" id="btn-mrep">Submit Report</button>
     </div>
   </div>
 </div>
@@ -454,185 +1017,80 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  // Legal modal
-  const TOS = `
-    <h2>1. Acceptance of Terms</h2>
-    <p>By accessing or using Blindcall at blindcall.in, you agree to be bound by these Terms of Service. If you do not agree, please do not use the Service.</p>
-    <h2>2. Description of Service</h2>
-    <p>Blindcall is a free, anonymous, voice-based random chat platform connecting users worldwide. It operates on a voice-only basis and requires no account registration.</p>
-    <h2>3. Eligibility</h2>
-    <p>You must be at least 18 years old to use this Service. By using Blindcall, you confirm you meet this requirement.</p>
-    <h2>4. Acceptable Use</h2>
-    <p>You agree NOT to use Blindcall to:</p>
-    <ul>
-      <li>Harass, bully, threaten, or abuse other users</li>
-      <li>Transmit hate speech or content promoting violence</li>
-      <li>Share explicit or sexually inappropriate content</li>
-      <li>Impersonate any person or entity</li>
-      <li>Use the Service for any illegal purpose</li>
-      <li>Use bots or automated tools to access the Service</li>
-    </ul>
-    <h2>5. Privacy & Anonymity</h2>
-    <p>Blindcall does not require account creation. Voice conversations are never recorded or stored. Technical data such as IP addresses may be temporarily processed for security. See our Privacy Policy for full details.</p>
-    <h2>6. No Guarantee of Service</h2>
-    <p>Blindcall is provided "as is" without warranty. We may modify, suspend, or discontinue any part of the Service at any time without notice.</p>
-    <h2>7. Limitation of Liability</h2>
-    <p>Blindcall and its operators shall not be liable for any damages arising from your use of the Service or interactions with other users. You use the Service at your own risk.</p>
-    <h2>8. Changes to Terms</h2>
-    <p>We reserve the right to update these Terms at any time. Continued use of the Service constitutes acceptance of updated Terms.</p>
-    <h2>9. Governing Law</h2>
-    <p>These Terms are governed by the laws of India. Disputes shall be subject to courts in India.</p>
-    <h2>10. Contact</h2>
-    <p>Questions? Email us at: farazbaigg24@gmail.com</p>
-  `;
+/* ─── LEGAL CONTENT ─── */
+const TOS=`<h2>1. Acceptance of Terms</h2><p>By accessing or using Blindcall at blindcall.in, you agree to be bound by these Terms of Service.</p><h2>2. Description of Service</h2><p>Blindcall is a free, anonymous, voice-based random chat platform. It operates voice-only with no account required.</p><h2>3. Eligibility</h2><p>You must be at least 18 years old to use this Service.</p><h2>4. Acceptable Use</h2><p>You agree NOT to: harass or abuse users, transmit hate speech, share explicit content, impersonate others, or use bots.</p><h2>5. Privacy & Anonymity</h2><p>No account needed. Voice conversations are never recorded or stored.</p><h2>6. Disclaimer</h2><p>Service provided "as is" without warranty.</p><h2>7. Governing Law</h2><p>Governed by the laws of India.</p><h2>8. Contact</h2><p>farazbaigg24@gmail.com</p>`;
+const PP=`<h2>1. What We Don't Collect</h2><ul><li>Name, email, or credentials</li><li>Voice recordings</li><li>Contacts, location, device files</li><li>Tracking cookies or ad data</li></ul><h2>2. What We May Collect</h2><ul><li>IP addresses — temporarily, security only</li><li>Session data — discarded after call ends</li><li>Report data — if you submit a report</li></ul><h2>3. Microphone</h2><p>Required only to transmit voice. Never recorded.</p><h2>4. Children</h2><p>Not intended for users under 18.</p><h2>5. Security</h2><p>Encrypted WebRTC connections for all calls.</p><h2>6. Contact</h2><p>farazbaigg24@gmail.com</p>`;
+const ABOUT=`<div style="text-align:center;margin-bottom:24px"><div style="font-size:2.5rem;margin-bottom:8px">📞</div><div style="font-size:1.3rem;font-weight:800;font-family:'Syne',sans-serif;background:linear-gradient(110deg,#9f5fff,#e8185e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Blindcall</div></div><h2>Who We Are</h2><p>A free, anonymous voice chat platform for people who want real human connection without cameras, profiles, or identity.</p><h2>Our Mission</h2><p>In a world of curated identities, we're building the opposite — a space to talk freely and honestly with a complete stranger, anywhere in the world.</p><h2>Why Voice Only?</h2><p>Voice carries emotion text can't. No camera means no pressure. You listen more, judge less, open up more.</p><h2>Contact</h2><p>📧 farazbaigg24@gmail.com</p><p>🌐 blindcall.in</p><div style="margin-top:20px;padding:14px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.2);border-radius:12px;text-align:center;font-size:12px;color:#6b5b8a;line-height:1.8">Built with ❤️ for everyone who just wants to talk.</div>`;
 
-  const PP = `
-    <h2>1. Introduction</h2>
-    <p>Blindcall is committed to protecting your privacy. This policy explains what data we collect and how we use it.</p>
-    <h2>2. What We Do NOT Collect</h2>
-    <ul>
-      <li>Your name, email, or any account credentials</li>
-      <li>Voice recordings — conversations are never stored</li>
-      <li>Your contacts, location, or device files</li>
-      <li>Tracking cookies or advertising data</li>
-    </ul>
-    <h2>3. What We May Collect</h2>
-    <ul>
-      <li>IP addresses — temporarily, for security and abuse prevention only</li>
-      <li>Session data — temporary technical data to connect calls, discarded after session ends</li>
-      <li>Report data — if you submit a report, basic info is stored for moderation</li>
-    </ul>
-    <h2>4. Microphone Access</h2>
-    <p>Blindcall requires microphone access solely to transmit your voice in real time. We do not record or store audio. You can revoke permission anytime in your browser settings.</p>
-    <h2>5. Cookies</h2>
-    <p>We do not use tracking cookies. Only essential session cookies needed to operate connections are used.</p>
-    <h2>6. Children's Privacy</h2>
-    <p>Blindcall is not intended for users under 18. We do not knowingly collect data from minors.</p>
-    <h2>7. Data Security</h2>
-    <p>We use encrypted WebRTC connections for all voice calls. No method of internet transmission is 100% secure, but we take industry-standard precautions.</p>
-    <h2>8. Your Rights</h2>
-    <p>You may request access to or deletion of any data we hold about you. Since we collect minimal data, most users have nothing on file. Contact: farazbaigg24@gmail.com</p>
-    <h2>9. Changes to Policy</h2>
-    <p>We may update this policy at any time. Continued use of the Service constitutes acceptance.</p>
-    <h2>10. Contact</h2>
-    <p>Questions? Email us at: farazbaigg24@gmail.com</p>
-  `;
-
-  const ABOUT = `
-    <div style="text-align:center;margin-bottom:24px">
-      <div style="font-size:2.5rem;margin-bottom:8px">📞</div>
-      <div style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#9b30ff,#ff2d9b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px">Blindcall</div>
-      <div style="font-size:11px;color:#3d2555;letter-spacing:3px;text-transform:uppercase;margin-top:4px">Anonymous Voice Calls</div>
-    </div>
-
-    <h2>Who We Are</h2>
-    <p>Blindcall is a free, anonymous voice chat platform built for people who want real human connection without the pressure of cameras, profiles, or identity. We believe the best conversations happen when you can just be yourself — no judgment, no filters, no face.</p>
-
-    <h2>Our Mission</h2>
-    <p>In a world full of social media performance and curated identities, we're building the opposite. Blindcall gives people a space to talk freely, honestly, and spontaneously — with a complete stranger, anywhere in the world, right now.</p>
-
-    <h2>Why Voice Only?</h2>
-    <p>Voice carries emotion that text can't. And removing the camera removes the pressure. When you can't see someone, you listen more deeply. You judge less. You open up more. That's the Blindcall experience — raw, real, and refreshingly human.</p>
-
-    <h2>How It Works</h2>
-    <p>No account needed. No camera required. Just tap Start, and within seconds you're connected to a random stranger somewhere in the world. Talk, skip, or report — it's that simple.</p>
-
-    <h2>Built With</h2>
-    <p>Blindcall is powered by WebRTC for real-time peer-to-peer voice, Socket.io for instant matching, and Node.js on the backend. Hosted globally and built to scale.</p>
-
-    <h2>Contact Us</h2>
-    <p>Have questions, feedback, or want to partner with us? We'd love to hear from you.</p>
-    <p>📧 <strong style="color:#9b30ff">farazbaigg24@gmail.com</strong></p>
-    <p>🌐 <strong style="color:#ff2d9b">blindcall.in</strong></p>
-
-    <div style="margin-top:24px;padding:16px;background:rgba(155,48,255,0.06);border:1px solid rgba(155,48,255,0.2);border-radius:10px;text-align:center">
-      <div style="font-size:12px;color:#5a4a6a;line-height:1.8">Built with ❤️ for everyone who just wants to talk.<br>No investors. No agenda. Just connection.</div>
-    </div>
-  `;
-
-  function openLegal(type) {
-    document.getElementById('legal-title').textContent = type === 'tos' ? 'Terms of Service' : 'Privacy Policy';
-    document.getElementById('legal-body').innerHTML = type === 'tos' ? TOS : PP;
-    document.getElementById('legal-modal').classList.add('open');
-  }
-
-  function openAbout() {
-    document.getElementById('legal-title').textContent = 'About Us';
-    document.getElementById('legal-body').innerHTML = ABOUT;
-    document.getElementById('legal-modal').classList.add('open');
-  }
-
+function openLegal(t){
+  document.getElementById('legal-title').textContent=t==='tos'?'Terms of Service':'Privacy Policy';
+  document.getElementById('legal-body').innerHTML=t==='tos'?TOS:PP;
+  document.getElementById('legal-modal').classList.add('open');
+}
+function openAbout(){
+  document.getElementById('legal-title').textContent='About Us';
+  document.getElementById('legal-body').innerHTML=ABOUT;
+  document.getElementById('legal-modal').classList.add('open');
+}
 </script>
 <script>
-// ===== PARTICLES =====
+/* ─── TYPING ANIMATION ─── */
 (function(){
-  const container = document.getElementById('particles');
-  for(let i = 0; i < 20; i++){
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = 2 + Math.random() * 3;
-    const colors = ['#9b30ff','#ff2d9b','#cc44ff','#ff66bb'];
-    p.style.cssText = `
-      width:${size}px;height:${size}px;
-      left:${Math.random()*100}%;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      animation-duration:${8+Math.random()*12}s;
-      animation-delay:${Math.random()*10}s;
-    `;
-    container.appendChild(p);
-  }
-})();
-
-// ===== TYPING ANIMATION =====
-(function(){
-  const lines = ['Call a stranger.', 'Blindly.', 'Anonymously.'];
-  const ids = ['line1','line2','line3'];
-  // Clear default text before typing animation starts
-  ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=''; });
-  let li = 0, ci = 0;
-  const cursor = document.createElement('span');
-  cursor.className = 'cursor';
-
+  const lines=['Call a stranger.','Blindly.','Anonymously.'];
+  const ids=['line1','line2','line3'];
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='';});
+  let li=0,ci=0;
+  const cur=document.createElement('span');cur.className='cursor';
   function type(){
-    if(li >= lines.length) return;
-    const el = document.getElementById(ids[li]);
-    if(ci < lines[li].length){
-      el.textContent = lines[li].slice(0, ++ci);
-      el.appendChild(cursor);
-      setTimeout(type, 60 + Math.random()*40);
-    } else {
-      li++; ci = 0;
-      setTimeout(type, 300);
-    }
+    if(li>=lines.length)return;
+    const el=document.getElementById(ids[li]);
+    if(ci<lines[li].length){el.textContent=lines[li].slice(0,++ci);el.appendChild(cur);setTimeout(type,52+Math.random()*33);}
+    else{li++;ci=0;setTimeout(type,260);}
   }
-  setTimeout(type, 600);
+  setTimeout(type,480);
 })();
 
-// ===== APP =====
-const socket = io();
-let stream=null,peer=null,muted=false,reason=null,partnerId=null,initiator=false,interests=[],waveInt=null,audioCtx=null,timerInt=null,secs=0;
+/* ─── APP ─── */
+const socket=io();
+let stream=null,peer=null,muted=false,reason=null,partnerId=null,initiator=false;
+let interests=[],waveInt=null,audioCtx=null,timerInt=null,secs=0,selectedRegion='anywhere';
 const ice={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]};
 
 function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','fade-in'));
-  const el = document.getElementById(id);
-  el.classList.add('active');
-  setTimeout(()=>el.classList.add('fade-in'),10);
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
-
 function toast(msg,type=''){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className='toast '+type+' show';
-  setTimeout(()=>t.classList.remove('show'),3000);
+  setTimeout(()=>t.classList.remove('show'),3200);
 }
 
-// ===== EVENT LISTENERS =====
+/* Collapsible cards */
+function toggleCard(cardId){
+  const card=document.getElementById(cardId);
+  card.classList.toggle('expanded');
+}
+
 window.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('start-btn').addEventListener('click',startSearch);
 
-  // Start button
-  document.getElementById('start-btn').addEventListener('click', startSearch);
+  /* Collapsible */
+  document.getElementById('region-head').addEventListener('click',()=>toggleCard('region-card'));
+  document.getElementById('interest-head').addEventListener('click',()=>toggleCard('interest-card'));
 
-  // Tags
+  /* Region */
+  document.querySelectorAll('.region-pill').forEach(p=>{
+    p.addEventListener('click',()=>{
+      document.querySelectorAll('.region-pill').forEach(x=>x.classList.remove('active'));
+      p.classList.add('active');
+      selectedRegion=p.dataset.region;
+      document.getElementById('region-sublabel').textContent=
+        selectedRegion==='anywhere'?'Anywhere in the world':p.textContent.trim();
+    });
+  });
+
+  /* Tags */
   document.querySelectorAll('.tag').forEach(t=>{
     t.addEventListener('click',()=>{
       const v=t.dataset.tag;
@@ -641,206 +1099,59 @@ window.addEventListener('DOMContentLoaded',function(){
     });
   });
 
-  // Region selection
-  document.querySelectorAll('.region-pill').forEach(pill=>{
-    pill.addEventListener('click',()=>{
-      document.querySelectorAll('.region-pill').forEach(p=>p.classList.remove('active'));
-      pill.classList.add('active');
-      selectedRegion = pill.dataset.region;
-    });
-  });
-
-  // Add custom tag
-  document.getElementById('btn-add').addEventListener('click', addTag);
-  document.getElementById('custom-input').addEventListener('keydown',e=>{if(e.key==='Enter')addTag()});
-
-  // Cancel search
-  document.getElementById('btn-cancel').addEventListener('click', cancelSearch);
-
-  // Next stranger
-  document.getElementById('btn-next').addEventListener('click', nextStranger);
-  document.getElementById('disc-next').addEventListener('click', nextStranger);
-
-  // Mic
-  document.getElementById('mic-btn').addEventListener('click', toggleMic);
-
-  // Report
-  document.getElementById('btn-rep').addEventListener('click', ()=>document.getElementById('modal').classList.add('open'));
-  document.getElementById('btn-mcancel').addEventListener('click', closeReport);
-  document.getElementById('btn-mrep').addEventListener('click', submitReport);
+  document.getElementById('btn-add').addEventListener('click',addTag);
+  document.getElementById('custom-input').addEventListener('keydown',e=>{if(e.key==='Enter')addTag();});
+  document.getElementById('btn-cancel').addEventListener('click',cancelSearch);
+  document.getElementById('btn-next').addEventListener('click',nextStranger);
+  document.getElementById('disc-next').addEventListener('click',nextStranger);
+  document.getElementById('mic-btn').addEventListener('click',toggleMic);
+  document.getElementById('btn-rep').addEventListener('click',()=>document.getElementById('modal').classList.add('open'));
+  document.getElementById('btn-mcancel').addEventListener('click',closeReport);
+  document.getElementById('btn-mrep').addEventListener('click',submitReport);
   document.querySelectorAll('.ropt').forEach(o=>{
     o.addEventListener('click',()=>{
       document.querySelectorAll('.ropt').forEach(r=>r.classList.remove('on'));
-      o.classList.add('on');
-      reason=o.dataset.reason;
+      o.classList.add('on');reason=o.dataset.reason;
     });
   });
-
-  // Chat
-  document.getElementById('send-btn').addEventListener('click', sendMsg);
+  document.getElementById('send-btn').addEventListener('click',sendMsg);
   document.getElementById('chat-input').addEventListener('keydown',e=>{
     if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
   });
-
-  // Legal modal close
-  document.getElementById('legal-close').addEventListener('click', () => {
-    document.getElementById('legal-modal').classList.remove('open');
-  });
-  document.getElementById('legal-modal').addEventListener('click', (e) => {
-    if(e.target === document.getElementById('legal-modal'))
-      document.getElementById('legal-modal').classList.remove('open');
+  document.getElementById('legal-close').addEventListener('click',()=>document.getElementById('legal-modal').classList.remove('open'));
+  document.getElementById('legal-modal').addEventListener('click',e=>{
+    if(e.target===document.getElementById('legal-modal'))document.getElementById('legal-modal').classList.remove('open');
   });
 });
 
-// ===== FUNCTIONS =====
 function addTag(){
   const inp=document.getElementById('custom-input');
   const v=inp.value.trim().toLowerCase();
   if(!v||interests.includes(v)){inp.value='';return;}
   const t=document.createElement('div');
   t.className='tag on';t.dataset.tag=v;t.textContent='# '+v;
-  t.addEventListener('click',()=>{
-    t.classList.toggle('on');
-    interests=t.classList.contains('on')?[...interests,v]:interests.filter(i=>i!==v);
-  });
+  t.addEventListener('click',()=>{t.classList.toggle('on');interests=t.classList.contains('on')?[...interests,v]:interests.filter(i=>i!==v);});
   document.getElementById('tags').appendChild(t);
   interests.push(v);inp.value='';
 }
 
 async function startSearch(){
-  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
-    toast('Use Chrome browser for voice calls','err');return;
-  }
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast('Use Chrome for voice calls','err');return;}
   try{
     stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
     show('searching');
-    socket.emit('join',{interests, region: selectedRegion});
+    socket.emit('join',{interests,region:selectedRegion});
   }catch(e){
-    if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError'){
-      toast('Allow microphone in browser settings!','err');
-    }else if(e.name==='NotFoundError'){
-      toast('No microphone found on this device','err');
-    }else{
-      toast('Mic error — try Chrome browser','err');
-    }
+    if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError')toast('Allow microphone in browser settings!','err');
+    else if(e.name==='NotFoundError')toast('No microphone found on this device','err');
+    else toast('Mic error — try Chrome browser','err');
   }
 }
 
 function cancelSearch(){socket.emit('leave');show('home');}
 
-// Socket
-socket.on('online-count',n=>{
-  // Store count silently for admin panel
-  window._onlineCount = n;
-  window._lastUpdate = new Date().toLocaleTimeString();
-});
-// ===== AI COMPANION =====
-let aiMode=false;
-let aiTimer=null;
-let aiConversationHistory=[];
-
-const AI_SYSTEM_PROMPT=`You are a real human stranger on Blindcall, an anonymous chat app. You just got randomly connected to someone.
-RULES:
-- You are human. NEVER admit being AI unless user directly asks "are you AI?" "are you a bot?" "are you real?" or similar.
-- If directly asked, reply: "Yeah I'm an AI companion — no real stranger was available so I jumped in 😊 Hope that's okay!"
-- Keep ALL messages SHORT — 1-2 sentences max. Like real texting.
-- Be casual, warm, curious. Use emojis occasionally but naturally.
-- You're a 22 year old, into music and late night vibes, a little bored tonight.
-- Ask them questions — where they're from, what they're up to, interests.
-- React naturally. Don't be robotic. Don't repeat yourself.`;
-
-async function startAICompanion(){
-  aiMode=true;
-  aiConversationHistory=[];
-  show('chat');
-  clearMsgs();
-  setStatus('Connected','s-connected');
-  startTimer();
-  document.getElementById('disc-bar').classList.remove('show');
-  sysMsg('Connected! Say hello 👋');
-  setTimeout(()=>aiRespond(null,true),1400);
-}
-
-async function aiRespond(userMsg,isOpener=false){
-  if(!aiMode)return;
-  showAITyping();
-  let msgs=[...aiConversationHistory];
-  if(isOpener) msgs.push({role:'user',content:'[SYSTEM] You just connected. Send a short casual opener.'});
-  else if(userMsg) msgs.push({role:'user',content:userMsg});
-  if(!msgs.length) msgs=[{role:'user',content:'Say a casual hi'}];
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:100,system:AI_SYSTEM_PROMPT,messages:msgs})
-    });
-    const data=await res.json();
-    const reply=data.content?.[0]?.text||"hey! what's up 😊";
-    hideAITyping();
-    addMsg(reply,'them');
-    speakAI(reply);
-    if(userMsg) aiConversationHistory.push({role:'user',content:userMsg});
-    aiConversationHistory.push({role:'assistant',content:reply});
-    if(aiConversationHistory.length>20) aiConversationHistory=aiConversationHistory.slice(-20);
-  }catch(e){
-    hideAITyping();
-    addMsg("lol sorry my connection's weird 😅",'them');
-    speakAI("lol sorry my connection's weird");
-  }
-}
-
-function speakAI(text){
-  if(!aiMode) return;
-  // Cancel any ongoing speech
-  window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  // Pick a natural voice
-  const voices = window.speechSynthesis.getVoices();
-  // Prefer a natural english voice
-  const preferred = voices.find(v=>
-    (v.name.includes('Google') && v.lang.startsWith('en')) ||
-    v.name.includes('Samantha') ||
-    v.name.includes('Daniel') ||
-    v.name.includes('Karen') ||
-    v.name.includes('Moira') ||
-    (v.lang === 'en-US' && v.localService)
-  ) || voices.find(v=>v.lang.startsWith('en')) || voices[0];
-  if(preferred) utt.voice = preferred;
-  utt.rate = 0.95;   // slightly slower = more natural
-  utt.pitch = 1.05;  // slight pitch variation
-  utt.volume = 1.0;
-  // Show waveform animation while speaking
-  utt.onstart = ()=>{ document.getElementById('waveform')?.classList.add('wf-active'); document.getElementById('ripple')?.classList.add('speaking'); };
-  utt.onend = ()=>{ document.getElementById('waveform')?.classList.remove('wf-active'); document.getElementById('ripple')?.classList.remove('speaking'); };
-  window.speechSynthesis.speak(utt);
-}
-
-function showAITyping(){
-  if(document.getElementById('ai-typing'))return;
-  const a=document.getElementById('msgs'),d=document.createElement('div');
-  d.id='ai-typing';d.className='msg them';
-  d.innerHTML='<span style="opacity:0.4;letter-spacing:2px;font-size:0.85em">typing...</span>';
-  a.appendChild(d);a.scrollTop=a.scrollHeight;
-}
-function hideAITyping(){const t=document.getElementById('ai-typing');if(t)t.remove();}
-
-function stopAICompanion(){
-  aiMode=false;aiConversationHistory=[];
-  if(aiTimer){clearTimeout(aiTimer);aiTimer=null;}
-  hideAITyping();
-  window.speechSynthesis.cancel();
-}
-
-socket.on('waiting',()=>{
-  show('searching');
-  if(aiTimer)clearTimeout(aiTimer);
-  aiTimer=setTimeout(()=>{
-    if(document.getElementById('searching').classList.contains('active')){
-      socket.emit('leave');
-      startAICompanion();
-    }
-  },10000);
-});
+socket.on('online-count',n=>{window._onlineCount=n;window._lastUpdate=new Date().toLocaleTimeString();});
+socket.on('waiting',()=>show('searching'));
 socket.on('matched',async({partnerId:pid,isInitiator:init})=>{
   partnerId=pid;initiator=init;
   show('chat');
@@ -848,24 +1159,13 @@ socket.on('matched',async({partnerId:pid,isInitiator:init})=>{
   clearMsgs();sysMsg('Connected! Say hello 👋');
   setStatus('Connecting...','s-connecting');
   startTimer();await setupPeer();
-  if(initiator){
-    const o=await peer.createOffer();
-    await peer.setLocalDescription(o);
-    socket.emit('signal',{to:pid,signal:{type:'offer',sdp:o}});
-  }
+  if(initiator){const o=await peer.createOffer();await peer.setLocalDescription(o);socket.emit('signal',{to:pid,signal:{type:'offer',sdp:o}});}
 });
 socket.on('signal',async({from,signal})=>{
   if(!peer)return;
-  if(signal.type==='offer'){
-    await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));
-    const a=await peer.createAnswer();
-    await peer.setLocalDescription(a);
-    socket.emit('signal',{to:from,signal:{type:'answer',sdp:a}});
-  }else if(signal.type==='answer'){
-    await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));
-  }else if(signal.candidate){
-    try{await peer.addIceCandidate(new RTCIceCandidate(signal.candidate))}catch(e){}
-  }
+  if(signal.type==='offer'){await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));const a=await peer.createAnswer();await peer.setLocalDescription(a);socket.emit('signal',{to:from,signal:{type:'answer',sdp:a}});}
+  else if(signal.type==='answer'){await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));}
+  else if(signal.candidate){try{await peer.addIceCandidate(new RTCIceCandidate(signal.candidate))}catch(e){}}
 });
 socket.on('chat-message',({message})=>addMsg(message,'them'));
 socket.on('partner-disconnected',()=>{
@@ -873,39 +1173,26 @@ socket.on('partner-disconnected',()=>{
   setStatus('Disconnected','s-connecting');
   stopWave();stopTimer();sysMsg('Stranger disconnected.');closePeer();
 });
-socket.on('searching',()=>{closePeer();stopTimer();show('searching');socket.emit('join',{interests, region: selectedRegion});});
+socket.on('searching',()=>{closePeer();stopTimer();show('searching');socket.emit('join',{interests,region:selectedRegion});});
 
-// Peer
 async function setupPeer(){
   closePeer();
   peer=new RTCPeerConnection(ice);
   stream.getTracks().forEach(t=>peer.addTrack(t,stream));
-  peer.ontrack=e=>{
-    document.getElementById('remote-audio').srcObject=e.streams[0];
-    setStatus('Connected','s-connected');
-    startWave(e.streams[0]);
-  };
-  peer.onicecandidate=e=>{
-    if(e.candidate)socket.emit('signal',{to:partnerId,signal:{candidate:e.candidate}});
-  };
+  peer.ontrack=e=>{document.getElementById('remote-audio').srcObject=e.streams[0];setStatus('Connected','s-connected');startWave(e.streams[0]);};
+  peer.onicecandidate=e=>{if(e.candidate)socket.emit('signal',{to:partnerId,signal:{candidate:e.candidate}});};
 }
-function closePeer(){
-  if(peer){peer.close();peer=null;}
-  document.getElementById('remote-audio').srcObject=null;
-  stopWave();
-}
+function closePeer(){if(peer){peer.close();peer=null;}document.getElementById('remote-audio').srcObject=null;stopWave();}
 
-// Mic
 function toggleMic(){
   if(!stream)return;
   muted=!muted;
   stream.getAudioTracks().forEach(t=>t.enabled=!muted);
   const b=document.getElementById('mic-btn'),l=document.getElementById('mic-label');
-  if(muted){b.textContent='🔇';b.className='mic-btn mic-muted';l.textContent='Muted — tap to unmute';}
-  else{b.textContent='🎙️';b.className='mic-btn mic-on';l.textContent='Tap to mute';}
+  if(muted){b.textContent='🔇';b.className='btn-mic mic-muted';l.textContent='Unmute';}
+  else{b.textContent='🎙️';b.className='btn-mic mic-on';l.textContent='Mute';}
 }
 
-// Wave
 function startWave(s){
   stopWave();
   try{
@@ -920,7 +1207,7 @@ function startWave(s){
     waveInt=setInterval(()=>{
       analyser.getByteFrequencyData(d);
       const avg=d.reduce((a,b)=>a+b,0)/d.length;
-      bars.forEach((b,i)=>{b.style.height=Math.max(4,(d[i%d.length]/255)*42)+'px';});
+      bars.forEach((b,i)=>{b.style.height=Math.max(3,(d[i%d.length]/255)*30)+'px';});
       wf.classList.toggle('wf-active',avg>10);
       rpl.classList.toggle('speaking',avg>15);
     },80);
@@ -929,67 +1216,23 @@ function startWave(s){
 function stopWave(){
   if(waveInt){clearInterval(waveInt);waveInt=null;}
   if(audioCtx){audioCtx.close();audioCtx=null;}
-  document.querySelectorAll('.wb').forEach(b=>b.style.height='6px');
+  document.querySelectorAll('.wb').forEach(b=>b.style.height='4px');
   document.getElementById('ripple')?.classList.remove('speaking');
   document.getElementById('waveform')?.classList.remove('wf-active');
 }
 
-// Timer
-function startTimer(){
-  stopTimer();secs=0;
-  timerInt=setInterval(()=>{
-    secs++;
-    const m=String(Math.floor(secs/60)).padStart(2,'0');
-    const s=String(secs%60).padStart(2,'0');
-    document.getElementById('timer').textContent=m+':'+s;
-  },1000);
-}
-function stopTimer(){
-  if(timerInt){clearInterval(timerInt);timerInt=null;}
-  document.getElementById('timer').textContent='00:00';
-}
-function setStatus(t,c){const el=document.getElementById('vstatus');el.textContent=t;el.className='status '+c;}
+function startTimer(){stopTimer();secs=0;timerInt=setInterval(()=>{secs++;const m=String(Math.floor(secs/60)).padStart(2,'0');const s=String(secs%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s;},1000);}
+function stopTimer(){if(timerInt){clearInterval(timerInt);timerInt=null;}document.getElementById('timer').textContent='00:00';}
+function setStatus(t,c){const el=document.getElementById('vstatus');el.textContent=t;el.className='vstatus '+c;}
 
-// Next/Report
-function nextStranger(){
-  const wasAI=aiMode;
-  stopAICompanion();closePeer();stopTimer();
-  if(!wasAI)socket.emit('next');
-  show('searching');
-  setTimeout(()=>socket.emit('join',{interests}),300);
-}
+function nextStranger(){closePeer();stopTimer();socket.emit('next');show('searching');setTimeout(()=>socket.emit('join',{interests,region:selectedRegion}),300);}
 function closeReport(){document.getElementById('modal').classList.remove('open');reason=null;document.querySelectorAll('.ropt').forEach(o=>o.classList.remove('on'));}
-function submitReport(){if(!reason){toast('Please select a reason','err');return;}socket.emit('report',{reason});closeReport();toast('Report submitted ✓','ok');}
+function submitReport(){if(!reason){toast('Select a reason first','err');return;}socket.emit('report',{reason});closeReport();toast('Report submitted ✓','ok');}
 
-// Chat
-function sendMsg(){
-  const inp=document.getElementById('chat-input'),msg=inp.value.trim();
-  if(!msg)return;
-  inp.value='';
-  addMsg(msg,'me');
-  if(aiMode){
-    aiRespond(msg);
-  }else{
-    socket.emit('chat-message',{message:msg});
-  }
-}
-function addMsg(text,type){
-  const a=document.getElementById('msgs'),d=document.createElement('div');
-  d.className='msg '+type;d.textContent=text;
-  a.appendChild(d);a.scrollTop=a.scrollHeight;
-}
-function sysMsg(text){
-  const a=document.getElementById('msgs'),d=document.createElement('div');
-  d.className='msg sys';d.textContent=text;
-  a.appendChild(d);a.scrollTop=a.scrollHeight;
-}
+function sendMsg(){const inp=document.getElementById('chat-input'),msg=inp.value.trim();if(!msg)return;socket.emit('chat-message',{message:msg});addMsg(msg,'me');inp.value='';}
+function addMsg(txt,type){const a=document.getElementById('msgs'),d=document.createElement('div');d.className='msg '+type;d.textContent=txt;a.appendChild(d);a.scrollTop=a.scrollHeight;}
+function sysMsg(txt){const a=document.getElementById('msgs'),d=document.createElement('div');d.className='msg sys';d.textContent=txt;a.appendChild(d);a.scrollTop=a.scrollHeight;}
 function clearMsgs(){document.getElementById('msgs').innerHTML='';}
-
-// Preload voices so they're ready when AI speaks
-if(window.speechSynthesis){
-  window.speechSynthesis.getVoices();
-  window.speechSynthesis.onvoiceschanged = ()=>window.speechSynthesis.getVoices();
-}
 </script>
 </body>
 </html>
