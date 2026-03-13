@@ -243,7 +243,6 @@ header {
   cursor: pointer;
   display: flex; align-items: center; justify-content: space-between;
   position: relative; z-index: 1;
-  overflow: hidden;
   transition: transform .14s ease, box-shadow .14s ease;
 }
 .btn-start::before {
@@ -252,14 +251,16 @@ header {
   background: linear-gradient(110deg, var(--violet), var(--rose));
   border-radius: 22px; z-index: -1;
   filter: blur(18px); opacity: 0.6;
+  pointer-events: none;
   animation: ctaGlow 2.8s ease-in-out infinite;
 }
 .btn-start::after {
   content: '';
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
-  border-radius: 20px; pointer-events: none;
+  border-radius: 20px; pointer-events: none; z-index: 0;
 }
+.btn-start-left, .btn-start-arrow { position: relative; z-index: 2; pointer-events: none; }
 @keyframes ctaGlow {
   0%,100% { opacity:.55; filter:blur(18px); }
   50% { opacity:.9; filter:blur(28px); }
