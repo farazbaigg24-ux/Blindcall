@@ -204,6 +204,12 @@
     .toast.err{border-color:var(--pink);color:var(--pink)}
     audio{display:none}
 
+    /* Region selector */
+    .region-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+    .region-pill{padding:8px 14px;border-radius:100px;border:2px solid rgba(155,48,255,0.4);background:rgba(155,48,255,0.08);color:#b090dd;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+    .region-pill:hover{border-color:var(--purple);background:rgba(155,48,255,0.2);color:#fff;transform:translateY(-1px)}
+    .region-pill.active{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,45,155,0.25),rgba(155,48,255,0.15));color:#fff;box-shadow:0 0 14px rgba(255,45,155,0.35);font-weight:700}
+
     /* Footer */
     .footer-links{display:flex;gap:10px;align-items:center;font-size:11px;color:var(--text-dim);padding-bottom:20px;flex-wrap:wrap;justify-content:center}
     .footer-links span{cursor:pointer;transition:color 0.2s}
@@ -268,6 +274,30 @@
       <div class="stat">
         <span class="stat-n">🌍</span>
         <span class="stat-l">Worldwide</span>
+      </div>
+    </div>
+
+    <!-- REGION SELECTOR -->
+    <div class="interests-section" style="margin-bottom:0">
+      <div class="section-label">Match by region (optional)</div>
+      <div class="region-wrap" id="region-wrap">
+        <div class="region-pill active" data-region="anywhere">🌍 Anywhere</div>
+        <div class="region-pill" data-region="IN">🇮🇳 India</div>
+        <div class="region-pill" data-region="US">🇺🇸 USA</div>
+        <div class="region-pill" data-region="GB">🇬🇧 UK</div>
+        <div class="region-pill" data-region="PK">🇵🇰 Pakistan</div>
+        <div class="region-pill" data-region="BD">🇧🇩 Bangladesh</div>
+        <div class="region-pill" data-region="AE">🇦🇪 UAE</div>
+        <div class="region-pill" data-region="CA">🇨🇦 Canada</div>
+        <div class="region-pill" data-region="AU">🇦🇺 Australia</div>
+        <div class="region-pill" data-region="DE">🇩🇪 Germany</div>
+        <div class="region-pill" data-region="FR">🇫🇷 France</div>
+        <div class="region-pill" data-region="BR">🇧🇷 Brazil</div>
+        <div class="region-pill" data-region="NG">🇳🇬 Nigeria</div>
+        <div class="region-pill" data-region="PH">🇵🇭 Philippines</div>
+        <div class="region-pill" data-region="ID">🇮🇩 Indonesia</div>
+        <div class="region-pill" data-region="TR">🇹🇷 Turkey</div>
+        <div class="region-pill" data-region="MX">🇲🇽 Mexico</div>
       </div>
     </div>
 
@@ -611,6 +641,15 @@ window.addEventListener('DOMContentLoaded',function(){
     });
   });
 
+  // Region selection
+  document.querySelectorAll('.region-pill').forEach(pill=>{
+    pill.addEventListener('click',()=>{
+      document.querySelectorAll('.region-pill').forEach(p=>p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedRegion = pill.dataset.region;
+    });
+  });
+
   // Add custom tag
   document.getElementById('btn-add').addEventListener('click', addTag);
   document.getElementById('custom-input').addEventListener('keydown',e=>{if(e.key==='Enter')addTag()});
@@ -675,7 +714,7 @@ async function startSearch(){
   try{
     stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
     show('searching');
-    socket.emit('join',{interests});
+    socket.emit('join',{interests, region: selectedRegion});
   }catch(e){
     if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError'){
       toast('Allow microphone in browser settings!','err');
@@ -834,7 +873,7 @@ socket.on('partner-disconnected',()=>{
   setStatus('Disconnected','s-connecting');
   stopWave();stopTimer();sysMsg('Stranger disconnected.');closePeer();
 });
-socket.on('searching',()=>{closePeer();stopTimer();show('searching');socket.emit('join',{interests});});
+socket.on('searching',()=>{closePeer();stopTimer();show('searching');socket.emit('join',{interests, region: selectedRegion});});
 
 // Peer
 async function setupPeer(){
