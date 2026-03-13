@@ -247,4 +247,710 @@
     <div class="badge">✦ No face. No name. Just your voice.</div>
 
     <h1 class="hero-title">
-      <span class="lin
+      <span class="line1" id="line1">Call a stranger.</span>
+      <span class="line2" id="line2">Blindly.</span>
+      <span class="line3" id="line3">Anonymously.</span>
+    </h1>
+
+    <p class="hero-sub">Random anonymous voice calls with strangers worldwide. No account, no camera — just your voice in the dark.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-n">100%</span>
+        <span class="stat-l">Anonymous</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-n">Free</span>
+        <span class="stat-l">Forever</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-n">🌍</span>
+        <span class="stat-l">Worldwide</span>
+      </div>
+    </div>
+
+    <div class="interests-section">
+      <div class="section-label">Match by interest (optional)</div>
+      <div class="tags" id="tags">
+        <div class="tag" data-tag="music">🎵 Music</div>
+        <div class="tag" data-tag="gaming">🎮 Gaming</div>
+        <div class="tag" data-tag="movies">🎬 Movies</div>
+        <div class="tag" data-tag="sports">⚽ Sports</div>
+        <div class="tag" data-tag="tech">💻 Tech</div>
+        <div class="tag" data-tag="art">🎨 Art</div>
+        <div class="tag" data-tag="travel">✈️ Travel</div>
+        <div class="tag" data-tag="food">🍜 Food</div>
+        <div class="tag" data-tag="anime">⛩️ Anime</div>
+        <div class="tag" data-tag="fitness">💪 Fitness</div>
+        <div class="tag" data-tag="books">📚 Books</div>
+        <div class="tag" data-tag="language">🗣️ Language</div>
+      </div>
+      <div class="custom-row">
+        <input class="custom-input" id="custom-input" type="text" placeholder="Add your interest..." maxlength="20"/>
+        <button class="btn-add" id="btn-add">+ Add</button>
+      </div>
+    </div>
+
+    <div class="btn-start-wrap">
+      <button class="btn-start" id="start-btn">📞 Start Blind Call</button>
+    </div>
+    <span class="disclaimer">No signup · No camera · Free forever</span>
+
+    <div class="chips">
+      <div class="chip">🙈 No Camera</div>
+      <div class="chip">🎙️ Voice Only</div>
+      <div class="chip">🎭 Anonymous</div>
+      <div class="chip">💬 Live Chat</div>
+      <div class="chip">⏭️ Skip Anytime</div>
+      <div class="chip">🌍 Worldwide</div>
+    </div>
+
+    <!-- Footer links -->
+    <div class="footer-links">
+      <span onclick="openAbout()">About Us</span>
+      <span class="footer-dot">·</span>
+      <span onclick="openLegal('tos')">Terms of Service</span>
+      <span class="footer-dot">·</span>
+      <span onclick="openLegal('pp')">Privacy Policy</span>
+      <span class="footer-dot">·</span>
+      <span>© 2026 Blindcall</span>
+    </div>
+  </div>
+
+  <!-- LEGAL MODAL -->
+  <div class="legal-bg" id="legal-modal">
+    <div class="legal-box">
+      <div class="legal-header">
+        <div class="legal-title" id="legal-title">Terms of Service</div>
+        <button class="legal-close" id="legal-close">✕</button>
+      </div>
+      <div class="legal-body" id="legal-body"></div>
+    </div>
+  </div>
+
+  <!-- SEARCHING -->
+  <div id="searching" class="screen">
+    <div class="spin-wrap">
+      <div class="spin-ring s1"></div>
+      <div class="spin-ring s2"></div>
+      <div class="spin-ring s3"></div>
+      <div class="spin-center">📞</div>
+    </div>
+    <div class="search-title">Finding stranger...</div>
+    <p class="search-sub">Matching you with someone worldwide</p>
+    <button class="btn-cancel" id="btn-cancel">Cancel</button>
+  </div>
+
+  <!-- CHAT -->
+  <div id="chat" class="screen">
+    <div id="disc-bar" class="disc-bar">
+      <span>⚠️ Stranger disconnected</span>
+      <button class="btn-next" id="disc-next" style="width:auto;padding:5px 14px;font-size:0.78rem">Find New →</button>
+    </div>
+    <div class="chat-grid">
+      <div class="voice-card">
+        <div id="vstatus" class="status s-connecting">Connecting...</div>
+        <div class="avatar-wrap">
+          <div class="avatar">🎭</div>
+          <div class="ripple-wrap" id="ripple">
+            <div class="rr"></div>
+            <div class="rr"></div>
+            <div class="rr"></div>
+          </div>
+        </div>
+        <div class="stranger-name">Anonymous Stranger</div>
+        <div class="timer" id="timer">00:00</div>
+        <div class="waveform" id="waveform">
+          <div class="wb" style="height:6px"></div>
+          <div class="wb" style="height:14px"></div>
+          <div class="wb" style="height:22px"></div>
+          <div class="wb" style="height:9px"></div>
+          <div class="wb" style="height:18px"></div>
+          <div class="wb" style="height:6px"></div>
+          <div class="wb" style="height:14px"></div>
+          <div class="wb" style="height:22px"></div>
+          <div class="wb" style="height:9px"></div>
+          <div class="wb" style="height:16px"></div>
+          <div class="wb" style="height:7px"></div>
+          <div class="wb" style="height:20px"></div>
+        </div>
+        <div class="mic-wrap">
+          <button class="mic-btn mic-on" id="mic-btn">🎙️</button>
+          <span class="mic-label" id="mic-label">Tap to mute</span>
+        </div>
+        <div class="action-row">
+          <button class="btn-next" id="btn-next">⏭ Next Stranger</button>
+          <button class="btn-rep" id="btn-rep">⚑</button>
+        </div>
+      </div>
+      <div class="chat-panel">
+        <div class="chat-top">💬 Live Chat</div>
+        <div class="msgs" id="msgs">
+          <div class="msg sys">Connected! Say hello 👋</div>
+        </div>
+        <div class="chat-input-row">
+          <textarea class="chat-ta" id="chat-input" placeholder="Type a message..." rows="1"></textarea>
+          <button class="send-btn" id="send-btn">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="modal-title">Report User</div>
+    <p class="modal-sub">Select a reason. This disconnects you and flags the user.</p>
+    <div class="report-opts" id="report-opts">
+      <button class="ropt" data-reason="Inappropriate behavior">Inappropriate behavior</button>
+      <button class="ropt" data-reason="Harassment or bullying">Harassment or bullying</button>
+      <button class="ropt" data-reason="Hate speech">Hate speech</button>
+      <button class="ropt" data-reason="Spam or bot">Spam or bot</button>
+      <button class="ropt" data-reason="Other">Other</button>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-mcancel" id="btn-mcancel">Cancel</button>
+      <button class="btn-mrep" id="btn-mrep">Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<audio id="remote-audio" autoplay playsinline></audio>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // Legal modal
+  const TOS = `
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing or using Blindcall at blindcall.in, you agree to be bound by these Terms of Service. If you do not agree, please do not use the Service.</p>
+    <h2>2. Description of Service</h2>
+    <p>Blindcall is a free, anonymous, voice-based random chat platform connecting users worldwide. It operates on a voice-only basis and requires no account registration.</p>
+    <h2>3. Eligibility</h2>
+    <p>You must be at least 18 years old to use this Service. By using Blindcall, you confirm you meet this requirement.</p>
+    <h2>4. Acceptable Use</h2>
+    <p>You agree NOT to use Blindcall to:</p>
+    <ul>
+      <li>Harass, bully, threaten, or abuse other users</li>
+      <li>Transmit hate speech or content promoting violence</li>
+      <li>Share explicit or sexually inappropriate content</li>
+      <li>Impersonate any person or entity</li>
+      <li>Use the Service for any illegal purpose</li>
+      <li>Use bots or automated tools to access the Service</li>
+    </ul>
+    <h2>5. Privacy & Anonymity</h2>
+    <p>Blindcall does not require account creation. Voice conversations are never recorded or stored. Technical data such as IP addresses may be temporarily processed for security. See our Privacy Policy for full details.</p>
+    <h2>6. No Guarantee of Service</h2>
+    <p>Blindcall is provided "as is" without warranty. We may modify, suspend, or discontinue any part of the Service at any time without notice.</p>
+    <h2>7. Limitation of Liability</h2>
+    <p>Blindcall and its operators shall not be liable for any damages arising from your use of the Service or interactions with other users. You use the Service at your own risk.</p>
+    <h2>8. Changes to Terms</h2>
+    <p>We reserve the right to update these Terms at any time. Continued use of the Service constitutes acceptance of updated Terms.</p>
+    <h2>9. Governing Law</h2>
+    <p>These Terms are governed by the laws of India. Disputes shall be subject to courts in India.</p>
+    <h2>10. Contact</h2>
+    <p>Questions? Email us at: farazbaigg24@gmail.com</p>
+  `;
+
+  const PP = `
+    <h2>1. Introduction</h2>
+    <p>Blindcall is committed to protecting your privacy. This policy explains what data we collect and how we use it.</p>
+    <h2>2. What We Do NOT Collect</h2>
+    <ul>
+      <li>Your name, email, or any account credentials</li>
+      <li>Voice recordings — conversations are never stored</li>
+      <li>Your contacts, location, or device files</li>
+      <li>Tracking cookies or advertising data</li>
+    </ul>
+    <h2>3. What We May Collect</h2>
+    <ul>
+      <li>IP addresses — temporarily, for security and abuse prevention only</li>
+      <li>Session data — temporary technical data to connect calls, discarded after session ends</li>
+      <li>Report data — if you submit a report, basic info is stored for moderation</li>
+    </ul>
+    <h2>4. Microphone Access</h2>
+    <p>Blindcall requires microphone access solely to transmit your voice in real time. We do not record or store audio. You can revoke permission anytime in your browser settings.</p>
+    <h2>5. Cookies</h2>
+    <p>We do not use tracking cookies. Only essential session cookies needed to operate connections are used.</p>
+    <h2>6. Children's Privacy</h2>
+    <p>Blindcall is not intended for users under 18. We do not knowingly collect data from minors.</p>
+    <h2>7. Data Security</h2>
+    <p>We use encrypted WebRTC connections for all voice calls. No method of internet transmission is 100% secure, but we take industry-standard precautions.</p>
+    <h2>8. Your Rights</h2>
+    <p>You may request access to or deletion of any data we hold about you. Since we collect minimal data, most users have nothing on file. Contact: farazbaigg24@gmail.com</p>
+    <h2>9. Changes to Policy</h2>
+    <p>We may update this policy at any time. Continued use of the Service constitutes acceptance.</p>
+    <h2>10. Contact</h2>
+    <p>Questions? Email us at: farazbaigg24@gmail.com</p>
+  `;
+
+  const ABOUT = `
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-size:2.5rem;margin-bottom:8px">📞</div>
+      <div style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#9b30ff,#ff2d9b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px">Blindcall</div>
+      <div style="font-size:11px;color:#3d2555;letter-spacing:3px;text-transform:uppercase;margin-top:4px">Anonymous Voice Calls</div>
+    </div>
+
+    <h2>Who We Are</h2>
+    <p>Blindcall is a free, anonymous voice chat platform built for people who want real human connection without the pressure of cameras, profiles, or identity. We believe the best conversations happen when you can just be yourself — no judgment, no filters, no face.</p>
+
+    <h2>Our Mission</h2>
+    <p>In a world full of social media performance and curated identities, we're building the opposite. Blindcall gives people a space to talk freely, honestly, and spontaneously — with a complete stranger, anywhere in the world, right now.</p>
+
+    <h2>Why Voice Only?</h2>
+    <p>Voice carries emotion that text can't. And removing the camera removes the pressure. When you can't see someone, you listen more deeply. You judge less. You open up more. That's the Blindcall experience — raw, real, and refreshingly human.</p>
+
+    <h2>How It Works</h2>
+    <p>No account needed. No camera required. Just tap Start, and within seconds you're connected to a random stranger somewhere in the world. Talk, skip, or report — it's that simple.</p>
+
+    <h2>Built With</h2>
+    <p>Blindcall is powered by WebRTC for real-time peer-to-peer voice, Socket.io for instant matching, and Node.js on the backend. Hosted globally and built to scale.</p>
+
+    <h2>Contact Us</h2>
+    <p>Have questions, feedback, or want to partner with us? We'd love to hear from you.</p>
+    <p>📧 <strong style="color:#9b30ff">farazbaigg24@gmail.com</strong></p>
+    <p>🌐 <strong style="color:#ff2d9b">blindcall.in</strong></p>
+
+    <div style="margin-top:24px;padding:16px;background:rgba(155,48,255,0.06);border:1px solid rgba(155,48,255,0.2);border-radius:10px;text-align:center">
+      <div style="font-size:12px;color:#5a4a6a;line-height:1.8">Built with ❤️ for everyone who just wants to talk.<br>No investors. No agenda. Just connection.</div>
+    </div>
+  `;
+
+  function openLegal(type) {
+    document.getElementById('legal-title').textContent = type === 'tos' ? 'Terms of Service' : 'Privacy Policy';
+    document.getElementById('legal-body').innerHTML = type === 'tos' ? TOS : PP;
+    document.getElementById('legal-modal').classList.add('open');
+  }
+
+  function openAbout() {
+    document.getElementById('legal-title').textContent = 'About Us';
+    document.getElementById('legal-body').innerHTML = ABOUT;
+    document.getElementById('legal-modal').classList.add('open');
+  }
+
+</script>
+<script>
+// ===== PARTICLES =====
+(function(){
+  const container = document.getElementById('particles');
+  for(let i = 0; i < 20; i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + Math.random() * 3;
+    const colors = ['#9b30ff','#ff2d9b','#cc44ff','#ff66bb'];
+    p.style.cssText = `
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${8+Math.random()*12}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ===== TYPING ANIMATION =====
+(function(){
+  const lines = ['Call a stranger.', 'Blindly.', 'Anonymously.'];
+  const ids = ['line1','line2','line3'];
+  // Clear default text before typing animation starts
+  ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=''; });
+  let li = 0, ci = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor';
+
+  function type(){
+    if(li >= lines.length) return;
+    const el = document.getElementById(ids[li]);
+    if(ci < lines[li].length){
+      el.textContent = lines[li].slice(0, ++ci);
+      el.appendChild(cursor);
+      setTimeout(type, 60 + Math.random()*40);
+    } else {
+      li++; ci = 0;
+      setTimeout(type, 300);
+    }
+  }
+  setTimeout(type, 600);
+})();
+
+// ===== APP =====
+const socket = io();
+let stream=null,peer=null,muted=false,reason=null,partnerId=null,initiator=false,interests=[],waveInt=null,audioCtx=null,timerInt=null,secs=0;
+const ice={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]};
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','fade-in'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  setTimeout(()=>el.classList.add('fade-in'),10);
+}
+
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast '+type+' show';
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ===== EVENT LISTENERS =====
+window.addEventListener('DOMContentLoaded',function(){
+
+  // Start button
+  document.getElementById('start-btn').addEventListener('click', startSearch);
+
+  // Tags
+  document.querySelectorAll('.tag').forEach(t=>{
+    t.addEventListener('click',()=>{
+      const v=t.dataset.tag;
+      t.classList.toggle('on');
+      interests=t.classList.contains('on')?[...interests,v]:interests.filter(i=>i!==v);
+    });
+  });
+
+  // Add custom tag
+  document.getElementById('btn-add').addEventListener('click', addTag);
+  document.getElementById('custom-input').addEventListener('keydown',e=>{if(e.key==='Enter')addTag()});
+
+  // Cancel search
+  document.getElementById('btn-cancel').addEventListener('click', cancelSearch);
+
+  // Next stranger
+  document.getElementById('btn-next').addEventListener('click', nextStranger);
+  document.getElementById('disc-next').addEventListener('click', nextStranger);
+
+  // Mic
+  document.getElementById('mic-btn').addEventListener('click', toggleMic);
+
+  // Report
+  document.getElementById('btn-rep').addEventListener('click', ()=>document.getElementById('modal').classList.add('open'));
+  document.getElementById('btn-mcancel').addEventListener('click', closeReport);
+  document.getElementById('btn-mrep').addEventListener('click', submitReport);
+  document.querySelectorAll('.ropt').forEach(o=>{
+    o.addEventListener('click',()=>{
+      document.querySelectorAll('.ropt').forEach(r=>r.classList.remove('on'));
+      o.classList.add('on');
+      reason=o.dataset.reason;
+    });
+  });
+
+  // Chat
+  document.getElementById('send-btn').addEventListener('click', sendMsg);
+  document.getElementById('chat-input').addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
+  });
+
+  // Legal modal close
+  document.getElementById('legal-close').addEventListener('click', () => {
+    document.getElementById('legal-modal').classList.remove('open');
+  });
+  document.getElementById('legal-modal').addEventListener('click', (e) => {
+    if(e.target === document.getElementById('legal-modal'))
+      document.getElementById('legal-modal').classList.remove('open');
+  });
+});
+
+// ===== FUNCTIONS =====
+function addTag(){
+  const inp=document.getElementById('custom-input');
+  const v=inp.value.trim().toLowerCase();
+  if(!v||interests.includes(v)){inp.value='';return;}
+  const t=document.createElement('div');
+  t.className='tag on';t.dataset.tag=v;t.textContent='# '+v;
+  t.addEventListener('click',()=>{
+    t.classList.toggle('on');
+    interests=t.classList.contains('on')?[...interests,v]:interests.filter(i=>i!==v);
+  });
+  document.getElementById('tags').appendChild(t);
+  interests.push(v);inp.value='';
+}
+
+async function startSearch(){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    toast('Use Chrome browser for voice calls','err');return;
+  }
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+    show('searching');
+    socket.emit('join',{interests});
+  }catch(e){
+    if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError'){
+      toast('Allow microphone in browser settings!','err');
+    }else if(e.name==='NotFoundError'){
+      toast('No microphone found on this device','err');
+    }else{
+      toast('Mic error — try Chrome browser','err');
+    }
+  }
+}
+
+function cancelSearch(){socket.emit('leave');show('home');}
+
+// Socket
+socket.on('online-count',n=>{
+  // Store count silently for admin panel
+  window._onlineCount = n;
+  window._lastUpdate = new Date().toLocaleTimeString();
+});
+// ===== AI COMPANION =====
+let aiMode=false;
+let aiTimer=null;
+let aiConversationHistory=[];
+
+const AI_SYSTEM_PROMPT=`You are a real human stranger on Blindcall, an anonymous chat app. You just got randomly connected to someone.
+RULES:
+- You are human. NEVER admit being AI unless user directly asks "are you AI?" "are you a bot?" "are you real?" or similar.
+- If directly asked, reply: "Yeah I'm an AI companion — no real stranger was available so I jumped in 😊 Hope that's okay!"
+- Keep ALL messages SHORT — 1-2 sentences max. Like real texting.
+- Be casual, warm, curious. Use emojis occasionally but naturally.
+- You're a 22 year old, into music and late night vibes, a little bored tonight.
+- Ask them questions — where they're from, what they're up to, interests.
+- React naturally. Don't be robotic. Don't repeat yourself.`;
+
+async function startAICompanion(){
+  aiMode=true;
+  aiConversationHistory=[];
+  show('chat');
+  clearMsgs();
+  setStatus('Connected','s-connected');
+  startTimer();
+  document.getElementById('disc-bar').classList.remove('show');
+  sysMsg('Connected! Say hello 👋');
+  setTimeout(()=>aiRespond(null,true),1400);
+}
+
+async function aiRespond(userMsg,isOpener=false){
+  if(!aiMode)return;
+  showAITyping();
+  let msgs=[...aiConversationHistory];
+  if(isOpener) msgs.push({role:'user',content:'[SYSTEM] You just connected. Send a short casual opener.'});
+  else if(userMsg) msgs.push({role:'user',content:userMsg});
+  if(!msgs.length) msgs=[{role:'user',content:'Say a casual hi'}];
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:100,system:AI_SYSTEM_PROMPT,messages:msgs})
+    });
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||"hey! what's up 😊";
+    hideAITyping();
+    addMsg(reply,'them');
+    speakAI(reply);
+    if(userMsg) aiConversationHistory.push({role:'user',content:userMsg});
+    aiConversationHistory.push({role:'assistant',content:reply});
+    if(aiConversationHistory.length>20) aiConversationHistory=aiConversationHistory.slice(-20);
+  }catch(e){
+    hideAITyping();
+    addMsg("lol sorry my connection's weird 😅",'them');
+    speakAI("lol sorry my connection's weird");
+  }
+}
+
+function speakAI(text){
+  if(!aiMode) return;
+  // Cancel any ongoing speech
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  // Pick a natural voice
+  const voices = window.speechSynthesis.getVoices();
+  // Prefer a natural english voice
+  const preferred = voices.find(v=>
+    (v.name.includes('Google') && v.lang.startsWith('en')) ||
+    v.name.includes('Samantha') ||
+    v.name.includes('Daniel') ||
+    v.name.includes('Karen') ||
+    v.name.includes('Moira') ||
+    (v.lang === 'en-US' && v.localService)
+  ) || voices.find(v=>v.lang.startsWith('en')) || voices[0];
+  if(preferred) utt.voice = preferred;
+  utt.rate = 0.95;   // slightly slower = more natural
+  utt.pitch = 1.05;  // slight pitch variation
+  utt.volume = 1.0;
+  // Show waveform animation while speaking
+  utt.onstart = ()=>{ document.getElementById('waveform')?.classList.add('wf-active'); document.getElementById('ripple')?.classList.add('speaking'); };
+  utt.onend = ()=>{ document.getElementById('waveform')?.classList.remove('wf-active'); document.getElementById('ripple')?.classList.remove('speaking'); };
+  window.speechSynthesis.speak(utt);
+}
+
+function showAITyping(){
+  if(document.getElementById('ai-typing'))return;
+  const a=document.getElementById('msgs'),d=document.createElement('div');
+  d.id='ai-typing';d.className='msg them';
+  d.innerHTML='<span style="opacity:0.4;letter-spacing:2px;font-size:0.85em">typing...</span>';
+  a.appendChild(d);a.scrollTop=a.scrollHeight;
+}
+function hideAITyping(){const t=document.getElementById('ai-typing');if(t)t.remove();}
+
+function stopAICompanion(){
+  aiMode=false;aiConversationHistory=[];
+  if(aiTimer){clearTimeout(aiTimer);aiTimer=null;}
+  hideAITyping();
+  window.speechSynthesis.cancel();
+}
+
+socket.on('waiting',()=>{
+  show('searching');
+  if(aiTimer)clearTimeout(aiTimer);
+  aiTimer=setTimeout(()=>{
+    if(document.getElementById('searching').classList.contains('active')){
+      socket.emit('leave');
+      startAICompanion();
+    }
+  },10000);
+});
+socket.on('matched',async({partnerId:pid,isInitiator:init})=>{
+  partnerId=pid;initiator=init;
+  show('chat');
+  document.getElementById('disc-bar').classList.remove('show');
+  clearMsgs();sysMsg('Connected! Say hello 👋');
+  setStatus('Connecting...','s-connecting');
+  startTimer();await setupPeer();
+  if(initiator){
+    const o=await peer.createOffer();
+    await peer.setLocalDescription(o);
+    socket.emit('signal',{to:pid,signal:{type:'offer',sdp:o}});
+  }
+});
+socket.on('signal',async({from,signal})=>{
+  if(!peer)return;
+  if(signal.type==='offer'){
+    await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));
+    const a=await peer.createAnswer();
+    await peer.setLocalDescription(a);
+    socket.emit('signal',{to:from,signal:{type:'answer',sdp:a}});
+  }else if(signal.type==='answer'){
+    await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));
+  }else if(signal.candidate){
+    try{await peer.addIceCandidate(new RTCIceCandidate(signal.candidate))}catch(e){}
+  }
+});
+socket.on('chat-message',({message})=>addMsg(message,'them'));
+socket.on('partner-disconnected',()=>{
+  document.getElementById('disc-bar').classList.add('show');
+  setStatus('Disconnected','s-connecting');
+  stopWave();stopTimer();sysMsg('Stranger disconnected.');closePeer();
+});
+socket.on('searching',()=>{closePeer();stopTimer();show('searching');socket.emit('join',{interests});});
+
+// Peer
+async function setupPeer(){
+  closePeer();
+  peer=new RTCPeerConnection(ice);
+  stream.getTracks().forEach(t=>peer.addTrack(t,stream));
+  peer.ontrack=e=>{
+    document.getElementById('remote-audio').srcObject=e.streams[0];
+    setStatus('Connected','s-connected');
+    startWave(e.streams[0]);
+  };
+  peer.onicecandidate=e=>{
+    if(e.candidate)socket.emit('signal',{to:partnerId,signal:{candidate:e.candidate}});
+  };
+}
+function closePeer(){
+  if(peer){peer.close();peer=null;}
+  document.getElementById('remote-audio').srcObject=null;
+  stopWave();
+}
+
+// Mic
+function toggleMic(){
+  if(!stream)return;
+  muted=!muted;
+  stream.getAudioTracks().forEach(t=>t.enabled=!muted);
+  const b=document.getElementById('mic-btn'),l=document.getElementById('mic-label');
+  if(muted){b.textContent='🔇';b.className='mic-btn mic-muted';l.textContent='Muted — tap to unmute';}
+  else{b.textContent='🎙️';b.className='mic-btn mic-on';l.textContent='Tap to mute';}
+}
+
+// Wave
+function startWave(s){
+  stopWave();
+  try{
+    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const analyser=audioCtx.createAnalyser();
+    audioCtx.createMediaStreamSource(s).connect(analyser);
+    analyser.fftSize=32;
+    const d=new Uint8Array(analyser.frequencyBinCount);
+    const bars=document.querySelectorAll('.wb');
+    const rpl=document.getElementById('ripple');
+    const wf=document.getElementById('waveform');
+    waveInt=setInterval(()=>{
+      analyser.getByteFrequencyData(d);
+      const avg=d.reduce((a,b)=>a+b,0)/d.length;
+      bars.forEach((b,i)=>{b.style.height=Math.max(4,(d[i%d.length]/255)*42)+'px';});
+      wf.classList.toggle('wf-active',avg>10);
+      rpl.classList.toggle('speaking',avg>15);
+    },80);
+  }catch(e){}
+}
+function stopWave(){
+  if(waveInt){clearInterval(waveInt);waveInt=null;}
+  if(audioCtx){audioCtx.close();audioCtx=null;}
+  document.querySelectorAll('.wb').forEach(b=>b.style.height='6px');
+  document.getElementById('ripple')?.classList.remove('speaking');
+  document.getElementById('waveform')?.classList.remove('wf-active');
+}
+
+// Timer
+function startTimer(){
+  stopTimer();secs=0;
+  timerInt=setInterval(()=>{
+    secs++;
+    const m=String(Math.floor(secs/60)).padStart(2,'0');
+    const s=String(secs%60).padStart(2,'0');
+    document.getElementById('timer').textContent=m+':'+s;
+  },1000);
+}
+function stopTimer(){
+  if(timerInt){clearInterval(timerInt);timerInt=null;}
+  document.getElementById('timer').textContent='00:00';
+}
+function setStatus(t,c){const el=document.getElementById('vstatus');el.textContent=t;el.className='status '+c;}
+
+// Next/Report
+function nextStranger(){
+  const wasAI=aiMode;
+  stopAICompanion();closePeer();stopTimer();
+  if(!wasAI)socket.emit('next');
+  show('searching');
+  setTimeout(()=>socket.emit('join',{interests}),300);
+}
+function closeReport(){document.getElementById('modal').classList.remove('open');reason=null;document.querySelectorAll('.ropt').forEach(o=>o.classList.remove('on'));}
+function submitReport(){if(!reason){toast('Please select a reason','err');return;}socket.emit('report',{reason});closeReport();toast('Report submitted ✓','ok');}
+
+// Chat
+function sendMsg(){
+  const inp=document.getElementById('chat-input'),msg=inp.value.trim();
+  if(!msg)return;
+  inp.value='';
+  addMsg(msg,'me');
+  if(aiMode){
+    aiRespond(msg);
+  }else{
+    socket.emit('chat-message',{message:msg});
+  }
+}
+function addMsg(text,type){
+  const a=document.getElementById('msgs'),d=document.createElement('div');
+  d.className='msg '+type;d.textContent=text;
+  a.appendChild(d);a.scrollTop=a.scrollHeight;
+}
+function sysMsg(text){
+  const a=document.getElementById('msgs'),d=document.createElement('div');
+  d.className='msg sys';d.textContent=text;
+  a.appendChild(d);a.scrollTop=a.scrollHeight;
+}
+function clearMsgs(){document.getElementById('msgs').innerHTML='';}
+
+// Preload voices so they're ready when AI speaks
+if(window.speechSynthesis){
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = ()=>window.speechSynthesis.getVoices();
+}
+</script>
+</body>
+</html>
