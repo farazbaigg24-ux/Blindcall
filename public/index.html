@@ -583,15 +583,15 @@ header {
 
 /* ═══ AVATAR VISUALIZER ZONE ═══ */
 .av-zone {
-  flex: 1;
+  flex: 0 0 260px;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--rim);
-  min-height: 220px;
   background: var(--ink);
   display: flex;
   flex-direction: column;
 }
+@media (max-height: 700px) { .av-zone { flex: 0 0 200px; } }
 .av-bg-canvas {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -755,8 +755,12 @@ header {
 
 /* CHAT PANEL */
 .chat-panel {
-  flex:1; display:flex; flex-direction:column; min-height:0;
-  background:var(--ink);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--ink);
 }
 .chat-top {
   padding:10px 16px; border-bottom:1px solid var(--rim);
@@ -1698,26 +1702,29 @@ const socket=io({
 setInterval(()=>fetch('/ping').catch(()=>{}), 10*60*1000);
 // Rejoin queue if socket reconnects mid-search
 socket.on('reconnect', ()=>{
-  const searching = document.getElementById('searching')?.classList.contains('active');
-  if(searching) socket.emit('join',{interests,region:selectedRegion});
+  // Don't auto-rejoin — user may be in a call
+  console.log('Socket reconnected');
 });
 let stream=null,peer=null,muted=false,reason=null,partnerId=null,initiator=false;
 let interests=[],waveInt=null,audioCtx=null,timerInt=null,secs=0,selectedRegion='anywhere';
-const ice={iceServers:[
-  {urls:'stun:stun.l.google.com:19302'},
-  {urls:'stun:stun1.l.google.com:19302'},
-  {urls:'stun:stun2.l.google.com:19302'},
-  {urls:'stun:stun3.l.google.com:19302'},
-  {urls:'stun:stun.relay.metered.ca:80'},
-  {urls:'turn:global.relay.metered.ca:80',username:'openrelayproject',credential:'openrelayproject'},
-  {urls:'turn:global.relay.metered.ca:80?transport=tcp',username:'openrelayproject',credential:'openrelayproject'},
-  {urls:'turn:global.relay.metered.ca:443',username:'openrelayproject',credential:'openrelayproject'},
-  {urls:'turns:global.relay.metered.ca:443?transport=tcp',username:'openrelayproject',credential:'openrelayproject'}
-]};
+const ice={
+  iceServers:[
+    {urls:'stun:stun.l.google.com:19302'},
+    {urls:'stun:stun1.l.google.com:19302'},
+    {urls:'stun:stun.cloudflare.com:3478'},
+    {urls:'turn:openrelay.metered.ca:80',username:'openrelayproject',credential:'openrelayproject'},
+    {urls:'turn:openrelay.metered.ca:443',username:'openrelayproject',credential:'openrelayproject'},
+    {urls:'turn:openrelay.metered.ca:443?transport=tcp',username:'openrelayproject',credential:'openrelayproject'},
+  ],
+  iceCandidatePoolSize: 10,
+};
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.getElementById(id)?.classList.add('active');
+  // Globe: start/stop based on screen
+  if(id==='home') { if(window._globeStart) window._globeStart(); }
+  else            { if(window._globeStop)  window._globeStop(); }
 }
 function toast(msg,type=''){
   const t=document.getElementById('toast');
@@ -1865,6 +1872,7 @@ async function handleSignal(from, signal) {
 }
 
 socket.on('matched',async({partnerId:pid,isInitiator:init})=>{
+  if(partnerId && partnerId === pid) return; // already matched
   partnerId=pid; initiator=init;
   signalQueue = []; peerReady = false;
   show('chat');
@@ -1911,7 +1919,7 @@ socket.on('partner-disconnected',()=>{
   stopWave();stopTimer();sysMsg('Stranger disconnected.');closePeer();
   if(window.galaxySetConnected) window.galaxySetConnected(false);
 });
-socket.on('searching',()=>{closePeer();stopTimer();show('searching');socket.emit('join',{interests,region:selectedRegion});});
+socket.on('searching',()=>{closePeer();stopTimer();show('searching');/* server told us to search - user must tap button again */});
 
 let connectTimeout=null;
 async function setupPeer(){
@@ -1952,30 +1960,22 @@ async function setupPeer(){
       setStatus('Connected','s-connected');
       if(connectTimeout){clearTimeout(connectTimeout);connectTimeout=null;}
     } else if(s==='failed'){
-      setStatus('Reconnecting...','s-connecting');
-      try { peer.restartIce(); } catch(e){}
+      setStatus('Connection failed','s-connecting');
+      toast('Call failed — tap Next to find someone new','err');
     } else if(s==='disconnected'){
       setStatus('Connection lost...','s-connecting');
     }
   };
 
-  peer.onnegotiationneeded=async()=>{
-    // Only initiator handles renegotiation
-    if(!initiator) return;
-    try {
-      const o=await peer.createOffer();
-      await peer.setLocalDescription(o);
-      socket.emit('signal',{to:partnerId,signal:{type:'offer',sdp:o}});
-    } catch(e){}
-  };
+  // NO onnegotiationneeded — we handle offer manually to avoid loops
 
-  // Timeout: if not connected in 18s, try next
+  // Timeout: show warning only, don't auto-skip
   connectTimeout=setTimeout(()=>{
     if(peer&&peer.iceConnectionState!=='connected'&&peer.iceConnectionState!=='completed'){
-      sysMsg('Connection timed out — finding new stranger...');
-      nextStranger();
+      setStatus('Taking long...','s-connecting');
+      toast('Connection slow — try Next if stuck','err');
     }
-  },18000);
+  },20000);
 }
 function closePeer(){
   if(peer){peer.close();peer=null;}
@@ -2758,18 +2758,12 @@ function triggerMatchExplosion() {
     if(frameId) cancelAnimationFrame(frameId);
   }
 
-  // Watch for home screen becoming active
-  const observer = new MutationObserver(() => {
-    const home = document.getElementById('home');
-    if(home && home.classList.contains('active')) start();
-    else stop();
-  });
-  observer.observe(document.body, {subtree:true, attributes:true, attributeFilter:['class']});
+  // Expose on window so show() can call directly
+  window._globeStart = start;
+  window._globeStop  = stop;
 
-  // Start immediately if home is already active
-  setTimeout(() => {
-    if(document.getElementById('home')?.classList.contains('active')) start();
-  }, 200);
+  // Boot immediately — home is active on page load
+  setTimeout(start, 100);
 })();
 </script>
 </body>
