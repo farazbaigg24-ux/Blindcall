@@ -1598,6 +1598,19 @@ audio { display:none; }
 
 </div><!-- #app -->
 
+<!-- ═══ MAINTENANCE OVERLAY ═══ -->
+<div id="maintenance-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:#050508;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;">
+  <div style="font-size:3rem;margin-bottom:20px;animation:maintPulse 2s ease-in-out infinite">🔧</div>
+  <div style="font-family:'Arial Black','Impact',sans-serif;font-size:1.6rem;font-weight:900;background:linear-gradient(110deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;letter-spacing:-0.5px">Under Maintenance</div>
+  <div style="font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.8;max-width:320px;margin-bottom:28px">We're working hard to improve Blindcall.<br/>We'll be back very soon! 🚀</div>
+  <div style="display:flex;align-items:center;gap:8px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.25);border-radius:100px;padding:8px 20px">
+    <div style="width:7px;height:7px;border-radius:50%;background:#3b82f6;animation:maintPulse 1.2s ease-in-out infinite"></div>
+    <span style="font-size:.75rem;font-weight:600;color:#60a5fa;letter-spacing:1.5px;text-transform:uppercase">Back Soon</span>
+  </div>
+  <div style="margin-top:24px;font-size:.7rem;color:rgba(255,255,255,.2)">Follow @blindcall.in for updates</div>
+  <style>@keyframes maintPulse{0%,100%{opacity:.7;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}</style>
+</div>
+
 <!-- ═══ GAME POPUP SHEET ═══ -->
 <div class="game-sheet-bg" id="game-sheet-bg">
   <div class="game-sheet" id="game-sheet">
@@ -1853,6 +1866,19 @@ function endCallGoHome(){
     show('home');
   }
 }
+
+socket.on('maintenance', ({active}) => {
+  const overlay = document.getElementById('maintenance-overlay');
+  if(!overlay) return;
+  if(active) {
+    overlay.style.display = 'flex';
+    // Disconnect any active call
+    if(peer) { closePeer(); stopTimer(); }
+    socket.emit('leave');
+  } else {
+    overlay.style.display = 'none';
+  }
+});
 
 socket.on('online-count',n=>{window._onlineCount=n;window._lastUpdate=new Date().toLocaleTimeString();});
 socket.on('waiting',()=>show('searching'));
