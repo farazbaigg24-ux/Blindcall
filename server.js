@@ -22,8 +22,73 @@ app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'adm
 // Fix 2: Keep-alive endpoint so Render never sleeps
 app.get('/ping', (req, res) => res.json({ status: 'alive', users: io.engine.clientsCount, time: Date.now() }));
 
+// Admin API — get all reports
+app.get('/admin/reports', (req, res) => {
+  const pin = req.query.pin;
+  if (pin !== '2606') return res.status(401).json({ error: 'Unauthorized' });
+  res.json({ reports, total: reports.length });
+});
+
+// Admin API — update report status
+app.post('/admin/reports/:id/status', express.json(), (req, res) => {
+  const pin = req.query.pin;
+  if (pin !== '2606') return res.status(401).json({ error: 'Unauthorized' });
+  const report = reports.find(r => r.id === parseInt(req.params.id));
+  if (!report) return res.status(404).json({ error: 'Not found' });
+  report.status = req.body.status;
+  res.json({ ok: true, report });
+});
+
+// Admin API — maintenance mode toggle
+app.post('/admin/maintenance', express.json(), (req, res) => {
+  const pin = req.query.pin;
+  if (pin !== '2606') return res.status(401).json({ error: 'Unauthorized' });
+  maintenanceMode = req.body.active;
+  console.log('🔧 Maintenance mode:', maintenanceMode ? 'ON' : 'OFF');
+  // Broadcast to ALL connected users
+  io.emit('maintenance', { active: maintenanceMode });
+  res.json({ ok: true, active: maintenanceMode });
+});
+
+app.get('/admin/maintenance', (req, res) => {
+  const pin = req.query.pin;
+  if (pin !== '2606') return res.status(401).json({ error: 'Unauthorized' });
+  res.json({ active: maintenanceMode });
+});
+
+// Admin API — get stats
+app.get('/admin/stats', (req, res) => {
+  const pin = req.query.pin;
+  if (pin !== '2606') return res.status(401).json({ error: 'Unauthorized' });
+  const newReports = reports.filter(r => r.status === 'new').length;
+  const reasons = {};
+  reports.forEach(r => { reasons[r.reason] = (reasons[r.reason] || 0) + 1; });
+  res.json({
+    total: reports.length,
+    new: newReports,
+    reviewed: reports.filter(r => r.status === 'reviewed').length,
+    dismissed: reports.filter(r => r.status === 'dismissed').length,
+    topReasons: Object.entries(reasons).sort((a,b)=>b[1]-a[1]).slice(0,5),
+    online: io.engine.clientsCount,
+    waiting: waitingUsers.length,
+    activePairs: connectedPairs.size / 2,
+  });
+});
+
 const waitingUsers = [];
 const connectedPairs = new Map();
+
+// ── Maintenance mode ──
+let maintenanceMode = false;
+
+// ── Reports store (in-memory, survives until server restart) ──
+const reports = [];
+const MAX_REPORTS = 500;
+
+function addReport(report) {
+  reports.unshift(report); // newest first
+  if (reports.length > MAX_REPORTS) reports.pop();
+}
 
 function broadcastOnlineCount() {
   io.emit('online-count', io.engine.clientsCount);
@@ -41,6 +106,9 @@ function cleanWaitingList() {
 }
 
 io.on('connection', (socket) => {
+  // Send maintenance state immediately on connect
+  socket.emit('maintenance', { active: maintenanceMode });
+
   console.log('Connected:', socket.id, '| Online:', io.engine.clientsCount);
   broadcastOnlineCount();
 
@@ -155,7 +223,22 @@ io.on('connection', (socket) => {
 
   socket.on('report', ({ reason }) => {
     const partnerId = connectedPairs.get(socket.id);
-    console.log(`Report: ${reason} against ${partnerId}`);
+    console.log(`⚠️  REPORT: ${reason} | Reporter: ${socket.id} | Reported: ${partnerId}`);
+
+    // Store report
+    addReport({
+      id: Date.now(),
+      reason,
+      reporterId: socket.id,
+      reportedId: partnerId || 'unknown',
+      timestamp: new Date().toISOString(),
+      status: 'new', // new | reviewed | dismissed
+    });
+
+    // Broadcast to any admin watching
+    io.emit('admin-report', { total: reports.length, latest: reports[0] });
+
+    // Disconnect reported user
     if (partnerId) {
       io.to(partnerId).emit('partner-disconnected');
       connectedPairs.delete(partnerId);
