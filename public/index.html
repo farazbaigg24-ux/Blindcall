@@ -1579,7 +1579,20 @@ function openAbout(){
 })();
 
 /* ─── APP ─── */
-const socket=io();
+const socket=io({
+  transports: ['websocket','polling'],
+  reconnection: true,
+  reconnectionAttempts: 10,
+  reconnectionDelay: 1000,
+  timeout: 20000,
+});
+// Keep Render awake — ping every 10 minutes
+setInterval(()=>fetch('/ping').catch(()=>{}), 10*60*1000);
+// Rejoin queue if socket reconnects mid-search
+socket.on('reconnect', ()=>{
+  const searching = document.getElementById('searching')?.classList.contains('active');
+  if(searching) socket.emit('join',{interests,region:selectedRegion});
+});
 let stream=null,peer=null,muted=false,reason=null,partnerId=null,initiator=false;
 let interests=[],waveInt=null,audioCtx=null,timerInt=null,secs=0,selectedRegion='anywhere';
 const ice={iceServers:[
@@ -1718,23 +1731,29 @@ async function handleSignal(from, signal) {
   if(!peer) return;
   try {
     if(signal.type==='offer') {
+      console.log('Got offer, state:', peer.signalingState);
+      if(peer.signalingState !== 'stable') {
+        await peer.setLocalDescription({type:'rollback'}).catch(()=>{});
+      }
       await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));
-      const a = await peer.createAnswer();
+      const a = await peer.createAnswer({offerToReceiveAudio:true});
       await peer.setLocalDescription(a);
       socket.emit('signal',{to:from,signal:{type:'answer',sdp:a}});
+      console.log('Answer sent to', from);
     } else if(signal.type==='answer') {
+      console.log('Got answer, state:', peer.signalingState);
       if(peer.signalingState === 'have-local-offer') {
         await peer.setRemoteDescription(new RTCSessionDescription(signal.sdp));
+        console.log('Remote desc set ✅');
       }
     } else if(signal.candidate) {
-      if(peer.remoteDescription) {
+      if(peer.remoteDescription && peer.remoteDescription.type) {
         await peer.addIceCandidate(new RTCIceCandidate(signal.candidate));
       } else {
-        // queue candidate until remote desc is set
         signalQueue.push({from, signal});
       }
     }
-  } catch(e) { console.warn('Signal error:', e.message); }
+  } catch(e) { console.warn('Signal error:', e.message, signal.type); }
 }
 
 socket.on('matched',async({partnerId:pid,isInitiator:init})=>{
@@ -1748,19 +1767,23 @@ socket.on('matched',async({partnerId:pid,isInitiator:init})=>{
   if(window.galaxySetConnected) window.galaxySetConnected(true);
   startTimer();
 
-  // BOTH sides set up peer immediately
+  // Non-initiator waits briefly so initiator sets up first
+  if(!initiator) await new Promise(r => setTimeout(r, 400));
+
   await setupPeer();
   peerReady = true;
 
-  // Drain any signals that arrived while peer was being set up
+  // Drain queued signals
   await drainSignalQueue();
 
-  // Only initiator sends the offer — AFTER peer is fully ready
+  // Initiator creates and sends offer
   if(initiator) {
     try {
-      const o = await peer.createOffer();
+      await new Promise(r => setTimeout(r, 200)); // tiny extra wait
+      const o = await peer.createOffer({offerToReceiveAudio:true});
       await peer.setLocalDescription(o);
       socket.emit('signal',{to:pid,signal:{type:'offer',sdp:o}});
+      console.log('Offer sent to', pid);
     } catch(e) { console.warn('Offer error:', e); }
   }
 });
