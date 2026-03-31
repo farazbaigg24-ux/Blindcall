@@ -17,6 +17,15 @@
 <meta name="twitter:title" content="Blindcall — Anonymous Voice Chat"/>
 <meta name="twitter:description" content="Talk to strangers anonymously. No camera, no account. Free forever."/>
 
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Blindcall"/>
+<meta name="theme-color" content="#2563eb"/>
+<link rel="apple-touch-icon" href="/icons/icon-192.png"/>
+
 <style>
 /* ─── TOKENS ─────────────────────────────────── */
 :root {
@@ -2816,6 +2825,16 @@ function triggerMatchExplosion() {
   // Boot immediately — home is active on page load
   setTimeout(start, 100);
 })();
+</script>
+
+<script>
+if('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('✅ Blindcall SW registered'))
+      .catch(e => console.warn('SW failed:', e));
+  });
+}
 </script>
 </body>
 </html>
